@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "a-js",
+    "style": "stylus",
+    "cssmodules": true,
+    "postcss": false,
+    "generatedWithVersion": 4
+  }
+}
