@@ -9,7 +9,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <Palette actions={this.props.actions} palette={this.props.palette} />
-        <Canvas />
+        <Canvas color={this.props.palette.color} />
       </div>
     );
   }
