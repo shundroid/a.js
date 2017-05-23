@@ -37,15 +37,16 @@ class Canvas extends React.Component {
     });
   }
   drawLineTo(x, y) {
-    this.ctx.strokeStyle = this.props.color;
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.beforePosition.x, this.beforePosition.y);
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
   }
   mouseDown = event => {
     const pos = this.getPosition(event);
     this.setBeforePosition(pos.x, pos.y);
+    this.ctx.strokeStyle = this.props.color;
+    this.ctx.lineWidth = this.props.width;
+    this.ctx.beginPath();
+    this.ctx.moveTo(pos.x, pos.y);
   }
   mouseMove = event => {
     if (event.buttons === 1) {
@@ -55,7 +56,6 @@ class Canvas extends React.Component {
     }
   }
   mouseUp = () => {
-
   }
   render() {
     return (
@@ -73,7 +73,8 @@ class Canvas extends React.Component {
 
 Canvas.displayName = 'Canvas';
 Canvas.propTypes = {
-  color: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired
 };
 Canvas.defaultProps = {};
 

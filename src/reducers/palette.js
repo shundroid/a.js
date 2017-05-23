@@ -3,10 +3,11 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { CHANGE_COLOR } from '../actions/const';
+import { CHANGE_COLOR, CHANGE_WIDTH } from '../actions/const';
 
 const initialState = {
-  color: 'red'
+  color: 'red',
+  width: 20
 };
 
 function reducer(state = initialState, action) {
@@ -23,6 +24,11 @@ function reducer(state = initialState, action) {
     case CHANGE_COLOR: {
       return Object.assign({}, state, {
         color: action.parameter.color
+      });
+    }
+    case CHANGE_WIDTH: {
+      return Object.assign({}, state, {
+        width: action.width
       });
     }
     default: {
