@@ -3,6 +3,7 @@ import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import Pen from './Pen';
 import styles from './palette.cssmodule.styl';
+import colors from '../constants/colors';
 
 class Palette extends React.Component {
   render() {
@@ -10,8 +11,13 @@ class Palette extends React.Component {
     const currentColor = this.props.palette.color;
     return (
       <div styleName="palette">
-        <Pen color="red" onChangeColor={changeColor} currentColor={currentColor} />
-        <Pen color="green" onChangeColor={changeColor} currentColor={currentColor} />
+        {
+          colors.map((color, index) =>
+            <Pen
+              key={index} color={color}
+              onChangeColor={changeColor} currentColor={currentColor} />
+          )
+        }
       </div>
     );
   }
