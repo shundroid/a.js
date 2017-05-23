@@ -10,9 +10,11 @@ class Pen extends React.Component {
   render() {
     const style = {
       backgroundColor: this.props.color,
-      border: this.props.color === this.props.currentColor ?
-        '1px solid black' : 'none'
     };
+    if (this.props.color === this.props.currentColor) {
+      style.margin = '0';
+      style.border = '1px solid black';
+    }
     return (
       <div style={style} styleName="pen" onMouseDown={this.changeColor} />
     );
