@@ -10,13 +10,16 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {} from '../actions/';
+import {
+  changeColor,
+  changeWidth
+} from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const { actions } = this.props;
-    return <Main actions={actions} />;
+    const {actions, palette} = this.props;
+    return <Main actions={actions} palette={palette}/>;
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -25,16 +28,24 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  actions: PropTypes.shape({})
+  actions: PropTypes.shape({
+    changeColor: PropTypes.func.isRequired,
+    changeWidth: PropTypes.func.isRequired
+  }),
+  palette: PropTypes.shape({})
 };
-function mapStateToProps(state) { // eslint-disable-line no-unused-vars
+function mapStateToProps(state) {
+  // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
-  const props = {};
+  const props = { palette: state.palette };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
-  const actions = {};
+  const actions = {
+    changeColor,
+    changeWidth
+  };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

@@ -1,22 +1,22 @@
 import React from 'react';
-import YeomanImage from './YeomanImage';
+import PropTypes from 'prop-types';
+import Palette from '../containers/Palette';
+import Canvas from './Canvas';
 import './app.css';
 
 class AppComponent extends React.Component {
-
   render() {
     return (
       <div className="index">
-        <YeomanImage />
-        <div className="notice">
-          Please edit <code>src/components/App.js</code> to get started!
-        </div>
+        <Palette />
+        <Canvas color={this.props.palette.color} width={this.props.palette.width} />
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {
+AppComponent.propTypes = {
+  palette: PropTypes.object.isRequired
 };
 
 export default AppComponent;
