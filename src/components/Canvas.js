@@ -15,7 +15,7 @@ class Canvas extends React.Component {
     this.positions = [];
   }
   componentWillUnmount() {
-    window.addEventListener('resize', this.updateCanvas);
+    window.removeEventListener('resize', this.updateCanvas);
   }
   getPosition(event) {
     return {
