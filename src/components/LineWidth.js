@@ -1,10 +1,10 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from './widthpicker.cssmodule.styl';
+import styles from './linewidth.cssmodule.styl';
 import config from 'config';
 
-class WidthPicker extends React.Component {
+class LineWidth extends React.Component {
   changeWidth = () => {}
   finishedChangeWidth = event => {
     this.props.onChangeWidth(parseInt(event.target.value));
@@ -21,11 +21,11 @@ class WidthPicker extends React.Component {
   }
 }
 
-WidthPicker.displayName = 'WidthPicker';
-WidthPicker.propTypes = {
+LineWidth.displayName = 'LineWidth';
+LineWidth.propTypes = {
   width: PropTypes.number.isRequired,
   onChangeWidth: PropTypes.func.isRequired
 };
-WidthPicker.defaultProps = {};
+LineWidth.defaultProps = {};
 
-export default cssmodules(WidthPicker, styles);
+export default cssmodules(LineWidth, styles);
