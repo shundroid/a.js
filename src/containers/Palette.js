@@ -20,17 +20,12 @@ Palette.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const props = { palette: state.palette };
-  return props;
+  return { palette: state.palette };
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = {
-    changeColor,
-    changeWidth
-  };
-  const actionMap = { actions: bindActionCreators(actions, dispatch) };
-  return actionMap;
+  const actions = { changeColor, changeWidth };
+  return { actions: bindActionCreators(actions, dispatch) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Palette);
