@@ -64,6 +64,7 @@ class Canvas extends React.Component {
   penUp = () => {
     this.isDownPen = false;
     // Todo: Dispatch an action
+    this.positions = [];
   }
   render() {
     return (
