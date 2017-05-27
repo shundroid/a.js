@@ -5,7 +5,7 @@ import styles from './pen.cssmodule.styl';
 
 class Pen extends React.Component {
   changeColor = () => {
-    this.props.onChangeColor({ color: this.props.color });
+    this.props.onChangeColor(this.props.color);
   }
   render() {
     const style = {

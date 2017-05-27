@@ -24,7 +24,7 @@ function reducer(state = initialState, action) {
     */
     case CHANGE_COLOR: {
       return Object.assign({}, state, {
-        color: action.parameter.color
+        color: action.color
       });
     }
     case CHANGE_WIDTH: {
