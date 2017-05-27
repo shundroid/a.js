@@ -4,10 +4,11 @@
  * src/container/App.js accordingly.
  */
 import { CHANGE_COLOR, CHANGE_WIDTH } from '../actions/const';
+import config from 'config';
 
 const initialState = {
-  color: 'red',
-  width: 20
+  color: config.defaultColor,
+  width: config.defaultWidth
 };
 
 function reducer(state = initialState, action) {

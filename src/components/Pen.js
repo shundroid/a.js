@@ -23,12 +23,9 @@ class Pen extends React.Component {
 
 Pen.displayName = 'Pen';
 Pen.propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.string.isRequired,
   onChangeColor: PropTypes.func.isRequired,
   currentColor: PropTypes.string.isRequired
-};
-Pen.defaultProps = {
-  color: 'red'
 };
 
 export default cssmodules(Pen, styles);

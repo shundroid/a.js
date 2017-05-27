@@ -2,6 +2,7 @@ import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import styles from './widthpicker.cssmodule.styl';
+import config from 'config';
 
 class WidthPicker extends React.Component {
   changeWidth = () => {}
@@ -12,7 +13,7 @@ class WidthPicker extends React.Component {
     return (
       <div>
         <input
-          type="range" styleName="slider" min="1" max="500"
+          type="range" styleName="slider" min="1" max={config.maxWidth}
           defaultValue={this.props.width}
           onChange={this.changeWidth} onMouseUp={this.finishedChangeWidth} />
       </div>
