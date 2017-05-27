@@ -5,5 +5,7 @@ export default [
   '#2ecc71',
   '#1abc9c',
   '#3498db',
-  '#9b59b6'
+  '#9b59b6',
+  'white',
+  'black'
 ];
