@@ -11,12 +11,12 @@ class Pen extends React.Component {
     const style = {
       backgroundColor: this.props.color,
     };
+    const styleNames = ['pen'];
     if (this.props.color === this.props.currentColor) {
-      style.margin = '0';
-      style.border = '1px solid black';
+      styleNames.push('pen-active');
     }
     return (
-      <div style={style} styleName="pen" onMouseDown={this.changeColor} />
+      <div style={style} styleName={styleNames.join(' ')} onMouseDown={this.changeColor} />
     );
   }
 }
@@ -28,4 +28,6 @@ Pen.propTypes = {
   currentColor: PropTypes.string.isRequired
 };
 
-export default cssmodules(Pen, styles);
+export default cssmodules(Pen, styles, {
+  allowMultiple: true
+});
