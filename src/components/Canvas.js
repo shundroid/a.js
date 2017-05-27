@@ -13,15 +13,24 @@ class Canvas extends React.Component {
     window.addEventListener('resize', this.updateCanvas);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
+    this.isDownPen = false;
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateCanvas);
   }
   getPosition(event) {
-    return {
-      x: event.clientX - this.canvas.offsetLeft,
-      y: event.clientY - this.canvas.offsetTop
-    };
+    if (event instanceof MouseEvent) {
+      return {
+        x: event.clientX - this.canvas.offsetLeft,
+        y: event.clientY - this.canvas.offsetTop
+      };
+    } else if (event instanceof TouchEvent) {
+      return {
+        x: event.touches[0].clientX - this.canvas.offsetLeft,
+        y: event.touches[1].clientY - this.canvas.offsetTop
+      };
+    }
+    return null;
   }
   pushPosition(x, y) {
     this.positions.push({ x, y });
@@ -36,26 +45,25 @@ class Canvas extends React.Component {
       height: this.canvas.clientHeight
     });
   }
-  drawLineTo(x, y) {
-    this.ctx.lineTo(x, y);
-    this.ctx.stroke();
-  }
-  mouseDown = event => {
-    const pos = this.getPosition(event);
-    this.pushPosition(pos.x, pos.y);
+  penDown = event => {
+    const { x, y } = this.getPosition(event);
+    this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
     this.ctx.lineWidth = this.props.width;
     this.ctx.beginPath();
-    this.ctx.moveTo(pos.x, pos.y);
+    this.ctx.moveTo(x, y);
+    this.isDownPen = true;
   }
-  mouseMove = event => {
-    if (event.buttons === 1) {
-      const pos = this.getPosition(event);
-      this.drawLineTo(pos.x, pos.y);
-      this.pushPosition(pos.x, pos.y);
-    }
+  penMove = event => {
+    if (!this.isDownPen) return;
+    const { x, y } = this.getPosition(event);
+    this.pushPosition(x, y);
+    this.ctx.lineTo(x, y);
+    this.ctx.stroke();
   }
-  mouseUp = () => {
+  penUp = () => {
+    this.isDownPen = false;
+    // Todo: Dispatch an action
   }
   render() {
     return (
@@ -64,9 +72,12 @@ class Canvas extends React.Component {
         ref={element => { this.canvas = element; }}
         width={this.state.width}
         height={this.state.height}
-        onMouseDown={this.mouseDown}
-        onMouseMove={this.mouseMove}
-        onMouseUp={this.mouseUp} />
+        onMouseDown={this.penDown}
+        onMouseMove={this.penMove}
+        onMouseUp={this.penUp}
+        onTouchStart={this.penDown}
+        onTouchMove={this.penMove}
+        onTouchEnd={this.penUp} />
     );
   }
 }
