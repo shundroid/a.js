@@ -12,7 +12,7 @@ class Canvas extends React.Component {
     this.updateCanvas();
     window.addEventListener('resize', this.updateCanvas);
     this.ctx = this.canvas.getContext('2d');
-    this.beforePosition = {};
+    this.positions = [];
   }
   componentWillUnmount() {
     window.addEventListener('resize', this.updateCanvas);
@@ -23,8 +23,8 @@ class Canvas extends React.Component {
       y: event.clientY - this.canvas.offsetTop
     };
   }
-  setBeforePosition(x, y) {
-    this.beforePosition = { x, y };
+  pushPosition(x, y) {
+    this.positions.push({ x, y });
   }
   updateCanvas = () => {
     this.setState({
@@ -42,7 +42,7 @@ class Canvas extends React.Component {
   }
   mouseDown = event => {
     const pos = this.getPosition(event);
-    this.setBeforePosition(pos.x, pos.y);
+    this.pushPosition(pos.x, pos.y);
     this.ctx.strokeStyle = this.props.color;
     this.ctx.lineWidth = this.props.width;
     this.ctx.beginPath();
@@ -52,7 +52,7 @@ class Canvas extends React.Component {
     if (event.buttons === 1) {
       const pos = this.getPosition(event);
       this.drawLineTo(pos.x, pos.y);
-      this.setBeforePosition(pos.x, pos.y);
+      this.pushPosition(pos.x, pos.y);
     }
   }
   mouseUp = () => {
