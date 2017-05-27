@@ -50,6 +50,8 @@ class Canvas extends React.Component {
     this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
     this.ctx.lineWidth = this.props.width;
+    this.ctx.lineCap = 'round';
+    this.ctx.lineJoin = 'round';
     this.ctx.beginPath();
     this.ctx.moveTo(x, y);
     this.isDownPen = true;
