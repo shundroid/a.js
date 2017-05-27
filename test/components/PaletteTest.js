@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Palette from 'components\Palette.js';
+import Palette from 'components/Palette.js';
 
 describe('<Palette />', function () {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import LineWidth from 'components\LineWidth.js';
+import LineWidth from 'components/LineWidth.js';
 
 describe('<LineWidth />', function () {
 
