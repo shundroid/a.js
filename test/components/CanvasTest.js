@@ -105,12 +105,86 @@ describe('<Canvas />', function () {
 
   describe('#penUp', function () {
     it('should set isDownPen to false', function () {
+      component.instance().isDownPen = true;
       component.instance().penUp();
       expect(component.instance().isDownPen).to.equal(false);
     });
     it('should clear positions', function () {
+      component.instance().positions = [{ x: 100, y: 100 }];
       component.instance().penUp();
       expect(component.instance().positions).to.have.length(0);
+    });
+  });
+
+  // check overall flow
+
+  describe('mousedown', function () {
+    it('should change strokeStyle', function () {
+      const color = '#010101';
+      component.setProps({ color });
+      component.simulate('mousedown', {
+        clientX: 100,
+        clientY: 100
+      });
+      expect(component.instance().ctx.strokeStyle).to.equal(color);
+    });
+  });
+
+  describe('touchstart', function () {
+    it('should change strokeStyle', function () {
+      const color = '#010101';
+      component.setProps({ color });
+      component.simulate('touchstart', {
+        touches: [{
+          clientX: 100,
+          clientY: 100
+        }]
+      });
+      expect(component.instance().ctx.strokeStyle).to.equal(color);
+    });
+  });
+
+  describe('mousemove', function () {
+    it('should call lineTo', function () {
+      const x = 100;
+      const y = 200;
+      const lineToSpy = sinon.spy(component.instance().ctx, 'lineTo');
+      component.instance().isDownPen = true;
+      component.simulate('mousemove', {
+        clientX: x, clientY: y
+      });
+      expect(lineToSpy.withArgs(x, y).calledOnce).to.equal(true);
+    });
+  });
+
+  describe('touchmove', function () {
+    it('should call lineTo', function () {
+      const x = 100;
+      const y = 200;
+      const lineToSpy = sinon.spy(component.instance().ctx, 'lineTo');
+      component.instance().isDownPen = true;
+      component.simulate('touchmove', {
+        touches: [{
+          clientX: x, clientY: y
+        }]
+      });
+      expect(lineToSpy.withArgs(x, y).calledOnce).to.equal(true);
+    });
+  });
+
+  describe('mouseup', function () {
+    it('should set isDownPen to false', function () {
+      component.instance().isDownPen = true;
+      component.simulate('mouseup');
+      expect(component.instance().isDownPen).to.equal(false);
+    });
+  });
+
+  describe('touchend', function () {
+    it('should set isDownPen to false', function () {
+      component.instance().isDownPen = true;
+      component.simulate('touchend');
+      expect(component.instance().isDownPen).to.equal(false);
     });
   });
 });
