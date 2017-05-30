@@ -19,18 +19,16 @@ class Canvas extends React.Component {
     window.removeEventListener('resize', this.updateCanvas);
   }
   getPosition(event) {
-    if (event.clientX) {
-      return {
-        x: event.clientX - this.canvas.offsetLeft,
-        y: event.clientY - this.canvas.offsetTop
-      };
-    } else if (event.touches) {
+    if (event.touches) {
       return {
         x: event.touches[0].clientX - this.canvas.offsetLeft,
-        y: event.touches[1].clientY - this.canvas.offsetTop
+        y: event.touches[0].clientY - this.canvas.offsetTop
       };
     }
-    return null;
+    return {
+      x: event.clientX - this.canvas.offsetLeft,
+      y: event.clientY - this.canvas.offsetTop
+    };
   }
   pushPosition(x, y) {
     this.positions.push({ x, y });
