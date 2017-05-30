@@ -4,19 +4,31 @@ import PropTypes from 'prop-types';
 import styles from './pen.cssmodule.styl';
 
 class Pen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: { backgroundColor: '' },
+      styleName: ''
+    };
+  }
   changeColor = () => {
     this.props.onChangeColor(this.props.color);
   }
+  updateStates(props = this.props) {
+    this.setState({
+      style: { backgroundColor: props.color },
+      styleName: 'pen' + (props.color === props.currentColor ? ' pen-active' : '')
+    });
+  }
+  componentWillMount() {
+    this.updateStates();
+  }
+  componentWillReceiveProps(nextProps) {
+    this.updateStates(nextProps);
+  }
   render() {
-    const style = {
-      backgroundColor: this.props.color,
-    };
-    const styleNames = ['pen'];
-    if (this.props.color === this.props.currentColor) {
-      styleNames.push('pen-active');
-    }
     return (
-      <div style={style} styleName={styleNames.join(' ')} onMouseDown={this.changeColor} />
+      <div style={this.state.style} styleName={this.state.styleName} onMouseDown={this.changeColor} />
     );
   }
 }
