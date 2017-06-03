@@ -11,6 +11,8 @@ class Canvas extends React.Component {
   componentDidMount() {
     this.updateCanvas();
     window.addEventListener('resize', this.updateCanvas);
+    window.addEventListener('mouseup', this.penUp);
+    window.addEventListener('touchend', this.penUp);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
     this.isDownPen = false;
@@ -44,6 +46,7 @@ class Canvas extends React.Component {
     });
   }
   penDown = event => {
+    if (this.isDownPen) return;
     const { x, y } = this.getPosition(event);
     this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
@@ -62,6 +65,7 @@ class Canvas extends React.Component {
     this.ctx.stroke();
   }
   penUp = () => {
+    if (!this.isDownPen) return;
     this.isDownPen = false;
     // Todo: Dispatch an action
     this.positions = [];
