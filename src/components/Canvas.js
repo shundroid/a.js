@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import styles from './canvas.cssmodule.styl';
 
 class Canvas extends React.Component {
+  static isTouchEvent(event) {
+    return !!event.touches;
+  }
   constructor(props) {
     super(props);
     this.state = { width: 0, height: 0 };
@@ -11,17 +14,14 @@ class Canvas extends React.Component {
   componentDidMount() {
     this.updateCanvas();
     window.addEventListener('resize', this.updateCanvas);
-    window.addEventListener('mouseup', this.penUp);
-    window.addEventListener('touchend', this.penUp);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
-    this.isDownPen = false;
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateCanvas);
   }
   getPosition(event) {
-    if (event.touches) {
+    if (Canvas.isTouchEvent(event)) {
       return {
         x: event.touches[0].clientX - this.canvas.offsetLeft,
         y: event.touches[0].clientY - this.canvas.offsetTop
@@ -46,7 +46,15 @@ class Canvas extends React.Component {
     });
   }
   penDown = event => {
-    if (this.isDownPen) return;
+    if (Canvas.isTouchEvent(event)) {
+      this.canvas.addEventListener('touchmove', this.penMove);
+      this.canvas.addEventListener('touchend', this.penUp);
+      window.addEventListener('touchend', this.penUp);
+    } else {
+      this.canvas.addEventListener('mousemove', this.penMove);
+      this.canvas.addEventListener('mouseup', this.penUp);
+      window.addEventListener('mouseup', this.penUp);
+    }
     const { x, y } = this.getPosition(event);
     this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
@@ -58,14 +66,21 @@ class Canvas extends React.Component {
     this.isDownPen = true;
   }
   penMove = event => {
-    if (!this.isDownPen) return;
     const { x, y } = this.getPosition(event);
     this.pushPosition(x, y);
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
   }
-  penUp = () => {
-    if (!this.isDownPen) return;
+  penUp = event => {
+    if (Canvas.isTouchEvent(event)) {
+      this.canvas.removeEventListener('touchmove', this.penMove);
+      this.canvas.removeEventListener('touchend', this.penUp);
+      window.removeEventListener('touchend', this.penUp);
+    } else {
+      this.canvas.removeEventListener('mousemove', this.penMove);
+      this.canvas.removeEventListener('mouseup', this.penUp);
+      window.removeEventListener('mouseup', this.penUp);
+    }
     this.isDownPen = false;
     // Todo: Dispatch an action
     this.positions = [];
@@ -78,11 +93,7 @@ class Canvas extends React.Component {
         width={this.state.width}
         height={this.state.height}
         onMouseDown={this.penDown}
-        onMouseMove={this.penMove}
-        onMouseUp={this.penUp}
-        onTouchStart={this.penDown}
-        onTouchMove={this.penMove}
-        onTouchEnd={this.penUp} />
+        onTouchStart={this.penDown} />
     );
   }
 }
