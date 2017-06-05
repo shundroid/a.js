@@ -5,8 +5,7 @@ import styles from './linewidth.cssmodule.styl';
 import config from 'config';
 
 class LineWidth extends React.Component {
-  changeWidth = () => {}
-  finishedChangeWidth = event => {
+  changeWidth = event => {
     this.props.onChangeWidth(parseInt(event.target.value));
   }
   render() {
@@ -15,7 +14,7 @@ class LineWidth extends React.Component {
         <input
           type="range" styleName="slider" min="1" max={config.maxWidth}
           defaultValue={this.props.width}
-          onChange={this.changeWidth} onMouseUp={this.finishedChangeWidth} />
+          onChange={this.changeWidth} />
       </div>
     );
   }
