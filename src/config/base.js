@@ -2,5 +2,6 @@
 export default {
   defaultColor: 'red',
   defaultWidth: 20,
-  maxWidth: 500
+  maxWidth: 500,
+  penPreviewTimeout: 500
 };
