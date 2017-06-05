@@ -63,7 +63,6 @@ class Canvas extends React.Component {
     this.ctx.lineJoin = 'round';
     this.ctx.beginPath();
     this.ctx.moveTo(x, y);
-    this.isDownPen = true;
   }
   penMove = event => {
     const { x, y } = this.getPosition(event);
@@ -81,7 +80,6 @@ class Canvas extends React.Component {
       this.canvas.removeEventListener('mouseup', this.penUp);
       window.removeEventListener('mouseup', this.penUp);
     }
-    this.isDownPen = false;
     // Todo: Dispatch an action
     this.positions = [];
   }
