@@ -7,16 +7,20 @@ class Pen extends React.Component {
   changeColor = () => {
     this.props.onChangeColor(this.props.color);
   }
-  render() {
-    const style = {
-      backgroundColor: this.props.color,
+  computedStyle() {
+    return {
+      backgroundColor: this.props.color
     };
-    const styleNames = ['pen'];
-    if (this.props.color === this.props.currentColor) {
-      styleNames.push('pen-active');
-    }
+  }
+  computedStyleName() {
+    return `pen${(this.props.color === this.props.currentColor ? ' pen-active' : '')}`;
+  }
+  render() {
     return (
-      <div style={style} styleName={styleNames.join(' ')} onMouseDown={this.changeColor} />
+      <div
+        style={this.computedStyle()}
+        styleName={this.computedStyleName()}
+        onMouseDown={this.changeColor} />
     );
   }
 }
