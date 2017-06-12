@@ -12,14 +12,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   changeColor,
-  changeWidth
+  changeWidth,
+  addLine
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, palette} = this.props;
-    return <Main actions={actions} palette={palette}/>;
+    const {actions, palette, canvas} = this.props;
+    return <Main actions={actions} palette={palette} canvas={canvas}/>;
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -30,21 +31,27 @@ class App extends Component {
 App.propTypes = {
   actions: PropTypes.shape({
     changeColor: PropTypes.func.isRequired,
-    changeWidth: PropTypes.func.isRequired
+    changeWidth: PropTypes.func.isRequired,
+    addLine: PropTypes.func.isRequired
   }),
-  palette: PropTypes.shape({})
+  palette: PropTypes.shape({}),
+  canvas: PropTypes.shape({})
 };
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
-  const props = { palette: state.palette };
+  const props = {
+    palette: state.palette,
+    canvas: state.canvas
+  };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
     changeColor,
-    changeWidth
+    changeWidth,
+    addLine
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

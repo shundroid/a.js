@@ -10,7 +10,10 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <Palette />
-        <Canvas color={this.props.palette.color} width={this.props.palette.width} />
+        <Canvas
+          color={this.props.palette.color}
+          width={this.props.palette.width}
+          onPenUp={this.props.actions.addLine} />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
       </div>
     );
@@ -18,6 +21,7 @@ class AppComponent extends React.Component {
 }
 
 AppComponent.propTypes = {
+  actions: PropTypes.object.isRequired,
   palette: PropTypes.object.isRequired
 };
 
