@@ -81,6 +81,8 @@ class Canvas extends React.Component {
       window.removeEventListener('mouseup', this.penUp);
     }
     // Todo: Dispatch an action
+    this.isDownPen = false;
+    this.props.onPenUp(this.positions, this.props.color, this.props.width);
     this.positions = [];
   }
   render() {
@@ -99,7 +101,8 @@ class Canvas extends React.Component {
 Canvas.displayName = 'Canvas';
 Canvas.propTypes = {
   color: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  onPenUp: PropTypes.func.isRequired
 };
 Canvas.defaultProps = {};
 

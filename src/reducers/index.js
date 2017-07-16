@@ -9,7 +9,11 @@
  */
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
+import canvas from '../reducers/canvas.js';
 import palette from '../reducers/palette.js';
-const reducers = { palette };
+const reducers = {
+  palette,
+  canvas
+};
 const combined = combineReducers(reducers);
 module.exports = combined;
