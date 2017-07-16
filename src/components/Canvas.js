@@ -17,14 +17,13 @@ class Canvas extends React.Component {
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateCanvasSize);
-  }
   componentDidUpdate(prevProps) {
-    console.log(this.props.lines);
     if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
     }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateCanvasSize);
   }
   getPosition(event) {
     if (Canvas.isTouchEvent(event)) {
@@ -43,11 +42,11 @@ class Canvas extends React.Component {
   }
   updateCanvas() {
     this.ctx.clearRect(0, 0, this.state.width, this.state.height);
-    for (let line of this.props.lines) {
+    for (const line of this.props.lines) {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
       this.ctx.beginPath();
-      for (let index in line.position) {
+      for (const index in line.position) {
         const { x, y } = line.position[index];
         if (index === 0) {
           this.ctx.moveTo(x, y);

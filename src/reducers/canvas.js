@@ -30,7 +30,6 @@ function reducer(state = initialState, action) {
       });
     }
     case REMOVE_LINE: {
-      console.log(action.index);
       return Object.assign({}, state, {
         lines: state.lines.filter((line, index) => index !== action.index)
       });

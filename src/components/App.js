@@ -23,7 +23,8 @@ class AppComponent extends React.Component {
 
 AppComponent.propTypes = {
   actions: PropTypes.object.isRequired,
-  palette: PropTypes.object.isRequired
+  palette: PropTypes.object.isRequired,
+  canvas: PropTypes.object.isRequired
 };
 
 export default AppComponent;
