@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, UNDO } from '../actions/const';
+import { ADD_LINE, CLEAR_CANVAS, UNDO } from '../actions/const';
 
 const initialState = {
   lines: [],
@@ -35,6 +35,12 @@ function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         lines: state.history[state.history.length - 1],
         history: state.history.slice(0, state.history.length - 1)
+      });
+    }
+    case CLEAR_CANVAS: {
+      return Object.assign({}, state, {
+        lines: [],
+        history: [...state.history, state.lines]
       });
     }
     default: {

@@ -11,9 +11,10 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
+  addLine,
   changeColor,
   changeWidth,
-  addLine,
+  clearCanvas,
   undo
 } from '../actions/';
 import Main from '../components/App';
@@ -37,9 +38,10 @@ class App extends Component {
  */
 App.propTypes = {
   actions: PropTypes.shape({
+    addLine: PropTypes.func.isRequired,
     changeColor: PropTypes.func.isRequired,
     changeWidth: PropTypes.func.isRequired,
-    addLine: PropTypes.func.isRequired,
+    clearCanvas: PropTypes.func.isRequired,
     undo: PropTypes.func.isRequired
   }),
   palette: PropTypes.shape({}),
@@ -59,9 +61,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
+    addLine,
     changeColor,
     changeWidth,
-    addLine,
+    clearCanvas,
     undo
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };

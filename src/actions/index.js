@@ -10,10 +10,12 @@ import undo from '../actions/undo.js';
 import addLine from '../actions/addLine.js';
 import changeWidth from '../actions/changeWidth.js';
 import changeColor from '../actions/changeColor.js';
+import clearCanvas from '../actions/clearCanvas.js';
 const actions = {
+  addLine,
   changeColor,
   changeWidth,
-  addLine,
+  clearCanvas,
   undo
 };
 module.exports = actions;
