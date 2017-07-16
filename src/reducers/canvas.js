@@ -31,11 +31,6 @@ function reducer(state = initialState, action) {
         history: [...state.history, state.lines]
       });
     }
-    case REMOVE_LINE: {
-      return Object.assign({}, state, {
-        lines: state.lines.filter((line, index) => index !== action.index)
-      });
-    }
     case UNDO: {
       return Object.assign({}, state, {
         lines: state.history[state.history.length - 1],

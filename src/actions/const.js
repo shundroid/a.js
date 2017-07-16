@@ -4,4 +4,3 @@ export const CHANGE_COLOR = 'CHANGE_COLOR';
 export const CHANGE_WIDTH = 'CHANGE_WIDTH';
 export const ADD_LINE = 'ADD_LINE';
 export const UNDO = 'UNDO';
-export const REMOVE_LINE = 'REMOVE_LINE';
