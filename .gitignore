@@ -34,3 +34,6 @@ dist/
 
 # IDE/Editor data
 .idea/
+
+# For MAC
+.DS_Store
