@@ -24,8 +24,8 @@ function reducer(state = initialState, action) {
       });
     }
     case UNDO: {
-      if (currentPosition > 0) {
-        return Object.assign({}, {
+      if (state.currentPosition > 0) {
+        return Object.assign({}, state, {
           currentPosition: state.currentPosition - 1
         });
       }

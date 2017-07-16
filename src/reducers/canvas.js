@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE } from '../actions/const';
+import { ADD_LINE, REMOVE_LINE } from '../actions/const';
 
 const initialState = {
   lines: []
@@ -27,6 +27,11 @@ function reducer(state = initialState, action) {
           color: action.color,
           lineWidth: action.lineWidth
         }]
+      });
+    }
+    case REMOVE_LINE: {
+      return Object.assign({}, state, {
+        lines: [state.lines.splice(action.index, 1)]
       });
     }
     default: {

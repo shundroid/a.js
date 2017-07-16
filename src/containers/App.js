@@ -14,7 +14,8 @@ import {
   changeColor,
   changeWidth,
   addLine,
-  undo
+  undo,
+  removeLine
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
@@ -40,7 +41,8 @@ App.propTypes = {
     changeColor: PropTypes.func.isRequired,
     changeWidth: PropTypes.func.isRequired,
     addLine: PropTypes.func.isRequired,
-    undo: PropTypes.func.isRequired
+    undo: PropTypes.func.isRequired,
+    removeLine: PropTypes.func.isRequired
   }),
   palette: PropTypes.shape({}),
   canvas: PropTypes.shape({}),
@@ -62,7 +64,8 @@ function mapDispatchToProps(dispatch) {
     changeColor,
     changeWidth,
     addLine,
-    undo
+    undo,
+    removeLine
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
