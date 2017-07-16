@@ -61,6 +61,11 @@ class Canvas extends React.Component {
     this.ctx.lineWidth = this.props.width;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
+
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, 0.8, 0, 360);
+    this.ctx.stroke();
+
     this.ctx.beginPath();
     this.ctx.moveTo(x, y);
   }
