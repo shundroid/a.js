@@ -30,6 +30,8 @@
     }],
     "react/forbid-prop-types": ["off"],
     "radix": ["off"],
-    "arrow-parens": ["off"]
+    "arrow-parens": ["off"],
+    "no-restricted-syntax": ["off"],
+    "guard-for-in": ["off"]
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeColor, changeWidth } from '../actions/';
+import { changeColor, changeWidth, undo } from '../actions/';
 import Main from '../components/Palette';
 
 class Palette extends Component {
@@ -14,7 +14,8 @@ class Palette extends Component {
 Palette.propTypes = {
   actions: PropTypes.shape({
     changeColor: PropTypes.func.isRequired,
-    changeWidth: PropTypes.func.isRequired
+    changeWidth: PropTypes.func.isRequired,
+    undo: PropTypes.func.isRequired
   }),
   palette: PropTypes.object.isRequired
 };
@@ -24,7 +25,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = { changeColor, changeWidth };
+  const actions = { changeColor, changeWidth, undo };
   return { actions: bindActionCreators(actions, dispatch) };
 }
 

@@ -12,13 +12,18 @@ class Canvas extends React.Component {
     this.state = { width: 0, height: 0 };
   }
   componentDidMount() {
-    this.updateCanvas();
-    window.addEventListener('resize', this.updateCanvas);
+    this.updateCanvasSize();
+    window.addEventListener('resize', this.updateCanvasSize);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.lines !== prevProps.lines) {
+      this.updateCanvas();
+    }
+  }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateCanvas);
+    window.removeEventListener('resize', this.updateCanvasSize);
   }
   getPosition(event) {
     if (Canvas.isTouchEvent(event)) {
@@ -35,7 +40,24 @@ class Canvas extends React.Component {
   pushPosition(x, y) {
     this.positions.push({ x, y });
   }
-  updateCanvas = () => {
+  updateCanvas() {
+    this.ctx.clearRect(0, 0, this.state.width, this.state.height);
+    for (const line of this.props.lines) {
+      this.ctx.strokeStyle = line.color;
+      this.ctx.lineWidth = line.lineWidth;
+      this.ctx.beginPath();
+      for (const index in line.position) {
+        const { x, y } = line.position[index];
+        if (index === 0) {
+          this.ctx.moveTo(x, y);
+        } else {
+          this.ctx.lineTo(x, y);
+        }
+      }
+      this.ctx.stroke();
+    }
+  }
+  updateCanvasSize = () => {
     this.setState({
       width: 0,
       height: 0
@@ -102,7 +124,8 @@ Canvas.displayName = 'Canvas';
 Canvas.propTypes = {
   color: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
-  onPenUp: PropTypes.func.isRequired
+  onPenUp: PropTypes.func.isRequired,
+  lines: PropTypes.array.isRequired
 };
 Canvas.defaultProps = {};
 
