@@ -3,10 +3,11 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE } from '../actions/const';
+import { ADD_LINE, UNDO } from '../actions/const';
 
 const initialState = {
-  history: []
+  history: [],
+  currentPosition: 0
 };
 
 function reducer(state = initialState, action) {
@@ -18,8 +19,17 @@ function reducer(state = initialState, action) {
       return Object.assign({}, {
         history: [...state.history, {
           type: ADD_LINE
-        }]
+        }],
+        currentPosition: state.currentPosition + 1
       });
+    }
+    case UNDO: {
+      if (currentPosition > 0) {
+        return Object.assign({}, {
+          currentPosition: state.currentPosition - 1
+        });
+      }
+      return state;
     }
     default: {
       /* Return original state if no actions were consumed. */

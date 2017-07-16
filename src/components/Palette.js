@@ -3,6 +3,7 @@ import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import Pen from './Pen';
 import LineWidth from './LineWidth';
+import UndoButton from './UndoButton';
 import styles from './palette.cssmodule.styl';
 import colors from '../constants/colors';
 
@@ -22,6 +23,7 @@ class Palette extends React.Component {
         <LineWidth
           width={this.props.palette.width}
           onChangeWidth={this.props.actions.changeWidth} />
+        <UndoButton onUndo={this.props.actions.undo} />
       </div>
     );
   }
