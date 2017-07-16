@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, REMOVE_LINE, UNDO } from '../actions/const';
+import { ADD_LINE, UNDO } from '../actions/const';
 
 const initialState = {
   lines: [],
