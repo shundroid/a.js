@@ -13,6 +13,7 @@ class AppComponent extends React.Component {
         <Canvas
           color={this.props.palette.color}
           width={this.props.palette.width}
+          lines={this.props.canvas.lines}
           onPenUp={this.props.actions.addLine} />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
       </div>
