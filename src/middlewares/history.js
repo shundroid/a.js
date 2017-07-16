@@ -10,7 +10,7 @@ const historyMiddleware = store => next => action => {
     next(action);
     switch (historyItem.type) {
       case ADD_LINE: {
-        store.dispatch(removeLine(currentPosition));
+        store.dispatch(removeLine(currentPosition - 1));
         break;
       }
     }

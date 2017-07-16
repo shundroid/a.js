@@ -30,8 +30,9 @@ function reducer(state = initialState, action) {
       });
     }
     case REMOVE_LINE: {
+      console.log(action.index);
       return Object.assign({}, state, {
-        lines: [state.lines.splice(action.index, 1)]
+        lines: state.lines.filter((line, index) => index !== action.index)
       });
     }
     default: {
