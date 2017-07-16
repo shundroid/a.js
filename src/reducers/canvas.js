@@ -3,10 +3,11 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, REMOVE_LINE } from '../actions/const';
+import { ADD_LINE, REMOVE_LINE, UNDO } from '../actions/const';
 
 const initialState = {
-  lines: []
+  lines: [],
+  history: []
 };
 
 function reducer(state = initialState, action) {
@@ -26,12 +27,19 @@ function reducer(state = initialState, action) {
           position: action.positions,
           color: action.color,
           lineWidth: action.lineWidth
-        }]
+        }],
+        history: [...state.history, state.lines]
       });
     }
     case REMOVE_LINE: {
       return Object.assign({}, state, {
         lines: state.lines.filter((line, index) => index !== action.index)
+      });
+    }
+    case UNDO: {
+      return Object.assign({}, state, {
+        lines: state.history[state.history.length - 1],
+        history: state.history.slice(0, state.history.length - 1)
       });
     }
     default: {

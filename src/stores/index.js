@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import reducers from '../reducers';
-import history from '../middlewares/history';
 
 function reduxStore(initialState) {
-  const store = applyMiddleware(history)(createStore)(reducers, initialState,
+  const store = createStore(reducers, initialState,
     window.devToolsExtension && window.devToolsExtension());
 
   if (module.hot) {
