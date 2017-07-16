@@ -19,8 +19,14 @@ import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, palette, canvas} = this.props;
-    return <Main actions={actions} palette={palette} canvas={canvas}/>;
+    const {actions, palette, canvas, history} = this.props;
+    return (
+      <Main
+        actions={actions}
+        palette={palette}
+        canvas={canvas}
+        history={history}/>
+    );
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -35,14 +41,16 @@ App.propTypes = {
     addLine: PropTypes.func.isRequired
   }),
   palette: PropTypes.shape({}),
-  canvas: PropTypes.shape({})
+  canvas: PropTypes.shape({}),
+  history: PropTypes.shape({})
 };
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
   const props = {
     palette: state.palette,
-    canvas: state.canvas
+    canvas: state.canvas,
+    history: state.history
   };
   return props;
 }
