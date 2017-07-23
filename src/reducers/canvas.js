@@ -6,7 +6,8 @@
 import { ADD_LINE, CLEAR_CANVAS, UNDO } from '../actions/const';
 
 const initialState = {
-  lines: [],
+  currentIndex: 0,
+  frames: [[]],
   history: []
 };
 
@@ -22,25 +23,30 @@ function reducer(state = initialState, action) {
     }
     */
     case ADD_LINE: {
+      const { frames, currentIndex, history } = state;
       return Object.assign({}, state, {
-        lines: [...state.lines, {
+        frames: [...frames.slice(0, currentIndex), [...frames[currentIndex], {
           position: action.positions,
           color: action.color,
           lineWidth: action.lineWidth
-        }],
-        history: [...state.history, state.lines]
+        }], ...frames.slice(currentIndex + 1, frames.length)],
+        history: [...history, frames]
       });
     }
     case UNDO: {
       return Object.assign({}, state, {
-        lines: state.history[state.history.length - 1],
+        frames: state.history[state.history.length - 1],
         history: state.history.slice(0, state.history.length - 1)
       });
     }
     case CLEAR_CANVAS: {
+      const { frames, currentIndex, history } = state;
       return Object.assign({}, state, {
-        lines: [],
-        history: [...state.history, state.lines]
+        frames: [
+          ...frames.slice(0, currentIndex), [],
+          ...frames.slice(currentIndex + 1, frames.length)
+        ],
+        history: [...history, frames]
       });
     }
     default: {
