@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Palette from '../containers/Palette';
 import Canvas from './Canvas';
 import PenPreview from './PenPreview';
+import Frames from './Frames';
 import './app.css';
 
 class AppComponent extends React.Component {
@@ -16,6 +17,7 @@ class AppComponent extends React.Component {
           currentFrame={this.props.canvas.frames[this.props.canvas.currentIndex]}
           onPenUp={this.props.actions.addLine} />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
+        <Frames frames={this.props.canvas.frames} />
       </div>
     );
   }
