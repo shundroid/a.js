@@ -6,3 +6,4 @@ export const CHANGE_WIDTH = 'CHANGE_WIDTH';
 export const CLEAR_CANVAS = 'CLEAR_CANVAS';
 export const UNDO = 'UNDO';
 export const ADD_FRAME = 'ADD_FRAME';
+export const CHANGE_CURRENT_FRAME = 'CHANGE_CURRENT_FRAME';
