@@ -34,9 +34,11 @@ function reducer(state = initialState, action) {
       });
     }
     case UNDO: {
+      const historyFrames = state.history[state.history.length - 1];
       return Object.assign({}, state, {
-        frames: state.history[state.history.length - 1],
-        history: state.history.slice(0, state.history.length - 1)
+        frames: historyFrames,
+        history: state.history.slice(0, state.history.length - 1),
+        currentIndex: Math.min(historyFrames.length - 1, state.currentIndex)
       });
     }
     case CLEAR_CANVAS: {
