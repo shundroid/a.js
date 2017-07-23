@@ -7,12 +7,15 @@ class Button extends React.Component {
   getStyleName() {
     return `button ${this.props.name}`;
   }
+  click = () => {
+    this.props.onClick();
+  }
   render() {
     return (
       <button
         styleName={this.getStyleName()}
         disabled={this.props.disabled}
-        onClick={this.props.onClick}>{this.props.name}</button>
+        onClick={this.click}>{this.props.name}</button>
     );
   }
 }
