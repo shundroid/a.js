@@ -51,7 +51,8 @@ function reducer(state = initialState, action) {
     }
     case ADD_FRAME: {
       return Object.assign({}, state, {
-        frames: [...state.frames, []]
+        frames: [...state.frames, []],
+        history: [...state.history, state.frames]
       });
     }
     case CHANGE_CURRENT_FRAME: {
