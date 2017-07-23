@@ -54,6 +54,14 @@ function reducer(state = initialState, action) {
       nextState.currentIndex = action.index;
       break;
     }
+    case REMOVE_FRAME: {
+      if (state.frames.length === 1) break;
+      const nextFrames = state.frames.filter((f, index) => index !== action.index);
+      nextState.frames = nextFrames;
+      fixCurrentIndex(nextState);
+      updateHistory(nextState, nextFrames);
+      break;
+    }
     default: {
       /* Return original state if no actions were consumed. */
       return state;

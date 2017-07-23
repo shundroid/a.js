@@ -15,7 +15,8 @@ class Frames extends React.Component {
               key={index}
               index={index}
               currentIndex={this.props.currentIndex}
-              onChange={this.props.onChangeCurrentFrame} />
+              onChange={this.props.onChangeCurrentFrame}
+              onRemove={this.props.onRemoveFrame} />
           )
         }
         <Button
@@ -31,7 +32,8 @@ Frames.propTypes = {
   frames: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired,
   onAddFrame: PropTypes.func.isRequired,
-  onChangeCurrentFrame: PropTypes.func.isRequired
+  onChangeCurrentFrame: PropTypes.func.isRequired,
+  onRemoveFrame: PropTypes.func.isRequired
 };
 Frames.defaultProps = {};
 

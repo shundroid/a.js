@@ -7,12 +7,17 @@ class FrameItem extends React.Component {
   styles() {
     return 'frame-item' + (this.props.currentIndex === this.props.index ? ' active' : '');
   }
-  onChange = () => {
+  change = () => {
     this.props.onChange(this.props.index);
+  }
+  remove = event => {
+    event.stopPropagation();
+    this.props.onRemove(this.props.index);
   }
   render() {
     return (
-      <div styleName={this.styles()} onClick={this.onChange}>
+      <div styleName={this.styles()} onClick={this.change}>
+        <button styleName="remove-button" onClick={this.remove}>×</button>
         { this.props.index }
       </div>
     );
@@ -23,7 +28,8 @@ FrameItem.displayName = 'FrameItem';
 FrameItem.propTypes = {
   index: PropTypes.number.isRequired,
   currentIndex: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired
 };
 FrameItem.defaultProps = {};
 

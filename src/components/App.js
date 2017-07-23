@@ -21,7 +21,8 @@ class AppComponent extends React.Component {
           frames={this.props.canvas.frames}
           currentIndex={this.props.canvas.currentIndex}
           onAddFrame={this.props.actions.addFrame}
-          onChangeCurrentFrame={this.props.actions.changeCurrentFrame} />
+          onChangeCurrentFrame={this.props.actions.changeCurrentFrame}
+          onRemoveFrame={this.props.actions.removeFrame} />
       </div>
     );
   }
