@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, CLEAR_CANVAS, UNDO } from '../actions/const';
+import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME } from '../actions/const';
 
 const initialState = {
   currentIndex: 0,
@@ -47,6 +47,11 @@ function reducer(state = initialState, action) {
           ...frames.slice(currentIndex + 1, frames.length)
         ],
         history: [...history, frames]
+      });
+    }
+    case ADD_FRAME: {
+      return Object.assign({}, state, {
+        frames: [...state.frames, []]
       });
     }
     default: {

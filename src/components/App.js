@@ -17,7 +17,7 @@ class AppComponent extends React.Component {
           currentFrame={this.props.canvas.frames[this.props.canvas.currentIndex]}
           onPenUp={this.props.actions.addLine} />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
-        <Frames frames={this.props.canvas.frames} />
+        <Frames frames={this.props.canvas.frames} onAddFrame={this.props.actions.addFrame} />
       </div>
     );
   }

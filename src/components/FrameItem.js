@@ -6,7 +6,7 @@ import styles from './frameitem.cssmodule.styl';
 class FrameItem extends React.Component {
   render() {
     return (
-      <li styleName="frame-item">{ this.props.index }</li>
+      <div styleName="frame-item">{ this.props.index }</div>
     );
   }
 }
