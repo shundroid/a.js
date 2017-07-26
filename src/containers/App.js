@@ -18,7 +18,8 @@ import {
   undo,
   addFrame,
   changeCurrentFrame,
-  removeFrame
+  removeFrame,
+  updateThumbnail
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
@@ -48,7 +49,8 @@ App.propTypes = {
     undo: PropTypes.func.isRequired,
     addFrame: PropTypes.func.isRequired,
     changeCurrentFrame: PropTypes.func.isRequired,
-    removeFrame: PropTypes.func.isRequired
+    removeFrame: PropTypes.func.isRequired,
+    updateThumbnail: PropTypes.func.isRequired
   }),
   palette: PropTypes.shape({}),
   canvas: PropTypes.shape({}),
@@ -74,7 +76,8 @@ function mapDispatchToProps(dispatch) {
     undo,
     addFrame,
     changeCurrentFrame,
-    removeFrame
+    removeFrame,
+    updateThumbnail
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

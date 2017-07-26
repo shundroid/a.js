@@ -8,3 +8,4 @@ export const UNDO = 'UNDO';
 export const ADD_FRAME = 'ADD_FRAME';
 export const CHANGE_CURRENT_FRAME = 'CHANGE_CURRENT_FRAME';
 export const REMOVE_FRAME = 'REMOVE_FRAME';
+export const UPDATE_THUMBNAIL = 'UPDATE_THUMBNAIL';

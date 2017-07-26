@@ -56,6 +56,7 @@ class Canvas extends React.Component {
       }
       this.ctx.stroke();
     }
+    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
   }
   updateCanvasSize = () => {
     this.setState({
@@ -130,7 +131,9 @@ Canvas.propTypes = {
   color: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   onPenUp: PropTypes.func.isRequired,
-  currentFrame: PropTypes.array.isRequired
+  onUpdateThumbnail: PropTypes.func.isRequired,
+  currentFrame: PropTypes.array.isRequired,
+  currentIndex: PropTypes.number.isRequired
 };
 Canvas.defaultProps = {};
 

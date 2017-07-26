@@ -15,11 +15,14 @@ class AppComponent extends React.Component {
           color={this.props.palette.color}
           width={this.props.palette.width}
           currentFrame={this.props.canvas.frames[this.props.canvas.currentIndex]}
-          onPenUp={this.props.actions.addLine} />
+          currentIndex={this.props.canvas.currentIndex}
+          onPenUp={this.props.actions.addLine}
+          onUpdateThumbnail={this.props.actions.updateThumbnail} />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
         <Frames
           frames={this.props.canvas.frames}
           currentIndex={this.props.canvas.currentIndex}
+          thumbnails={this.props.canvas.thumbnails}
           onAddFrame={this.props.actions.addFrame}
           onChangeCurrentFrame={this.props.actions.changeCurrentFrame}
           onRemoveFrame={this.props.actions.removeFrame} />
