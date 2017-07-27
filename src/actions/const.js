@@ -9,3 +9,4 @@ export const ADD_FRAME = 'ADD_FRAME';
 export const CHANGE_CURRENT_FRAME = 'CHANGE_CURRENT_FRAME';
 export const REMOVE_FRAME = 'REMOVE_FRAME';
 export const UPDATE_THUMBNAIL = 'UPDATE_THUMBNAIL';
+export const MOVE_FRAME = 'MOVE_FRAME';

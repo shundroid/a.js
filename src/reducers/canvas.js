@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL } from '../actions/const';
+import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '../actions/const';
 
 const initialState = {
   currentIndex: 0,
@@ -65,6 +65,16 @@ function reducer(state = initialState, action) {
     }
     case UPDATE_THUMBNAIL: {
       nextState.thumbnails[action.index] = action.thumbnail;
+      break;
+    }
+    case MOVE_FRAME: {
+      const frame = nextState.frames.splice(action.index, 1)[0];
+      if (action.insertIndex > action.index) {
+        nextState.frames.splice(action.insertIndex - 1, 0, frame);
+      } else {
+        nextState.frames.splice(action.insertIndex, 0, frame);
+      }
+      updateHistory(nextState, nextState.frames);
       break;
     }
     default: {

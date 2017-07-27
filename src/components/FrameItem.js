@@ -4,13 +4,33 @@ import cssmodules from 'react-css-modules';
 import styles from './frameitem.cssmodule.styl';
 
 class FrameItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { originX: 0, clientX: 0 };
+  }
   styles() {
     return 'frame-item' + (this.props.currentIndex === this.props.index ? ' active' : '');
   }
   css() {
     return {
-      backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : "none"
+      backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : "none",
+      transform: `translateX(${this.state.clientX - this.state.originX}px)`
     };
+  }
+  startMoving = event => {
+    this.setState({ originX: event.clientX, clientX: event.clientX });
+    window.addEventListener('mousemove', this.move);
+    window.addEventListener('mouseup', this.finishMoving);
+  }
+  move = event => {
+    this.setState({ clientX: event.clientX });
+  }
+  finishMoving = () => {
+    window.removeEventListener('mousemove', this.move);
+    window.removeEventListener('mouseup', this.finishMoving);
+    const nextIndex = this.props.index - Math.round((this.state.originX - this.state.clientX) / 100);
+    this.props.onMove(this.props.index, nextIndex);
+    this.setState({ clientX: 0, originX: 0 });
   }
   change = () => {
     this.props.onChange(this.props.index);
@@ -21,7 +41,7 @@ class FrameItem extends React.Component {
   }
   render() {
     return (
-      <div styleName={this.styles()} onClick={this.change} style={this.css()}>
+      <div styleName={this.styles()} onClick={this.change} style={this.css()} onMouseDown={this.startMoving}>
         <button styleName="remove-button" onClick={this.remove}>×</button>
         { this.props.index }
       </div>
@@ -35,7 +55,8 @@ FrameItem.propTypes = {
   currentIndex: PropTypes.number.isRequired,
   thumbnail: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired
+  onRemove: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired
 };
 FrameItem.defaultProps = {};
 

@@ -17,7 +17,8 @@ class Frames extends React.Component {
               currentIndex={this.props.currentIndex}
               thumbnail={this.props.thumbnails[index]}
               onChange={this.props.onChangeCurrentFrame}
-              onRemove={this.props.onRemoveFrame} />
+              onRemove={this.props.onRemoveFrame}
+              onMove={this.props.onMoveFrame} />
           )
         }
         <Button
@@ -35,7 +36,8 @@ Frames.propTypes = {
   thumbnails: PropTypes.object.isRequired,
   onAddFrame: PropTypes.func.isRequired,
   onChangeCurrentFrame: PropTypes.func.isRequired,
-  onRemoveFrame: PropTypes.func.isRequired
+  onRemoveFrame: PropTypes.func.isRequired,
+  onMoveFrame: PropTypes.func.isRequired
 };
 Frames.defaultProps = {};
 

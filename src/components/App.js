@@ -25,7 +25,8 @@ class AppComponent extends React.Component {
           thumbnails={this.props.canvas.thumbnails}
           onAddFrame={this.props.actions.addFrame}
           onChangeCurrentFrame={this.props.actions.changeCurrentFrame}
-          onRemoveFrame={this.props.actions.removeFrame} />
+          onRemoveFrame={this.props.actions.removeFrame}
+          onMoveFrame={this.props.actions.moveFrame} />
       </div>
     );
   }
