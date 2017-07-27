@@ -9,7 +9,14 @@ class FrameItem extends React.Component {
     this.state = { originX: 0, clientX: 0 };
   }
   styles() {
-    return 'frame-item' + (this.props.currentIndex === this.props.index ? ' active' : '');
+    const classes = ['frame-item'];
+    if (this.props.currentIndex === this.props.index) {
+      classes.push('active');
+    }
+    if (this.state.originX !== 0) {
+      classes.push('moving');
+    }
+    return classes.join(' ');
   }
   css() {
     return {
