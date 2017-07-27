@@ -19,15 +19,8 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_LINE: {
       const { frames, currentIndex, history } = state;
-      // const nextFrames = [...frames.slice(0, currentIndex), [...frames[currentIndex], {
-      //   position: action.positions,
-      //   color: action.color,
-      //   lineWidth: action.lineWidth
-      // }], ...frames.slice(currentIndex + 1, frames.length)];
-      // nextState.frames = nextFrames;
       const frame = nextState.frames[currentIndex];
       frame.lines = frame.lines.slice(0);
-      console.log(frame === nextState.frames[currentIndex]);
       frame.appendLine({
         position: action.positions,
         color: action.color,
@@ -45,11 +38,6 @@ function reducer(state = initialState, action) {
     }
     case CLEAR_CANVAS: {
       const { frames, currentIndex, history } = state;
-      // const nextFrames = [
-      //   ...frames.slice(0, currentIndex), [],
-      //   ...frames.slice(currentIndex + 1, frames.length)
-      // ];
-      // nextState.frames = nextFrames;
       nextState.frames[currentIndex].clear();
       updateHistory(nextState, nextState.frames);
       break;
@@ -95,7 +83,9 @@ function reducer(state = initialState, action) {
 }
 
 function updateHistory(nextState, nextFrames) {
-  nextState.history = [...nextState.history, nextFrames];
+  nextState.history = [...nextState.history, nextFrames.map(frame => {
+    return new Frame(frame.lines.slice(0), frame.thumbnail);
+  })];
 }
 
 function fixCurrentIndex(nextState) {

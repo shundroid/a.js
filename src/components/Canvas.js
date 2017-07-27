@@ -56,6 +56,7 @@ class Canvas extends React.Component {
       }
       this.ctx.stroke();
     }
+    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
   }
   updateCanvasSize = () => {
     this.setState({
@@ -110,7 +111,6 @@ class Canvas extends React.Component {
     // Todo: Dispatch an action
     this.isDownPen = false;
     this.props.onPenUp(this.positions, this.props.color, this.props.width);
-    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
     this.positions = [];
   }
   render() {
