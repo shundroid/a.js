@@ -50,7 +50,6 @@ class FrameItem extends React.Component {
     return (
       <div styleName={this.styles()} onClick={this.change} style={this.css()} onMouseDown={this.startMoving}>
         <button styleName="remove-button" onClick={this.remove}>×</button>
-        { this.props.index }
       </div>
     );
   }
