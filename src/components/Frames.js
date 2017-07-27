@@ -15,7 +15,7 @@ class Frames extends React.Component {
               key={index}
               index={index}
               currentIndex={this.props.currentIndex}
-              thumbnail={this.props.thumbnails[index]}
+              thumbnail={frame.thumbnail}
               onChange={this.props.onChangeCurrentFrame}
               onRemove={this.props.onRemoveFrame}
               onMove={this.props.onMoveFrame} />
@@ -33,7 +33,6 @@ Frames.displayName = 'Frames';
 Frames.propTypes = {
   frames: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired,
-  thumbnails: PropTypes.object.isRequired,
   onAddFrame: PropTypes.func.isRequired,
   onChangeCurrentFrame: PropTypes.func.isRequired,
   onRemoveFrame: PropTypes.func.isRequired,

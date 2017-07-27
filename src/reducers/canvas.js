@@ -4,12 +4,12 @@
  * src/container/App.js accordingly.
  */
 import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '../actions/const';
+import Frame from '../constants/frame';
 
 const initialState = {
   currentIndex: 0,
-  frames: [[]],
-  history: [[[]]],
-  thumbnails: {}
+  frames: [new Frame()],
+  history: [[[]]]
 };
 
 function reducer(state = initialState, action) {
@@ -19,13 +19,21 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_LINE: {
       const { frames, currentIndex, history } = state;
-      const nextFrames = [...frames.slice(0, currentIndex), [...frames[currentIndex], {
+      // const nextFrames = [...frames.slice(0, currentIndex), [...frames[currentIndex], {
+      //   position: action.positions,
+      //   color: action.color,
+      //   lineWidth: action.lineWidth
+      // }], ...frames.slice(currentIndex + 1, frames.length)];
+      // nextState.frames = nextFrames;
+      const frame = nextState.frames[currentIndex];
+      frame.lines = frame.lines.slice(0);
+      console.log(frame === nextState.frames[currentIndex]);
+      frame.appendLine({
         position: action.positions,
         color: action.color,
         lineWidth: action.lineWidth
-      }], ...frames.slice(currentIndex + 1, frames.length)];
-      nextState.frames = nextFrames;
-      updateHistory(nextState, nextFrames);
+      });
+      updateHistory(nextState, nextState.frames);
       break;
     }
     case UNDO: {
@@ -37,16 +45,17 @@ function reducer(state = initialState, action) {
     }
     case CLEAR_CANVAS: {
       const { frames, currentIndex, history } = state;
-      const nextFrames = [
-        ...frames.slice(0, currentIndex), [],
-        ...frames.slice(currentIndex + 1, frames.length)
-      ];
-      nextState.frames = nextFrames;
-      updateHistory(nextState, nextFrames);
+      // const nextFrames = [
+      //   ...frames.slice(0, currentIndex), [],
+      //   ...frames.slice(currentIndex + 1, frames.length)
+      // ];
+      // nextState.frames = nextFrames;
+      nextState.frames[currentIndex].clear();
+      updateHistory(nextState, nextState.frames);
       break;
     }
     case ADD_FRAME: {
-      const nextFrames = [...state.frames, []];
+      const nextFrames = [...state.frames, new Frame()];
       nextState.frames = nextFrames;
       updateHistory(nextState, nextFrames);
       break;
@@ -64,7 +73,7 @@ function reducer(state = initialState, action) {
       break;
     }
     case UPDATE_THUMBNAIL: {
-      nextState.thumbnails[action.index] = action.thumbnail;
+      nextState.frames[action.index].updateThumbnail(action.thumbnail);
       break;
     }
     case MOVE_FRAME: {

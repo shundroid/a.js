@@ -18,7 +18,7 @@ class Canvas extends React.Component {
     this.positions = [];
   }
   componentDidUpdate(prevProps) {
-    if (this.props.currentFrame !== prevProps.currentFrame) {
+    if (this.props.currentLines !== prevProps.currentLines) {
       this.updateCanvas();
     }
   }
@@ -42,7 +42,7 @@ class Canvas extends React.Component {
   }
   updateCanvas() {
     this.ctx.clearRect(0, 0, this.state.width, this.state.height);
-    for (const line of this.props.currentFrame) {
+    for (const line of this.props.currentLines) {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
       this.ctx.beginPath();
@@ -56,7 +56,6 @@ class Canvas extends React.Component {
       }
       this.ctx.stroke();
     }
-    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
   }
   updateCanvasSize = () => {
     this.setState({
@@ -111,6 +110,7 @@ class Canvas extends React.Component {
     // Todo: Dispatch an action
     this.isDownPen = false;
     this.props.onPenUp(this.positions, this.props.color, this.props.width);
+    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
     this.positions = [];
   }
   render() {
@@ -132,7 +132,7 @@ Canvas.propTypes = {
   width: PropTypes.number.isRequired,
   onPenUp: PropTypes.func.isRequired,
   onUpdateThumbnail: PropTypes.func.isRequired,
-  currentFrame: PropTypes.array.isRequired,
+  currentLines: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired
 };
 Canvas.defaultProps = {};
