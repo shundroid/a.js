@@ -35,7 +35,7 @@ class FrameItem extends React.Component {
   finishMoving = () => {
     window.removeEventListener('mousemove', this.move);
     window.removeEventListener('mouseup', this.finishMoving);
-    const nextIndex = this.props.index - Math.floor((this.state.originX - this.state.clientX) / 100);
+    const nextIndex = this.props.index - Math.round((this.state.originX - this.state.clientX) / 100);
     this.props.onMove(this.props.index, nextIndex);
     this.setState({ clientX: 0, originX: 0 });
   }
