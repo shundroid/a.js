@@ -27,14 +27,18 @@ class FrameItem extends React.Component {
   startMoving = event => {
     this.setState({ originX: event.clientX, clientX: event.clientX });
     window.addEventListener('mousemove', this.move);
+    window.addEventListener('touchmove', this.move);
     window.addEventListener('mouseup', this.finishMoving);
+    window.addEventListener('touchend', this.finishMoving);
   }
   move = event => {
     this.setState({ clientX: event.clientX });
   }
   finishMoving = () => {
     window.removeEventListener('mousemove', this.move);
+    window.removeEventListener('touchmove', this.move);
     window.removeEventListener('mouseup', this.finishMoving);
+    window.removeEventListener('touchend', this.finishMoving);
     const nextIndex = this.props.index - Math.round((this.state.originX - this.state.clientX) / 100);
     this.props.onMove(this.props.index, nextIndex);
     this.setState({ clientX: 0, originX: 0 });
@@ -48,7 +52,7 @@ class FrameItem extends React.Component {
   }
   render() {
     return (
-      <div styleName={this.styles()} onClick={this.change} style={this.css()} onMouseDown={this.startMoving}>
+      <div styleName={this.styles()} onClick={this.change} style={this.css()} draggable="true" onDragStart={this.startMoving}>
         <button styleName="remove-button" onClick={this.remove}>×</button>
       </div>
     );
