@@ -18,6 +18,9 @@ class Canvas extends React.Component {
     this.positions = [];
   }
   componentDidUpdate(prevProps) {
+    if (this.props.index !== prevProps.index) {
+      this.props.onUpdateThumbnail(prevProps.index, this.canvas.toDataURL("image/png"));
+    }
     if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
     }
@@ -115,6 +118,7 @@ class Canvas extends React.Component {
   render() {
     return (
       <canvas
+        id="canvas"
         styleName="canvas"
         ref={element => { this.canvas = element; }}
         width={this.state.width}
@@ -130,7 +134,9 @@ Canvas.propTypes = {
   color: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   onPenUp: PropTypes.func.isRequired,
-  lines: PropTypes.array.isRequired
+  onUpdateThumbnail: PropTypes.func.isRequired,
+  lines: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired
 };
 Canvas.defaultProps = {};
 

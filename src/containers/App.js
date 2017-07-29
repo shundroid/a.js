@@ -15,7 +15,12 @@ import {
   changeColor,
   changeWidth,
   clearCanvas,
-  undo
+  undo,
+  addFrame,
+  changeCurrentFrame,
+  removeFrame,
+  updateThumbnail,
+  moveFrame
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
@@ -42,7 +47,12 @@ App.propTypes = {
     changeColor: PropTypes.func.isRequired,
     changeWidth: PropTypes.func.isRequired,
     clearCanvas: PropTypes.func.isRequired,
-    undo: PropTypes.func.isRequired
+    undo: PropTypes.func.isRequired,
+    addFrame: PropTypes.func.isRequired,
+    changeCurrentFrame: PropTypes.func.isRequired,
+    removeFrame: PropTypes.func.isRequired,
+    updateThumbnail: PropTypes.func.isRequired,
+    moveFrame: PropTypes.func.isRequired
   }),
   palette: PropTypes.shape({}),
   canvas: PropTypes.shape({}),
@@ -65,7 +75,12 @@ function mapDispatchToProps(dispatch) {
     changeColor,
     changeWidth,
     clearCanvas,
-    undo
+    undo,
+    addFrame,
+    changeCurrentFrame,
+    removeFrame,
+    updateThumbnail,
+    moveFrame
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
