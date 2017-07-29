@@ -9,7 +9,7 @@ import Frame from '../constants/frame';
 const initialState = {
   currentIndex: 0,
   frames: [new Frame()],
-  history: [[[]]]
+  history: [[new Frame()]]
 };
 
 function reducer(state = initialState, action) {
