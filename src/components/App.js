@@ -14,7 +14,7 @@ class AppComponent extends React.Component {
         <Canvas
           color={this.props.palette.color}
           width={this.props.palette.width}
-          currentLines={this.props.canvas.frames[this.props.canvas.currentIndex].lines}
+          lines={this.props.canvas.frames[this.props.canvas.currentIndex].lines}
           currentIndex={this.props.canvas.currentIndex}
           onPenUp={this.props.actions.addLine}
           onUpdateThumbnail={this.props.actions.updateThumbnail} />

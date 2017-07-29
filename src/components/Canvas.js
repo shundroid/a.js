@@ -18,7 +18,7 @@ class Canvas extends React.Component {
     this.positions = [];
   }
   componentDidUpdate(prevProps) {
-    if (this.props.currentLines !== prevProps.currentLines) {
+    if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
     }
   }
@@ -42,7 +42,7 @@ class Canvas extends React.Component {
   }
   updateCanvas() {
     this.ctx.clearRect(0, 0, this.state.width, this.state.height);
-    for (const line of this.props.currentLines) {
+    for (const line of this.props.lines) {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
       this.ctx.beginPath();
@@ -132,7 +132,7 @@ Canvas.propTypes = {
   width: PropTypes.number.isRequired,
   onPenUp: PropTypes.func.isRequired,
   onUpdateThumbnail: PropTypes.func.isRequired,
-  currentLines: PropTypes.array.isRequired,
+  lines: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired
 };
 Canvas.defaultProps = {};
