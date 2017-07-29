@@ -18,6 +18,9 @@ class Canvas extends React.Component {
     this.positions = [];
   }
   componentDidUpdate(prevProps) {
+    if (this.props.currentIndex !== prevProps.currentIndex) {
+      this.props.onUpdateThumbnail(prevProps.currentIndex, this.canvas.toDataURL("image/png"));
+    }
     if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
     }
@@ -56,7 +59,6 @@ class Canvas extends React.Component {
       }
       this.ctx.stroke();
     }
-    this.props.onUpdateThumbnail(this.props.currentIndex, this.canvas.toDataURL("image/png"));
   }
   updateCanvasSize = () => {
     this.setState({
