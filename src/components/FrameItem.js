@@ -14,9 +14,18 @@ class FrameItem extends React.Component {
     }
     return classes.join(' ');
   }
+  getBackgroundImage() {
+    if (this.props.currentIndex === this.props.index) {
+      return '-moz-element(#canvas)';
+    }
+    if (this.props.thumbnail) {
+      return `url(${this.props.thumbnail})`;
+    }
+    return 'none';
+  }
   css() {
     return {
-      backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : "none"
+      backgroundImage: this.getBackgroundImage()
     };
   }
   dragStart = event => {
