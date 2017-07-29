@@ -6,42 +6,28 @@ import styles from './frameitem.cssmodule.styl';
 class FrameItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { originX: 0, clientX: 0 };
   }
   styles() {
     const classes = ['frame-item'];
     if (this.props.currentIndex === this.props.index) {
       classes.push('active');
     }
-    if (this.state.originX !== 0) {
-      classes.push('moving');
-    }
     return classes.join(' ');
   }
   css() {
     return {
-      backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : "none",
-      transform: `translateX(${this.state.clientX - this.state.originX}px)`
+      backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : "none"
     };
   }
-  startMoving = event => {
-    this.setState({ originX: event.clientX, clientX: event.clientX });
-    window.addEventListener('mousemove', this.move);
-    window.addEventListener('touchmove', this.move);
-    window.addEventListener('mouseup', this.finishMoving);
-    window.addEventListener('touchend', this.finishMoving);
+  dragStart = event => {
+    event.dataTransfer.setData("index", this.props.index);
   }
-  move = event => {
-    this.setState({ clientX: event.clientX });
+  allowDrop = event => {
+    event.preventDefault();
   }
-  finishMoving = () => {
-    window.removeEventListener('mousemove', this.move);
-    window.removeEventListener('touchmove', this.move);
-    window.removeEventListener('mouseup', this.finishMoving);
-    window.removeEventListener('touchend', this.finishMoving);
-    const nextIndex = this.props.index - Math.round((this.state.originX - this.state.clientX) / 100);
-    this.props.onMove(this.props.index, nextIndex);
-    this.setState({ clientX: 0, originX: 0 });
+  drop = event => {
+    event.preventDefault();
+    this.props.onMove(event.dataTransfer.getData("index"), this.props.index);
   }
   change = () => {
     this.props.onChange(this.props.index);
@@ -52,7 +38,14 @@ class FrameItem extends React.Component {
   }
   render() {
     return (
-      <div styleName={this.styles()} onClick={this.change} style={this.css()} draggable="true" onDragStart={this.startMoving}>
+      <div
+        styleName={this.styles()}
+        onClick={this.change}
+        style={this.css()}
+        draggable="true"
+        onDragStart={this.dragStart}
+        onDragOver={this.allowDrop}
+        onDrop={this.drop}>
         <button styleName="remove-button" onClick={this.remove}>×</button>
       </div>
     );
