@@ -42,6 +42,7 @@ function reducer(state = initialState, action) {
       }
       nextState.frames = revert(nextState.frames, history.framesDiff);
       nextState.history.splice(nextState.history.length - 1, 1);
+      nextState.currentIndex = history.currentFrameIndex;
       fixCurrentIndex(nextState);
       nextState.currentIndex = history.currentFrameIndex;
       break;
