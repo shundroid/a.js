@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import LineWidth from './LineWidth';
 import Pen from './Pen';
-import UndoButton from './UndoButton';
 import styles from './palette.cssmodule.styl';
 import colors from '../constants/colors';
 
@@ -24,7 +23,10 @@ class Palette extends React.Component {
       <LineWidth
           width={this.props.palette.width}
           onChangeWidth={this.props.actions.changeWidth} />
-        <UndoButton onUndo={this.props.actions.undo} />
+        <Button
+          name="undo"
+          disabled={this.props.canvas.history.length === 0}
+          onClick={this.props.actions.undo} />
         <Button
           name="clear-canvas"
           disabled={this.props.canvas.frames[this.props.canvas.currentIndex].length == 0}
