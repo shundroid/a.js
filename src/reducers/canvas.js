@@ -5,59 +5,80 @@
  */
 import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '../actions/const';
 import Frame from '../constants/frame';
+import History from '../constants/history';
+import { revert } from '../constants/compare';
+import getFrameById from '../constants/getFrameById';
 
 const initialState = {
   currentIndex: 0,
   frames: [new Frame()],
-  history: [[new Frame()]]
+  history: []
 };
 
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
   const nextState = Object.assign({}, state);
+  nextState.frames = nextState.frames.map(frame => new Frame(frame.lines, frame.thumbnail, frame.originalId));
 
   switch (action.type) {
     case ADD_LINE: {
       const { frames, currentIndex, history } = state;
       const frame = nextState.frames[currentIndex];
       frame.lines = frame.lines.slice(0);
-      frame.appendLine({
+      const newLine = {
         position: action.positions,
         color: action.color,
         lineWidth: action.lineWidth
-      });
-      updateHistory(nextState, nextState.frames);
+      };
+      frame.appendLine(newLine);
+      updateHistory(state, nextState, currentIndex);
       break;
     }
     case UNDO: {
-      const historyFrames = state.history[state.history.length - 2];
-      nextState.frames = historyFrames;
-      nextState.history = state.history.slice(0, state.history.length - 1);
+      const history = nextState.history[state.history.length - 1];
+      for (let changedFrame of history.changedFrames) {
+        const frame = getFrameById(nextState.frames, changedFrame.originalId);
+        frame.lines = revert(frame.lines, changedFrame.linesDiff);
+      }
+      nextState.frames = revert(nextState.frames, history.framesDiff);
+      nextState.history.splice(nextState.history.length - 1, 1);
       fixCurrentIndex(nextState);
       break;
     }
     case CLEAR_CANVAS: {
       const { frames, currentIndex, history } = state;
+      const lines = nextState.frames[currentIndex].lines;
       nextState.frames[currentIndex].clear();
-      updateHistory(nextState, nextState.frames);
+      updateHistory(state, nextState, nextState.currentIndex);
       break;
     }
     case ADD_FRAME: {
       const nextFrames = [...state.frames, new Frame()];
       nextState.frames = nextFrames;
-      updateHistory(nextState, nextFrames);
+      updateHistory(state, nextState, nextState.currentIndex);
       break;
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentIndex = action.index;
+      nextState.history = [...nextState.history, new History(nextState.currentIndex)];
       break;
     }
     case REMOVE_FRAME: {
       if (state.frames.length === 1) break;
-      const nextFrames = state.frames.filter((f, index) => index !== action.index);
+      let removeFrame = null;
+      const nextFrames = state.frames.filter((f, index) => {
+        if (index !== action.index) {
+          return true;
+        }
+        removeFrame = f;
+        return false;
+      });
+      if (removeFrame === null) {
+        throw new Error(`The frame to remove was not found. index: ${index}`);
+      }
       nextState.frames = nextFrames;
       fixCurrentIndex(nextState);
-      updateHistory(nextState, nextFrames);
+      updateHistory(state, nextState, nextState.currentIndex);
       break;
     }
     case UPDATE_THUMBNAIL: {
@@ -72,7 +93,7 @@ function reducer(state = initialState, action) {
       } else {
         nextState.frames.splice(action.insertIndex - 1, 0, frame);
       }
-      updateHistory(nextState, nextState.frames);
+      updateHistory(state, nextState, nextState.currentIndex);
       break;
     }
     default: {
@@ -83,10 +104,9 @@ function reducer(state = initialState, action) {
   return nextState;
 }
 
-function updateHistory(nextState, nextFrames) {
-  nextState.history = [...nextState.history, nextFrames.map(frame => {
-    return new Frame(frame.lines.slice(0), frame.thumbnail);
-  })];
+function updateHistory(prevState, nextState, currentIndex) {
+  nextState.history = [...nextState.history, History.compare(
+    currentIndex, prevState.frames, nextState.frames)];
 }
 
 function fixCurrentIndex(nextState) {

@@ -1,5 +1,6 @@
 export default class Frame {
-  constructor(lines = [], thumbnail = null) {
+  constructor(lines = [], thumbnail = null, originalId = Date.now()) {
+    this.originalId = originalId;
     this.lines = lines;
     this.thumbnail = thumbnail;
   }
