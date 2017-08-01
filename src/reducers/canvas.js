@@ -31,7 +31,7 @@ function reducer(state = initialState, action) {
         lineWidth: action.lineWidth
       };
       frame.appendLine(newLine);
-      updateHistory(state, nextState, currentIndex);
+      updateHistory(state, nextState);
       break;
     }
     case UNDO: {
@@ -43,24 +43,25 @@ function reducer(state = initialState, action) {
       nextState.frames = revert(nextState.frames, history.framesDiff);
       nextState.history.splice(nextState.history.length - 1, 1);
       fixCurrentIndex(nextState);
+      nextState.currentIndex = history.currentFrameIndex;
       break;
     }
     case CLEAR_CANVAS: {
       const { frames, currentIndex, history } = state;
       const lines = nextState.frames[currentIndex].lines;
       nextState.frames[currentIndex].clear();
-      updateHistory(state, nextState, nextState.currentIndex);
+      updateHistory(state, nextState);
       break;
     }
     case ADD_FRAME: {
       const nextFrames = [...state.frames, new Frame()];
       nextState.frames = nextFrames;
-      updateHistory(state, nextState, nextState.currentIndex);
+      updateHistory(state, nextState);
       break;
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentIndex = action.index;
-      nextState.history = [...nextState.history, new History(nextState.currentIndex)];
+      nextState.history = [...nextState.history, new History(state.currentIndex)];
       break;
     }
     case REMOVE_FRAME: {
@@ -78,7 +79,7 @@ function reducer(state = initialState, action) {
       }
       nextState.frames = nextFrames;
       fixCurrentIndex(nextState);
-      updateHistory(state, nextState, nextState.currentIndex);
+      updateHistory(state, nextState);
       break;
     }
     case UPDATE_THUMBNAIL: {
@@ -93,7 +94,7 @@ function reducer(state = initialState, action) {
       } else {
         nextState.frames.splice(action.insertIndex - 1, 0, frame);
       }
-      updateHistory(state, nextState, nextState.currentIndex);
+      updateHistory(state, nextState);
       break;
     }
     default: {
@@ -104,9 +105,9 @@ function reducer(state = initialState, action) {
   return nextState;
 }
 
-function updateHistory(prevState, nextState, currentIndex) {
+function updateHistory(prevState, nextState) {
   nextState.history = [...nextState.history, History.compare(
-    currentIndex, prevState.frames, nextState.frames)];
+    nextState.currentIndex, prevState.frames, nextState.frames)];
 }
 
 function fixCurrentIndex(nextState) {
