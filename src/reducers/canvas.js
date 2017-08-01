@@ -22,15 +22,13 @@ function reducer(state = initialState, action) {
 
   switch (action.type) {
     case ADD_LINE: {
-      const { frames, currentIndex, history } = state;
-      const frame = nextState.frames[currentIndex];
+      const frame = nextState.frames[nextState.currentIndex];
       frame.lines = frame.lines.slice(0);
-      const newLine = {
+      frame.appendLine({
         position: action.positions,
         color: action.color,
         lineWidth: action.lineWidth
-      };
-      frame.appendLine(newLine);
+      });
       updateHistory(state, nextState);
       break;
     }
@@ -56,8 +54,7 @@ function reducer(state = initialState, action) {
       break;
     }
     case ADD_FRAME: {
-      const nextFrames = [...state.frames, new Frame()];
-      nextState.frames = nextFrames;
+      nextState.frames = [...state.frames, new Frame()];
       updateHistory(state, nextState);
       break;
     }
@@ -68,18 +65,7 @@ function reducer(state = initialState, action) {
     }
     case REMOVE_FRAME: {
       if (state.frames.length === 1) break;
-      let removeFrame = null;
-      const nextFrames = state.frames.filter((f, index) => {
-        if (index !== action.index) {
-          return true;
-        }
-        removeFrame = f;
-        return false;
-      });
-      if (removeFrame === null) {
-        throw new Error(`The frame to remove was not found. index: ${index}`);
-      }
-      nextState.frames = nextFrames;
+      nextState.frames = state.frames.filter((f, index) => index !== action.index);;
       fixCurrentIndex(nextState);
       updateHistory(state, nextState);
       break;
