@@ -1,7 +1,7 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from './canvas.cssmodule.styl';
+import styles from '@components/canvas.cssmodule.styl';
 
 class Canvas extends React.Component {
   static isTouchEvent(event) {

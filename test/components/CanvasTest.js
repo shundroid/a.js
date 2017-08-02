@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Canvas from 'components/Canvas.js';
+import Canvas from '@components/Canvas.js';
 
 describe('<Canvas />', function () {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Frames from 'components\Frames.js';
+import Frames from '@components\Frames.js';
 
 describe('<Frames />', function () {
 

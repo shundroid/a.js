@@ -6,16 +6,16 @@ Allows to import actions like so:
 import {action1, action2} from '../actions/'
 */
 /* Populated by react-webpack-redux:action */
-import moveFrame from '../actions/moveFrame.js';
-import updateThumbnail from '../actions/updateThumbnail.js';
-import removeFrame from '../actions/removeFrame.js';
-import changeCurrentFrame from '../actions/changeCurrentFrame.js';
-import addFrame from '../actions/addFrame.js';
-import undo from '../actions/undo.js';
-import addLine from '../actions/addLine.js';
-import changeWidth from '../actions/changeWidth.js';
-import changeColor from '../actions/changeColor.js';
-import clearCanvas from '../actions/clearCanvas.js';
+import moveFrame from '@actions/moveFrame.js';
+import updateThumbnail from '@actions/updateThumbnail.js';
+import removeFrame from '@actions/removeFrame.js';
+import changeCurrentFrame from '@actions/changeCurrentFrame.js';
+import addFrame from '@actions/addFrame.js';
+import undo from '@actions/undo.js';
+import addLine from '@actions/addLine.js';
+import changeWidth from '@actions/changeWidth.js';
+import changeColor from '@actions/changeColor.js';
+import clearCanvas from '@actions/clearCanvas.js';
 const actions = {
   addLine,
   changeColor,

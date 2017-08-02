@@ -1,11 +1,11 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import Button from './Button';
-import LineWidth from './LineWidth';
-import Pen from './Pen';
-import styles from './palette.cssmodule.styl';
-import colors from '../utils/colors';
+import Button from '@components/Button';
+import LineWidth from '@components/LineWidth';
+import Pen from '@components/Pen';
+import styles from '@components/palette.cssmodule.styl';
+import colors from '@utils/colors';
 
 class Palette extends React.Component {
   render() {

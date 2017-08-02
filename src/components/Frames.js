@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
-import FrameItem from './FrameItem'
-import Button from './Button';
-import styles from './frames.cssmodule.styl';
+import FrameItem from '@components/FrameItem'
+import Button from '@components/Button';
+import styles from '@components/frames.cssmodule.styl';
 
 class Frames extends React.Component {
   render() {

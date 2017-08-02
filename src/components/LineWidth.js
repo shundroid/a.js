@@ -1,8 +1,8 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from './linewidth.cssmodule.styl';
-import config from 'config';
+import styles from '@components/linewidth.cssmodule.styl';
+import config from '@config';
 
 class LineWidth extends React.Component {
   changeWidth = event => {

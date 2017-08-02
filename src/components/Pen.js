@@ -1,7 +1,7 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from './pen.cssmodule.styl';
+import styles from '@components/pen.cssmodule.styl';
 
 class Pen extends React.Component {
   changeColor = () => {

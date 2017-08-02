@@ -3,10 +3,10 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '../actions/const';
-import Frame, { getFrameById } from '../utils/frame';
-import History from '../utils/history';
-import { revert } from '../utils/compare';
+import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '@actions/const';
+import Frame, { getFrameById } from '@utils/frame';
+import History from '@utils/history';
+import { revert } from '@utils/compare';
 
 const initialState = {
   currentIndex: 0,

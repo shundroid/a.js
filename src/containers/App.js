@@ -21,8 +21,8 @@ import {
   removeFrame,
   updateThumbnail,
   moveFrame
-} from '../actions/';
-import Main from '../components/App';
+} from '@actions';
+import Main from '@components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PenPreview from 'components\PenPreview.js';
+import PenPreview from '@components\PenPreview.js';
 
 describe('<PenPreview />', function () {
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
-import styles from './penpreview.cssmodule.styl';
-import config from 'config';
+import styles from '@components/penpreview.cssmodule.styl';
+import config from '@config';
 
 class PenPreview extends React.Component {
   constructor(props) {
