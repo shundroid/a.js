@@ -14,3 +14,12 @@ export default class Frame {
     this.lines = [];
   }
 }
+
+export function getFrameById(frames, id) {
+  for (let frame of frames) {
+    if (frame.originalId === id) {
+      return frame;
+    }
+  }
+  return null;
+}

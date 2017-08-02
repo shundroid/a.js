@@ -1,5 +1,5 @@
 import { compare } from './compare';
-import getFrameById from './getFrameById';
+import { getFrameById } from './frame';
 
 export class ChangedFrame {
   constructor(originalId, linesDiff) {
