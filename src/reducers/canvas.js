@@ -4,10 +4,10 @@
  * src/container/App.js accordingly.
  */
 import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME } from '../actions/const';
-import Frame from '../constants/frame';
-import History from '../constants/history';
-import { revert } from '../constants/compare';
-import getFrameById from '../constants/getFrameById';
+import Frame from '../utils/frame';
+import History from '../utils/history';
+import { revert } from '../utils/compare';
+import getFrameById from '../utils/getFrameById';
 
 const initialState = {
   currentIndex: 0,

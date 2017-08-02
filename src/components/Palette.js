@@ -5,7 +5,7 @@ import Button from './Button';
 import LineWidth from './LineWidth';
 import Pen from './Pen';
 import styles from './palette.cssmodule.styl';
-import colors from '../constants/colors';
+import colors from '../utils/colors';
 
 class Palette extends React.Component {
   render() {

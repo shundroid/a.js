@@ -1,4 +1,4 @@
-import { compare, revert } from 'constants/compare';
+import { compare, revert } from 'utils/compare';
 
 const testDatas = [
   [[0], [0, 1]],
