@@ -1,4 +1,4 @@
-import { ADD_FRAME } from './const';
+import { ADD_FRAME } from '@actions/const';
 
 function action(parameter) {
   return { type: ADD_FRAME, parameter };

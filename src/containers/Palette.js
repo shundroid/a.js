@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeColor, changeWidth, clearCanvas, undo } from '../actions/';
-import Main from '../components/Palette';
+import { changeColor, changeWidth, clearCanvas, undo } from '@actions';
+import Main from '@components/Palette';
 
 class Palette extends Component {
   render() {

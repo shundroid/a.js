@@ -1,4 +1,4 @@
-var reducer = require('../../src/reducers/history');
+var reducer = require('@reducers/history');
 
 describe('history', () => {
 

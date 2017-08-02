@@ -1,7 +1,7 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from './button.cssmodule.styl';
+import styles from '@components/button.cssmodule.styl';
 
 class Button extends React.Component {
   getStyleName() {

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Palette from '../containers/Palette';
-import Canvas from './Canvas';
-import PenPreview from './PenPreview';
-import Frames from './Frames';
-import './app.css';
+import Palette from '@containers/Palette';
+import Canvas from '@components/Canvas';
+import PenPreview from '@components/PenPreview';
+import Frames from '@components/Frames';
+import '@components/app.css';
 
 class AppComponent extends React.Component {
   render() {

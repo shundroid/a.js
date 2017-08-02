@@ -202,13 +202,16 @@ class WebpackBaseConfig {
       plugins: [],
       resolve: {
         alias: {
-          actions: `${this.srcPathAbsolute}/actions/`,
-          components: `${this.srcPathAbsolute}/components/`,
-          config: `${this.srcPathAbsolute}/config/${this.env}.js`,
-          images: `${this.srcPathAbsolute}/images/`,
-          sources: `${this.srcPathAbsolute}/sources/`,
-          stores: `${this.srcPathAbsolute}/stores/`,
-          styles: `${this.srcPathAbsolute}/styles/`
+          '@actions': `${this.srcPathAbsolute}/actions/`,
+          '@components': `${this.srcPathAbsolute}/components/`,
+          '@config': `${this.srcPathAbsolute}/config/${this.env}.js`,
+          '@images': `${this.srcPathAbsolute}/images/`,
+          '@sources': `${this.srcPathAbsolute}/sources/`,
+          '@stores': `${this.srcPathAbsolute}/stores/`,
+          '@styles': `${this.srcPathAbsolute}/styles/`,
+          '@containers': `${this.srcPathAbsolute}/containers/`,
+          '@utils': `${this.srcPathAbsolute}/utils/`,
+          '@reducers': `${this.srcPathAbsolute}/reducers/`
         },
         extensions: ['.js', '.jsx'],
         modules: [

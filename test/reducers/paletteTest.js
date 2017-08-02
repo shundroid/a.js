@@ -1,4 +1,4 @@
-var reducer = require('../../src/reducers/palette');
+var reducer = require('@reducers/palette');
 
 describe('palette', () => {
 

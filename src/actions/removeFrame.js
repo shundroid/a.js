@@ -1,4 +1,4 @@
-import { REMOVE_FRAME } from './const';
+import { REMOVE_FRAME } from '@actions/const';
 
 function action(index) {
   return { type: REMOVE_FRAME, index };

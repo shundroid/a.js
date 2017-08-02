@@ -1,4 +1,4 @@
-import { CLEAR_CANVAS } from './const';
+import { CLEAR_CANVAS } from '@actions/const';
 
 function action() {
   return { type: CLEAR_CANVAS };

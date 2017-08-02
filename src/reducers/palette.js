@@ -3,8 +3,8 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { CHANGE_COLOR, CHANGE_WIDTH } from '../actions/const';
-import config from 'config';
+import { CHANGE_COLOR, CHANGE_WIDTH } from '@actions/const';
+import config from '@config';
 
 const initialState = {
   color: config.defaultColor,

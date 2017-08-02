@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
-import styles from './frameitem.cssmodule.styl';
+import styles from '@components/frameitem.cssmodule.styl';
 
 class FrameItem extends React.Component {
   constructor(props) {

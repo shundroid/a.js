@@ -1,4 +1,4 @@
-var reducer = require('../../src/reducers/canvas');
+var reducer = require('@reducers/canvas');
 
 describe('canvas', () => {
 
