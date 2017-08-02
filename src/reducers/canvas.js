@@ -59,7 +59,7 @@ function reducer(state = initialState, action) {
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentIndex = action.index;
-      nextState.history = [...nextState.history, new History(state.currentIndex)];
+      updateHistory(state, nextState, false);
       break;
     }
     case REMOVE_FRAME: {
@@ -92,9 +92,10 @@ function reducer(state = initialState, action) {
   return nextState;
 }
 
-function updateHistory(prevState, nextState) {
-  nextState.history = [...nextState.history, History.compare(
-    nextState.currentIndex, prevState.frames, nextState.frames)];
+function updateHistory(prevState, nextState, isCompare = true) {
+  const historyItem = !isCompare ? new History(prevState.currentFrameIndex) :
+    History.compare(prevState.currentIndex, prevState.frames, nextState.frames);
+  nextState.history = [...nextState.history, historyItem];
 }
 
 function fixCurrentIndex(nextState) {
