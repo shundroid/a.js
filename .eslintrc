@@ -17,21 +17,16 @@
     "react/jsx-space-before-closing": ["off"],
     "react/prefer-stateless-function": ["off"],
     "no-underscore-dangle": [ "error", { "allowAfterThis": true }],
-    "import/no-unresolved": ["error", {
-        "ignore": [
-          "config",
-          "components/",
-          "stores/",
-          "actions/",
-          "sources/",
-          "styles/",
-          "images/"
-        ]
-    }],
+    "import/no-unresolved": ["off"],
     "react/forbid-prop-types": ["off"],
     "radix": ["off"],
     "arrow-parens": ["off"],
     "no-restricted-syntax": ["off"],
-    "guard-for-in": ["off"]
+    "guard-for-in": ["off"],
+    "no-plusplus": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["off"],
+    "no-param-reassign": ["off"],
+    "no-continue": ["off"],
+    "import/no-extraneous-dependencies": ["off"]
   }
 }

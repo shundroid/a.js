@@ -16,6 +16,7 @@ export function compare(prevItems, nextItems) {
       continue;
     }
     let prevPosition;
+    // eslint-disable-next-line no-cond-assign
     while ((prevPosition = prevItems.indexOf(nextItems[nextIndex], prevIndex)) === -1) {
       if (nextIndex >= nextItems.length) break;
       addedItems.push({ pos: nextIndex, item: nextItems[nextIndex] });
@@ -35,7 +36,7 @@ export function revert(items, diff) {
   for (let i = 0; i < diff.added.length; i++) {
     copiedItems.splice(diff.added[i].pos - i, 1);
   }
-  for (let removed of diff.removed) {
+  for (const removed of diff.removed) {
     copiedItems.splice(removed.pos, 0, removed.item);
   }
   return copiedItems;

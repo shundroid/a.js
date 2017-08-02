@@ -4,16 +4,6 @@ import cssmodules from 'react-css-modules';
 import styles from '@components/frameitem.cssmodule.styl';
 
 class FrameItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  styles() {
-    const classes = ['frame-item'];
-    if (this.props.currentIndex === this.props.index) {
-      classes.push('active');
-    }
-    return classes.join(' ');
-  }
   getBackgroundImage() {
     if (this.props.currentIndex === this.props.index) {
       return '-moz-element(#canvas)';
@@ -23,20 +13,27 @@ class FrameItem extends React.Component {
     }
     return 'none';
   }
+  styles() {
+    const classes = ['frame-item'];
+    if (this.props.currentIndex === this.props.index) {
+      classes.push('active');
+    }
+    return classes.join(' ');
+  }
   css() {
     return {
       backgroundImage: this.getBackgroundImage()
     };
   }
   dragStart = event => {
-    event.dataTransfer.setData("index", this.props.index);
+    event.dataTransfer.setData('index', this.props.index);
   }
   allowDrop = event => {
     event.preventDefault();
   }
   drop = event => {
     event.preventDefault();
-    this.props.onMove(event.dataTransfer.getData("index"), this.props.index);
+    this.props.onMove(event.dataTransfer.getData('index'), this.props.index);
   }
   change = () => {
     this.props.onChange(this.props.index);

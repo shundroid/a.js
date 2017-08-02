@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
-import FrameItem from '@components/FrameItem'
+import FrameItem from '@components/FrameItem';
 import Button from '@components/Button';
 import styles from '@components/frames.cssmodule.styl';
 
