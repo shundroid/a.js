@@ -92,8 +92,8 @@ function reducer(state = initialState, action) {
   return nextState;
 }
 
-function updateHistory(prevState, nextState, isCompare = true) {
-  const historyItem = !isCompare ? new History(prevState.currentFrameIndex) :
+function updateHistory(prevState, nextState, isCompareNeeded = true) {
+  const historyItem = !isCompareNeeded ? new History(prevState.currentFrameIndex) :
     History.compare(prevState.currentIndex, prevState.frames, nextState.frames);
   nextState.history = [...nextState.history, historyItem];
 }
