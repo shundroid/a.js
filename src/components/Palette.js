@@ -20,7 +20,7 @@ class Palette extends React.Component {
               currentColor={this.props.palette.color} />
           )
         }
-      <LineWidth
+        <LineWidth
           width={this.props.palette.width}
           onChangeWidth={this.props.actions.changeWidth} />
         <Button
@@ -29,7 +29,7 @@ class Palette extends React.Component {
           onClick={this.props.actions.undo} />
         <Button
           name="clear-canvas"
-          disabled={this.props.canvas.frames[this.props.canvas.currentIndex].length == 0}
+          disabled={this.props.canvas.frames[this.props.canvas.currentIndex].length === 0}
           onClick={this.props.actions.clearCanvas} />
       </div>
     );

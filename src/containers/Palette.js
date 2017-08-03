@@ -7,8 +7,9 @@ import Main from '@components/Palette';
 
 class Palette extends Component {
   render() {
-    return <Main actions={this.props.actions}
-                 canvas={this.props.canvas} palette={this.props.palette} />;
+    return (<Main
+      actions={this.props.actions}
+      canvas={this.props.canvas} palette={this.props.palette} />);
   }
 }
 

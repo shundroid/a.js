@@ -14,10 +14,21 @@ const initialState = {
   history: []
 };
 
+function updateHistory(prevState, nextState, isCompareNeeded = true) {
+  const historyItem = !isCompareNeeded ? new History(prevState.currentFrameIndex) :
+    History.compare(prevState.currentIndex, prevState.frames, nextState.frames);
+  nextState.history = [...nextState.history, historyItem];
+}
+
+function fixCurrentIndex(nextState) {
+  nextState.currentIndex = Math.min(nextState.frames.length - 1, nextState.currentIndex);
+}
+
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
   const nextState = Object.assign({}, state);
-  nextState.frames = nextState.frames.map(frame => new Frame(frame.lines, frame.thumbnail, frame.originalId));
+  nextState.frames =
+    nextState.frames.map(frame => new Frame(frame.lines, frame.thumbnail, frame.originalId));
 
   switch (action.type) {
     case ADD_LINE: {
@@ -34,7 +45,7 @@ function reducer(state = initialState, action) {
     case UNDO: {
       if (nextState.history.length === 0) break;
       const history = nextState.history[state.history.length - 1];
-      for (let changedFrame of history.changedFrames) {
+      for (const changedFrame of history.changedFrames) {
         const frame = getFrameById(nextState.frames, changedFrame.originalId);
         frame.lines = revert(frame.lines, changedFrame.linesDiff);
       }
@@ -46,9 +57,7 @@ function reducer(state = initialState, action) {
       break;
     }
     case CLEAR_CANVAS: {
-      const { frames, currentIndex, history } = state;
-      const lines = nextState.frames[currentIndex].lines;
-      nextState.frames[currentIndex].clear();
+      nextState.frames[nextState.currentIndex].clear();
       updateHistory(state, nextState);
       break;
     }
@@ -64,7 +73,7 @@ function reducer(state = initialState, action) {
     }
     case REMOVE_FRAME: {
       if (state.frames.length === 1) break;
-      nextState.frames = state.frames.filter((f, index) => index !== action.index);;
+      nextState.frames = state.frames.filter((f, index) => index !== action.index);
       fixCurrentIndex(nextState);
       updateHistory(state, nextState);
       break;
@@ -90,16 +99,6 @@ function reducer(state = initialState, action) {
     }
   }
   return nextState;
-}
-
-function updateHistory(prevState, nextState, isCompareNeeded = true) {
-  const historyItem = !isCompareNeeded ? new History(prevState.currentFrameIndex) :
-    History.compare(prevState.currentIndex, prevState.frames, nextState.frames);
-  nextState.history = [...nextState.history, historyItem];
-}
-
-function fixCurrentIndex(nextState) {
-  nextState.currentIndex = Math.min(nextState.frames.length - 1, nextState.currentIndex);
 }
 
 module.exports = reducer;

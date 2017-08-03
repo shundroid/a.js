@@ -16,7 +16,7 @@ export default class Frame {
 }
 
 export function getFrameById(frames, id) {
-  for (let frame of frames) {
+  for (const frame of frames) {
     if (frame.originalId === id) {
       return frame;
     }

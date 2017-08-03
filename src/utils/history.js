@@ -4,7 +4,7 @@ import { getFrameById } from '@utils/frame';
 export class ChangedFrame {
   constructor(originalId, linesDiff) {
     this.originalId = originalId;
-    this.linesDiff = linesDiff
+    this.linesDiff = linesDiff;
   }
 }
 export default class History {
@@ -34,18 +34,14 @@ export default class History {
       const linesDiff = compare(prevFrame.lines, nextFrame.lines);
       return new ChangedFrame(id, linesDiff);
     }).filter(frame => frame !== null);
-    const addedFrames = diff.added.map(added => {
-      return {
-        pos: added.pos,
-        item: getFrameById(nextFrames, added.item)
-      };
-    });
-    const removedFrames = diff.removed.map(removed => {
-      return {
-        pos: removed.pos,
-        item: getFrameById(prevFrames, removed.item)
-      };
-    });
+    const addedFrames = diff.added.map(added => ({
+      pos: added.pos,
+      item: getFrameById(nextFrames, added.item)
+    }));
+    const removedFrames = diff.removed.map(removed => ({
+      pos: removed.pos,
+      item: getFrameById(prevFrames, removed.item)
+    }));
     return new History(frameIndex, {
       added: addedFrames,
       removed: removedFrames
