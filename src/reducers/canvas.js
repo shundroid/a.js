@@ -79,6 +79,7 @@ function reducer(state = initialState, action) {
       break;
     }
     case UPDATE_THUMBNAIL: {
+      if (action.index >= nextState.frames.length) break;
       nextState.frames[action.index].updateThumbnail(action.thumbnail);
       break;
     }
