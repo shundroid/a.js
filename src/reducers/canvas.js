@@ -10,7 +10,7 @@ import { revert } from '@utils/compare';
 
 const firstFrame = new Frame();
 const initialState = {
-  currentId: firstFrame.originalId,
+  currentId: firstFrame.id,
   frames: [firstFrame],
   history: [],
   isUpdateThumbnailNeeded: false
@@ -24,7 +24,7 @@ function updateHistory(prevState, nextState, isCompareNeeded = true) {
 
 function fixCurrentId(nextState) {
   if (getFrameById(nextState.frames, nextState.currentId) === null) {
-    nextState.currentId = nextState.frames[nextState.frames.length - 1].originalId;
+    nextState.currentId = nextState.frames[nextState.frames.length - 1].id;
   }
 }
 
@@ -32,7 +32,7 @@ function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
   const nextState = Object.assign({}, state);
   nextState.frames =
-    nextState.frames.map(frame => new Frame(frame.lines, frame.thumbnail, frame.originalId));
+    nextState.frames.map(frame => new Frame(frame.lines, frame.thumbnail, frame.id));
 
   switch (action.type) {
     case ADD_LINE: {
@@ -50,7 +50,7 @@ function reducer(state = initialState, action) {
       if (nextState.history.length === 0) break;
       const history = nextState.history[state.history.length - 1];
       for (const changedFrame of history.changedFrames) {
-        const frame = getFrameById(nextState.frames, changedFrame.originalId);
+        const frame = getFrameById(nextState.frames, changedFrame.id);
         frame.lines = revert(frame.lines, changedFrame.linesDiff);
       }
       nextState.frames = revert(nextState.frames, history.framesDiff);
@@ -77,7 +77,7 @@ function reducer(state = initialState, action) {
     }
     case REMOVE_FRAME: {
       if (state.frames.length === 1) break;
-      nextState.frames = state.frames.filter(frame => frame.originalId !== action.id);
+      nextState.frames = state.frames.filter(frame => frame.id !== action.id);
       fixCurrentId(nextState);
       updateHistory(state, nextState);
       break;

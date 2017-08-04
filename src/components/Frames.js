@@ -13,7 +13,7 @@ class Frames extends React.Component {
           this.props.frames.map((frame, index) =>
             <FrameItem
               key={index}
-              id={frame.originalId}
+              id={frame.id}
               currentId={this.props.currentId}
               thumbnail={frame.thumbnail}
               onChange={this.props.onChangeCurrentFrame}

@@ -2,8 +2,8 @@ import { compare } from '@utils/compare';
 import { getFrameById } from '@utils/frame';
 
 export class ChangedFrame {
-  constructor(originalId, linesDiff) {
-    this.originalId = originalId;
+  constructor(id, linesDiff) {
+    this.id = id;
     this.linesDiff = linesDiff;
   }
 }
@@ -14,8 +14,8 @@ export default class History {
     this.changedFrames = changedFrames;
   }
   static compare(frameIndex, prevFrames, nextFrames) {
-    const prevIds = prevFrames.map(frame => frame.originalId);
-    const nextIds = nextFrames.map(frame => frame.originalId);
+    const prevIds = prevFrames.map(frame => frame.id);
+    const nextIds = nextFrames.map(frame => frame.id);
     const diff = compare(prevIds, nextIds);
     const addedIds = diff.added.map(added => added.item);
     const changedFrames = nextIds.map((id, index) => {

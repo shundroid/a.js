@@ -1,6 +1,6 @@
 export default class Frame {
-  constructor(lines = [], thumbnail = null, originalId = Date.now()) {
-    this.originalId = originalId;
+  constructor(lines = [], thumbnail = null, id = Date.now()) {
+    this.id = id;
     this.lines = lines;
     this.thumbnail = thumbnail;
   }
@@ -17,7 +17,7 @@ export default class Frame {
 
 export function getFrameById(frames, id) {
   for (const frame of frames) {
-    if (frame.originalId === id) {
+    if (frame.id === id) {
       return frame;
     }
   }
