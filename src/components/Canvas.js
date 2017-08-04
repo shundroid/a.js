@@ -3,7 +3,7 @@ import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import styles from '@components/canvas.cssmodule.styl';
 
-// 'id' prop is used as prevProp,
+// 'currentId' prop is used as prevProp,
 // but eslint gives the error.
 // eslint-disable react/no-unused-prop-types
 
@@ -23,7 +23,7 @@ class Canvas extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.isUpdateThumbnailNeeded) {
-      this.props.onUpdateThumbnail(prevProps.id, this.canvas.toDataURL('image/png'));
+      this.props.onUpdateThumbnail(prevProps.currentId, this.canvas.toDataURL('image/png'));
     }
     if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
@@ -140,7 +140,7 @@ Canvas.propTypes = {
   onPenUp: PropTypes.func.isRequired,
   onUpdateThumbnail: PropTypes.func.isRequired,
   lines: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
+  currentId: PropTypes.number.isRequired,
   isUpdateThumbnailNeeded: PropTypes.bool.isRequired
 };
 Canvas.defaultProps = {};
