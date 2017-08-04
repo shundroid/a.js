@@ -13,8 +13,8 @@ class Frames extends React.Component {
           this.props.frames.map((frame, index) =>
             <FrameItem
               key={index}
-              index={index}
-              currentIndex={this.props.currentIndex}
+              id={frame.id}
+              currentId={this.props.currentId}
               thumbnail={frame.thumbnail}
               onChange={this.props.onChangeCurrentFrame}
               onRemove={this.props.onRemoveFrame}
@@ -32,7 +32,7 @@ class Frames extends React.Component {
 Frames.displayName = 'Frames';
 Frames.propTypes = {
   frames: PropTypes.array.isRequired,
-  currentIndex: PropTypes.number.isRequired,
+  currentId: PropTypes.number.isRequired,
   onAddFrame: PropTypes.func.isRequired,
   onChangeCurrentFrame: PropTypes.func.isRequired,
   onRemoveFrame: PropTypes.func.isRequired,

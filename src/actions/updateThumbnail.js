@@ -1,7 +1,7 @@
 import { UPDATE_THUMBNAIL } from '@actions/const';
 
-function action(index, thumbnail) {
-  return { type: UPDATE_THUMBNAIL, index, thumbnail };
+function action(id, thumbnail) {
+  return { type: UPDATE_THUMBNAIL, id, thumbnail };
 }
 
 module.exports = action;

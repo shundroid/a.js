@@ -5,7 +5,7 @@ import styles from '@components/frameitem.cssmodule.styl';
 
 class FrameItem extends React.Component {
   getBackgroundImage() {
-    if (this.props.currentIndex === this.props.index) {
+    if (this.props.currentId === this.props.id) {
       return '-moz-element(#canvas)';
     }
     if (this.props.thumbnail) {
@@ -15,7 +15,7 @@ class FrameItem extends React.Component {
   }
   styles() {
     const classes = ['frame-item'];
-    if (this.props.currentIndex === this.props.index) {
+    if (this.props.currentId === this.props.id) {
       classes.push('active');
     }
     return classes.join(' ');
@@ -26,21 +26,21 @@ class FrameItem extends React.Component {
     };
   }
   dragStart = event => {
-    event.dataTransfer.setData('index', this.props.index);
+    event.dataTransfer.setData('id', this.props.id);
   }
   allowDrop = event => {
     event.preventDefault();
   }
   drop = event => {
     event.preventDefault();
-    this.props.onMove(event.dataTransfer.getData('index'), this.props.index);
+    this.props.onMove(parseInt(event.dataTransfer.getData('id')), this.props.id);
   }
   change = () => {
-    this.props.onChange(this.props.index);
+    this.props.onChange(this.props.id);
   }
   remove = event => {
     event.stopPropagation();
-    this.props.onRemove(this.props.index);
+    this.props.onRemove(this.props.id);
   }
   render() {
     return (
@@ -60,8 +60,8 @@ class FrameItem extends React.Component {
 
 FrameItem.displayName = 'FrameItem';
 FrameItem.propTypes = {
-  index: PropTypes.number.isRequired,
-  currentIndex: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  currentId: PropTypes.number.isRequired,
   thumbnail: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
