@@ -1,9 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import reducers from '@reducers';
+import makeJoinedImage from '@middlewares/makeJoinedImage';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function reduxStore(initialState) {
-  const store = createStore(reducers, initialState,
-    window.devToolsExtension && window.devToolsExtension());
+  const store = createStore(reducers, initialState, composeEnhancers(
+    applyMiddleware(makeJoinedImage)
+  ));
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

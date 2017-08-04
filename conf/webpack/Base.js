@@ -211,7 +211,8 @@ class WebpackBaseConfig {
           '@styles': `${this.srcPathAbsolute}/styles/`,
           '@containers': `${this.srcPathAbsolute}/containers/`,
           '@utils': `${this.srcPathAbsolute}/utils/`,
-          '@reducers': `${this.srcPathAbsolute}/reducers/`
+          '@reducers': `${this.srcPathAbsolute}/reducers/`,
+          '@middlewares': `${this.srcPathAbsolute}/middlewares/`
         },
         extensions: ['.js', '.jsx'],
         modules: [
