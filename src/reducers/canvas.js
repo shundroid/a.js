@@ -81,7 +81,10 @@ function reducer(state = initialState, action) {
       break;
     }
     case UPDATE_THUMBNAIL: {
-      if (action.index >= nextState.frames.length) break;
+      if (action.index >= nextState.frames.length) {
+        console.warn(`Tryed to update thumbnail, but ${action.index} is invalid index.`);
+        break;
+      }
       nextState.isUpdateThumbnailNeeded = false;
       nextState.frames[action.index].updateThumbnail(action.thumbnail);
       break;
