@@ -3,6 +3,10 @@ import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import styles from '@components/canvas.cssmodule.styl';
 
+// 'id' prop is used as prevProp,
+// but eslint gives the error.
+// eslint-disable react/no-unused-prop-types
+
 class Canvas extends React.Component {
   static isTouchEvent(event) {
     return !!event.touches;

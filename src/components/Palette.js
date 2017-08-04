@@ -30,7 +30,8 @@ class Palette extends React.Component {
           onClick={this.props.actions.undo} />
         <Button
           name="clear-canvas"
-          disabled={getFrameById(this.props.canvas.frames, this.props.canvas.currentId).length === 0}
+          disabled={getFrameById(this.props.canvas.frames,
+            this.props.canvas.currentId).length === 0}
           onClick={this.props.actions.clearCanvas} />
       </div>
     );
