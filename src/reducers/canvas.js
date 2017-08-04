@@ -8,21 +8,24 @@ import Frame, { getFrameById } from '@utils/frame';
 import History from '@utils/history';
 import { revert } from '@utils/compare';
 
+const firstFrame = new Frame();
 const initialState = {
-  currentIndex: 0,
-  frames: [new Frame()],
+  currentId: firstFrame.originalId,
+  frames: [firstFrame],
   history: [],
   isUpdateThumbnailNeeded: false
 };
 
 function updateHistory(prevState, nextState, isCompareNeeded = true) {
-  const historyItem = !isCompareNeeded ? new History(prevState.currentFrameIndex) :
-    History.compare(prevState.currentIndex, prevState.frames, nextState.frames);
+  const historyItem = !isCompareNeeded ? new History(prevState.currentId) :
+    History.compare(prevState.currentId, prevState.frames, nextState.frames);
   nextState.history = [...nextState.history, historyItem];
 }
 
-function fixCurrentIndex(nextState) {
-  nextState.currentIndex = Math.min(nextState.frames.length - 1, nextState.currentIndex);
+function fixCurrentId(nextState) {
+  if (getFrameById(nextState.frames, nextState.currentId) === null) {
+    nextState.currentId = nextState.frames[nextState.frames.length - 1].originalId;
+  }
 }
 
 function reducer(state = initialState, action) {
@@ -33,7 +36,7 @@ function reducer(state = initialState, action) {
 
   switch (action.type) {
     case ADD_LINE: {
-      const frame = nextState.frames[nextState.currentIndex];
+      const frame = getFrameById(nextState.frames, nextState.currentId);
       frame.lines = frame.lines.slice(0);
       frame.appendLine({
         position: action.positions,
@@ -52,13 +55,12 @@ function reducer(state = initialState, action) {
       }
       nextState.frames = revert(nextState.frames, history.framesDiff);
       nextState.history.splice(nextState.history.length - 1, 1);
-      nextState.currentIndex = history.currentFrameIndex;
-      fixCurrentIndex(nextState);
-      nextState.currentIndex = history.currentFrameIndex;
+      nextState.currentId = history.currentFrameId;
+      fixCurrentId(nextState);
       break;
     }
     case CLEAR_CANVAS: {
-      nextState.frames[nextState.currentIndex].clear();
+      getFrameById(nextState.frames, nextState.currentId).clear();
       updateHistory(state, nextState);
       break;
     }
@@ -68,34 +70,37 @@ function reducer(state = initialState, action) {
       break;
     }
     case CHANGE_CURRENT_FRAME: {
-      nextState.currentIndex = action.index;
+      nextState.currentId = action.id;
       nextState.isUpdateThumbnailNeeded = true;
       updateHistory(state, nextState, false);
       break;
     }
     case REMOVE_FRAME: {
       if (state.frames.length === 1) break;
-      nextState.frames = state.frames.filter((f, index) => index !== action.index);
-      fixCurrentIndex(nextState);
+      nextState.frames = state.frames.filter(frame => frame.originalId !== action.id);
+      fixCurrentId(nextState);
       updateHistory(state, nextState);
       break;
     }
     case UPDATE_THUMBNAIL: {
-      if (action.index >= nextState.frames.length) {
-        console.warn(`Tryed to update thumbnail, but ${action.index} is invalid index.`);
+      const frame = getFrameById(nextState.frames, action.id);
+      if (frame === null) {
+        console.warn(`Tryed to update thumbnail, but ${action.id} is invalid id.`);
         break;
       }
       nextState.isUpdateThumbnailNeeded = false;
-      nextState.frames[action.index].updateThumbnail(action.thumbnail);
+      frame.updateThumbnail(action.thumbnail);
       break;
     }
     case MOVE_FRAME: {
-      if (action.index === action.insertIndex) break;
-      const frame = nextState.frames.splice(action.index, 1)[0];
-      if (action.insertIndex > action.index) {
-        nextState.frames.splice(action.insertIndex, 0, frame);
+      if (action.id === action.insertId) break;
+      const index = nextState.frames.indexOf(getFrameById(nextState.frames, action.id));
+      const insertIndex = nextState.frames.indexOf(getFrameById(nextState.frames, action.insertId));
+      const frame = nextState.frames.splice(index, 1)[0];
+      if (insertIndex > index) {
+        nextState.frames.splice(insertIndex, 0, frame);
       } else {
-        nextState.frames.splice(action.insertIndex - 1, 0, frame);
+        nextState.frames.splice(insertIndex - 1, 0, frame);
       }
       updateHistory(state, nextState);
       break;

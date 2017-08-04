@@ -8,8 +8,8 @@ export class ChangedFrame {
   }
 }
 export default class History {
-  constructor(currentFrameIndex, framesDiff = { added: [], removed: [] }, changedFrames = []) {
-    this.currentFrameIndex = currentFrameIndex;
+  constructor(currentFrameId, framesDiff = { added: [], removed: [] }, changedFrames = []) {
+    this.currentFrameId = currentFrameId;
     this.framesDiff = framesDiff;
     this.changedFrames = changedFrames;
   }

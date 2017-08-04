@@ -6,6 +6,7 @@ import LineWidth from '@components/LineWidth';
 import Pen from '@components/Pen';
 import styles from '@components/palette.cssmodule.styl';
 import colors from '@utils/colors';
+import { getFrameById } from '@utils/frame';
 
 class Palette extends React.Component {
   render() {
@@ -29,7 +30,7 @@ class Palette extends React.Component {
           onClick={this.props.actions.undo} />
         <Button
           name="clear-canvas"
-          disabled={this.props.canvas.frames[this.props.canvas.currentIndex].length === 0}
+          disabled={getFrameById(this.props.canvas.frames, this.props.canvas.currentId).length === 0}
           onClick={this.props.actions.clearCanvas} />
       </div>
     );

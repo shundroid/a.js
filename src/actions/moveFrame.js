@@ -1,7 +1,7 @@
 import { MOVE_FRAME } from '@actions/const';
 
-function action(index, insertIndex) {
-  return { type: MOVE_FRAME, index, insertIndex };
+function action(id, insertId) {
+  return { type: MOVE_FRAME, id, insertId };
 }
 
 module.exports = action;

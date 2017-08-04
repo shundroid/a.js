@@ -19,7 +19,7 @@ class Canvas extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.isUpdateThumbnailNeeded) {
-      this.props.onUpdateThumbnail(prevProps.index, this.canvas.toDataURL('image/png'));
+      this.props.onUpdateThumbnail(prevProps.id, this.canvas.toDataURL('image/png'));
     }
     if (this.props.lines !== prevProps.lines) {
       this.updateCanvas();
@@ -136,7 +136,7 @@ Canvas.propTypes = {
   onPenUp: PropTypes.func.isRequired,
   onUpdateThumbnail: PropTypes.func.isRequired,
   lines: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   isUpdateThumbnailNeeded: PropTypes.bool.isRequired
 };
 Canvas.defaultProps = {};
