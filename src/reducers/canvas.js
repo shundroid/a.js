@@ -11,7 +11,8 @@ import { revert } from '@utils/compare';
 const initialState = {
   currentIndex: 0,
   frames: [new Frame()],
-  history: []
+  history: [],
+  isUpdateThumbnailNeeded: false
 };
 
 function updateHistory(prevState, nextState, isCompareNeeded = true) {
@@ -68,6 +69,7 @@ function reducer(state = initialState, action) {
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentIndex = action.index;
+      nextState.isUpdateThumbnailNeeded = true;
       updateHistory(state, nextState, false);
       break;
     }
@@ -80,6 +82,7 @@ function reducer(state = initialState, action) {
     }
     case UPDATE_THUMBNAIL: {
       if (action.index >= nextState.frames.length) break;
+      nextState.isUpdateThumbnailNeeded = false;
       nextState.frames[action.index].updateThumbnail(action.thumbnail);
       break;
     }
