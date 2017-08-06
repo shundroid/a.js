@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Palette from '@containers/Palette';
+import Palette from '@components/Palette';
 import Canvas from '@components/Canvas';
 import PenPreview from '@components/PenPreview';
 import Frames from '@components/Frames';
