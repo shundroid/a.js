@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Palette from '@components/Palette';
 import Canvas from '@components/Canvas';
 import PenPreview from '@components/PenPreview';
@@ -20,10 +21,6 @@ class AppComponent extends React.Component {
   }
 }
 
-AppComponent.propTypes = {
-  actions: PropTypes.object.isRequired,
-  palette: PropTypes.object.isRequired,
-  canvas: PropTypes.object.isRequired
-};
+AppComponent.propTypes = {};
 
-export default AppComponent;
+export default connect(() => ({}), () => ({}))(AppComponent);
