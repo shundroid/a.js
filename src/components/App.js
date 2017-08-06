@@ -12,14 +12,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <Palette />
-        <Canvas
-          color={this.props.palette.color}
-          width={this.props.palette.width}
-          lines={getFrameById(this.props.canvas.frames, this.props.canvas.currentId).lines}
-          currentId={this.props.canvas.currentId}
-          isUpdateThumbnailNeeded={this.props.canvas.isUpdateThumbnailNeeded}
-          onPenUp={this.props.actions.addLine}
-          onUpdateThumbnail={this.props.actions.updateThumbnail} />
+        <Canvas />
         <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
         <Frames
           frames={this.props.canvas.frames}

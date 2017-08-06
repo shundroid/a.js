@@ -1,11 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import styles from '@components/canvas.cssmodule.styl';
+import mapState from '@utils/mapState';
+import mapDispatch from '@utils/mapDispatch';
+import { getFrameById } from '@utils/frame';
 
 // 'currentId' prop is used as prevProp,
 // but eslint gives the error.
 // eslint-disable react/no-unused-prop-types
+
+const props = mapState({
+  'palette.color': PropTypes.string.isRequired,
+  'palette.width': PropTypes.number.isRequired,
+  'canvas.frames': PropTypes.array.isRequired,
+  'canvas.currentId': PropTypes.number.isRequired,
+  'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired
+});
+const actions = mapDispatch(['addLine', 'updateThumbnail']);
 
 class Canvas extends React.Component {
   static isTouchEvent(event) {
@@ -15,6 +28,9 @@ class Canvas extends React.Component {
     super(props);
     this.state = { width: 0, height: 0 };
   }
+  getLines() {
+    return getFrameById(this.props.frames, this.props.currentId).lines;
+  }
   componentDidMount() {
     this.updateCanvasSize();
     window.addEventListener('resize', this.updateCanvasSize);
@@ -23,9 +39,9 @@ class Canvas extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.isUpdateThumbnailNeeded) {
-      this.props.onUpdateThumbnail(prevProps.currentId, this.canvas.toDataURL('image/png'));
+      this.props.actions.updateThumbnail(prevProps.currentId, this.canvas.toDataURL('image/png'));
     }
-    if (this.props.lines !== prevProps.lines) {
+    if (this.getLines() !== getFrameById(prevProps.frames, prevProps.currentId).lines) {
       this.updateCanvas();
     }
   }
@@ -49,7 +65,7 @@ class Canvas extends React.Component {
   }
   updateCanvas() {
     this.ctx.clearRect(0, 0, this.state.width, this.state.height);
-    for (const line of this.props.lines) {
+    for (const line of this.getLines()) {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
       this.ctx.beginPath();
@@ -116,7 +132,7 @@ class Canvas extends React.Component {
     }
     // Todo: Dispatch an action
     this.isDownPen = false;
-    this.props.onPenUp(this.positions, this.props.color, this.props.width);
+    this.props.actions.addLine(this.positions, this.props.color, this.props.width);
     this.positions = [];
   }
   render() {
@@ -135,14 +151,9 @@ class Canvas extends React.Component {
 
 Canvas.displayName = 'Canvas';
 Canvas.propTypes = {
-  color: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  onPenUp: PropTypes.func.isRequired,
-  onUpdateThumbnail: PropTypes.func.isRequired,
-  lines: PropTypes.array.isRequired,
-  currentId: PropTypes.number.isRequired,
-  isUpdateThumbnailNeeded: PropTypes.bool.isRequired
+  ...props.toPropTypes(),
+  ...actions.toPropTypes()
 };
 Canvas.defaultProps = {};
 
-export default cssmodules(Canvas, styles);
+export default connect(props.toConnect(), actions.toConnect())(cssmodules(Canvas, styles));
