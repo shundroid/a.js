@@ -1,12 +1,20 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styles from '@components/linewidth.cssmodule.styl';
 import config from '@config';
+import mapState from '@utils/mapState';
+import mapDispatch from '@utils/mapDispatch';
+
+const props = mapState({
+  'palette.width': PropTypes.number.isRequired
+});
+const actions = mapDispatch(['changeWidth']);
 
 class LineWidth extends React.Component {
   changeWidth = event => {
-    this.props.onChangeWidth(parseInt(event.target.value));
+    this.props.actions.changeWidth(parseInt(event.target.value));
   }
   render() {
     return (
@@ -22,9 +30,9 @@ class LineWidth extends React.Component {
 
 LineWidth.displayName = 'LineWidth';
 LineWidth.propTypes = {
-  width: PropTypes.number.isRequired,
-  onChangeWidth: PropTypes.func.isRequired
+  ...props.toPropTypes(),
+  ...actions.toPropTypes()
 };
 LineWidth.defaultProps = {};
 
-export default cssmodules(LineWidth, styles);
+export default connect(props.toConnect(), actions.toConnect())(cssmodules(LineWidth, styles));

@@ -13,14 +13,8 @@ class AppComponent extends React.Component {
       <div className="index">
         <Palette />
         <Canvas />
-        <PenPreview lineWidth={this.props.palette.width} color={this.props.palette.color} />
-        <Frames
-          frames={this.props.canvas.frames}
-          currentId={this.props.canvas.currentId}
-          onAddFrame={this.props.actions.addFrame}
-          onChangeCurrentFrame={this.props.actions.changeCurrentFrame}
-          onRemoveFrame={this.props.actions.removeFrame}
-          onMoveFrame={this.props.actions.moveFrame} />
+        <PenPreview />
+        <Frames />
       </div>
     );
   }

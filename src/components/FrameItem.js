@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
+import { connect } from 'react-redux';
 import styles from '@components/frameitem.cssmodule.styl';
+import mapState from '@utils/mapState';
+import mapDispatch from '@utils/mapDispatch';
+
+const props = mapState({
+  'canvas.currentId': PropTypes.number.isRequired,
+  'canvas.frames': PropTypes.array.isRequired
+});
+const actions = mapDispatch(['changeCurrentFrame', 'removeFrame', 'moveFrame']);
 
 class FrameItem extends React.Component {
   getBackgroundImage() {
@@ -33,14 +42,14 @@ class FrameItem extends React.Component {
   }
   drop = event => {
     event.preventDefault();
-    this.props.onMove(parseInt(event.dataTransfer.getData('id')), this.props.id);
+    this.props.actions.moveFrame(parseInt(event.dataTransfer.getData('id')), this.props.id);
   }
   change = () => {
-    this.props.onChange(this.props.id);
+    this.props.actions.changeCurrentFrame(this.props.id);
   }
   remove = event => {
     event.stopPropagation();
-    this.props.onRemove(this.props.id);
+    this.props.actions.removeFrame(this.props.id);
   }
   render() {
     return (
@@ -61,14 +70,11 @@ class FrameItem extends React.Component {
 FrameItem.displayName = 'FrameItem';
 FrameItem.propTypes = {
   id: PropTypes.number.isRequired,
-  currentId: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onMove: PropTypes.func.isRequired
+  ...props.toPropTypes(),
+  ...actions.toPropTypes()
 };
 FrameItem.defaultProps = {};
 
-export default cssmodules(FrameItem, styles, {
+export default connect(props.toConnect(), actions.toConnect())(cssmodules(FrameItem, styles, {
   allowMultiple: true
-});
+}));

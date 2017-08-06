@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
+import { connect } from 'react-redux';
 import FrameItem from '@components/FrameItem';
 import Button from '@components/Button';
 import styles from '@components/frames.cssmodule.styl';
+import mapState from '@utils/mapState';
+import mapDispatch from '@utils/mapDispatch';
+
+const props = mapState({
+  'canvas.frames': PropTypes.array.isRequired,
+  'canvas.currentId': PropTypes.number.isRequired
+});
+const actions = mapDispatch(['addFrame']);
 
 class Frames extends React.Component {
   render() {
@@ -13,17 +22,12 @@ class Frames extends React.Component {
           this.props.frames.map((frame, index) =>
             <FrameItem
               key={index}
-              id={frame.id}
-              currentId={this.props.currentId}
-              thumbnail={frame.thumbnail}
-              onChange={this.props.onChangeCurrentFrame}
-              onRemove={this.props.onRemoveFrame}
-              onMove={this.props.onMoveFrame} />
+              id={frame.id} />
           )
         }
         <Button
           name="add-frame"
-          onClick={this.props.onAddFrame} />
+          onClick={this.props.actions.addFrame} />
       </div>
     );
   }
@@ -31,13 +35,9 @@ class Frames extends React.Component {
 
 Frames.displayName = 'Frames';
 Frames.propTypes = {
-  frames: PropTypes.array.isRequired,
-  currentId: PropTypes.number.isRequired,
-  onAddFrame: PropTypes.func.isRequired,
-  onChangeCurrentFrame: PropTypes.func.isRequired,
-  onRemoveFrame: PropTypes.func.isRequired,
-  onMoveFrame: PropTypes.func.isRequired
+  ...props.toPropTypes(),
+  ...actions.toPropTypes()
 };
 Frames.defaultProps = {};
 
-export default cssmodules(Frames, styles);
+export default connect(props.toConnect(), actions.toConnect())(cssmodules(Frames, styles));

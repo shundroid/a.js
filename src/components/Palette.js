@@ -16,14 +16,10 @@ class Palette extends React.Component {
           colors.map((color, index) =>
             <Pen
               key={index}
-              color={color}
-              onChangeColor={this.props.actions.changeColor}
-              currentColor={this.props.palette.color} />
+              originalColor={color} />
           )
         }
-        <LineWidth
-          width={this.props.palette.width}
-          onChangeWidth={this.props.actions.changeWidth} />
+        <LineWidth />
         <Button
           name="undo"
           disabled={this.props.canvas.history.length === 0}
