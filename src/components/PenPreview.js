@@ -12,8 +12,8 @@ const props = mapState({
 });
 
 class PenPreview extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.state = { isShowing: false };
     this.timeoutId = null;
   }

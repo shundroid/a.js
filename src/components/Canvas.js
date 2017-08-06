@@ -24,12 +24,9 @@ class Canvas extends React.Component {
   static isTouchEvent(event) {
     return !!event.touches;
   }
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.state = { width: 0, height: 0 };
-  }
-  getLines() {
-    return getFrameById(this.props.frames, this.props.currentId).lines;
   }
   componentDidMount() {
     this.updateCanvasSize();
@@ -47,6 +44,9 @@ class Canvas extends React.Component {
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateCanvasSize);
+  }
+  getLines() {
+    return getFrameById(this.props.frames, this.props.currentId).lines;
   }
   getPosition(event) {
     if (Canvas.isTouchEvent(event)) {

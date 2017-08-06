@@ -7,7 +7,7 @@ export class States {
   }
   toPropTypes() {
     const propTypes = {};
-    for (let stateName in this.states) {
+    for (const stateName in this.states) {
       propTypes[stateName.split('.')[1]] = this.states[stateName];
     }
     return propTypes;
@@ -15,7 +15,7 @@ export class States {
   toConnect() {
     return state => {
       const states = {};
-      for (let stateName in this.states) {
+      for (const stateName in this.states) {
         const [reducerName, localStateName] = stateName.split('.');
         states[localStateName] = state[reducerName][localStateName];
       }
