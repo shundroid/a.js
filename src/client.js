@@ -17,8 +17,8 @@ ReactDOM.render(
 );
 
 if (module.hot) {
-  module.hot.accept('./containers/App', () => {
-    const NextApp = require('./containers/App').default; // eslint-disable-line global-require
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default; // eslint-disable-line global-require
 
     ReactDOM.render(
       <AppContainer>
