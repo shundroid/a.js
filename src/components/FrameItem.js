@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import styles from '@components/frameitem.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
+import { getFrameById } from '@utils/frame';
 
 const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
@@ -13,12 +14,16 @@ const props = mapState({
 const actions = mapDispatch(['changeCurrentFrame', 'removeFrame', 'moveFrame']);
 
 class FrameItem extends React.Component {
+  getThumbnail() {
+    return getFrameById(this.props.frames, this.props.id).thumbnail;
+  }
   getBackgroundImage() {
     if (this.props.currentId === this.props.id) {
       return '-moz-element(#canvas)';
     }
-    if (this.props.thumbnail) {
-      return `url(${this.props.thumbnail})`;
+    const thumbnail = this.getThumbnail();
+    if (thumbnail) {
+      return `url(${thumbnail})`;
     }
     return 'none';
   }
