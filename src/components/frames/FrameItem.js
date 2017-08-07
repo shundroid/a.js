@@ -22,10 +22,7 @@ class FrameItem extends React.Component {
       return '-moz-element(#canvas)';
     }
     const thumbnail = this.getThumbnail();
-    if (thumbnail) {
-      return `url(${thumbnail})`;
-    }
-    return 'none';
+    return thumbnail ? `url(${thumbnail})` : 'none';
   }
   styles() {
     const classes = ['frame-item'];
