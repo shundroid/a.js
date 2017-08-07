@@ -2,7 +2,8 @@ import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from '@components/Button';
+import UndoButton from '@components/UndoButton';
+import ClearCanvasButton from '@components/ClearCanvasButton';
 import LineWidth from '@components/LineWidth';
 import Pen from '@components/Pen';
 import styles from '@components/palette.cssmodule.styl';
@@ -30,15 +31,8 @@ class Palette extends React.Component {
           )
         }
         <LineWidth />
-        <Button
-          name="undo"
-          disabled={this.props.history.length === 0}
-          onClick={this.props.actions.undo} />
-        <Button
-          name="clear-canvas"
-          disabled={getFrameById(this.props.frames,
-            this.props.currentId).length === 0}
-          onClick={this.props.actions.clearCanvas} />
+        <UndoButton />
+        <ClearCanvasButton />
       </div>
     );
   }

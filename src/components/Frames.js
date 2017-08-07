@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
 import { connect } from 'react-redux';
 import FrameItem from '@components/FrameItem';
-import Button from '@components/Button';
+import AddFrameButton from '@components/AddFrameButton';
 import styles from '@components/frames.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
@@ -25,9 +25,7 @@ class Frames extends React.Component {
               id={frame.id} />
           )
         }
-        <Button
-          name="add-frame"
-          onClick={this.props.actions.addFrame} />
+        <AddFrameButton />
       </div>
     );
   }
