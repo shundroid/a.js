@@ -2,7 +2,7 @@ import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styles from '@components/linewidth.cssmodule.styl';
+import styles from '@components/palette/linewidth.cssmodule.styl';
 import config from '@config';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';

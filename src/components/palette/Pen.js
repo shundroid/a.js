@@ -2,7 +2,7 @@ import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styles from '@components/pen.cssmodule.styl';
+import styles from '@components/palette/pen.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
 import { connect } from 'react-redux';
-import styles from '@components/frameitem.cssmodule.styl';
+import styles from '@components/frames/frameitem.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 import { getFrameById } from '@utils/frame';

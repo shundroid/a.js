@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import PaletteButton from '@components/PaletteButton';
+import PaletteButton from '@components/palette/PaletteButton';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 

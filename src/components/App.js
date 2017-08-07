@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Palette from '@components/Palette';
+import Palette from '@components/palette/Palette';
 import Canvas from '@components/Canvas';
 import PenPreview from '@components/PenPreview';
-import Frames from '@components/Frames';
+import Frames from '@components/frames/Frames';
 import '@components/app.css';
 
 class AppComponent extends React.Component {

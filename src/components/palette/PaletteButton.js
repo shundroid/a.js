@@ -1,7 +1,7 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from '@components/palettebutton.cssmodule.styl';
+import styles from '@components/palette/palettebutton.cssmodule.styl';
 
 class PaletteButton extends React.Component {
   click = () => {
