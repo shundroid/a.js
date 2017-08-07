@@ -1,29 +1,26 @@
+import objectMap from '@utils/objectMap';
+
 // States:
 // { 'reducer.stateName': Type, ... }
 // { 'palette.color': PropTypes.string.isRequired }
 export class States {
   constructor(states) {
     const errors = validateStates(states);
-    if (errors) throw new Error(errors);
+    if (errors.length > 0) throw new Error(errors);
 
     this.states = states;
   }
   toPropTypes() {
-    const propTypes = {};
-    for (const stateName in this.states) {
-      propTypes[stateName.split('.')[1]] = this.states[stateName];
-    }
-    return propTypes;
+    return objectMap(this.states, (stateName, type) => ({
+      key: stateName.split('.')[1],
+      value: this.states[stateName]
+    }));
   }
   toConnect() {
-    return state => {
-      const states = {};
-      for (const stateName in this.states) {
-        const [reducerName, localStateName] = stateName.split('.');
-        states[localStateName] = state[reducerName][localStateName];
-      }
-      return states;
-    };
+    return state => objectMap(this.states, (stateName, type) => {
+      const [reducerName, localStateName] = stateName.split('.');
+      return { key: localStateName, value: state[reducerName][localStateName] };
+    });
   }
 }
 export function validateStates(states) {

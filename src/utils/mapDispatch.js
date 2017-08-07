@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import * as actionCreators from '@actions';
+import { objectMapFromArray } from '@utils/objectMap';
 
 // actions
 // ['actionName', ...]
@@ -14,13 +15,12 @@ export class Actions {
     return { actions: PropTypes.object.isRequired };
   }
   toConnect() {
-    return dispatch => {
-      const actions = {};
-      for (const action of this.actions) {
-        actions[action] = actionCreators[action];
-      }
-      return { actions: bindActionCreators(actions, dispatch) };
-    };
+    return dispatch => ({
+      actions: bindActionCreators(
+        objectMapFromArray(this.actions, action => ({ key: action, value: actionCreators[action] })),
+        dispatch
+      )
+    });
   }
 }
 
