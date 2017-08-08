@@ -98,11 +98,7 @@ function reducer(state = initialState, action) {
       const index = nextState.frames.indexOf(getFrameById(nextState.frames, action.id));
       const insertIndex = nextState.frames.indexOf(getFrameById(nextState.frames, action.insertId));
       const frame = nextState.frames.splice(index, 1)[0];
-      if (insertIndex > index) {
-        nextState.frames.splice(insertIndex, 0, frame);
-      } else {
-        nextState.frames.splice(insertIndex - 1, 0, frame);
-      }
+      nextState.frames.splice(insertIndex, 0, frame);
       updateHistory(state, nextState);
       break;
     }
