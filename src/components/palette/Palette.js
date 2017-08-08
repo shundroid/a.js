@@ -9,15 +9,6 @@ import Pen from '@components/palette/Pen';
 import styles from '@components/palette/palette.cssmodule.styl';
 import colors from '@utils/colors';
 import { getFrameById } from '@utils/frame';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
-
-const props = mapState({
-  'canvas.history': PropTypes.array.isRequired,
-  'canvas.frames': PropTypes.array.isRequired,
-  'canvas.currentId': PropTypes.number.isRequired
-});
-const actions = mapDispatch('clearCanvas', 'undo');
 
 class Palette extends React.Component {
   render() {
@@ -45,4 +36,4 @@ Palette.propTypes = {
 };
 Palette.defaultProps = {};
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(Palette, styles));
+export default connect(() => ({}, () => ({})))(cssmodules(Palette, styles));
