@@ -18,7 +18,7 @@ const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired
 });
-const actions = mapDispatch(['addLine', 'updateThumbnail']);
+const actions = mapDispatch('addLine', 'updateThumbnail');
 
 class Canvas extends React.Component {
   static isTouchEvent(event) {

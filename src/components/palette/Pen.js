@@ -9,7 +9,7 @@ import mapDispatch from '@utils/mapDispatch';
 const props = mapState({
   'palette.color': PropTypes.string.isRequired
 });
-const actions = mapDispatch(['changeColor']);
+const actions = mapDispatch('changeColor');
 
 class Pen extends React.Component {
   changeColor = () => {

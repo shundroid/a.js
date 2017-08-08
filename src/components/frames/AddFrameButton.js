@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from '@components/frames/addframebutton.cssmodule.styl';
 import mapDispatch from '@utils/mapDispatch';
 
-const actions = mapDispatch(['addFrame']);
+const actions = mapDispatch('addFrame');
 
 class AddFrameButton extends React.Component {
   render() {

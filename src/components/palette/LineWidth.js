@@ -10,7 +10,7 @@ import mapDispatch from '@utils/mapDispatch';
 const props = mapState({
   'palette.width': PropTypes.number.isRequired
 });
-const actions = mapDispatch(['changeWidth']);
+const actions = mapDispatch('changeWidth');
 
 class LineWidth extends React.Component {
   changeWidth = event => {

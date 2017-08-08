@@ -10,7 +10,7 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired
 });
-const actions = mapDispatch(['clearCanvas']);
+const actions = mapDispatch('clearCanvas');
 
 class ClearCanvasButton extends Component {
   render() {

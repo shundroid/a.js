@@ -12,7 +12,7 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired
 });
-const actions = mapDispatch(['addFrame']);
+const actions = mapDispatch('addFrame');
 
 class Frames extends React.Component {
   render() {

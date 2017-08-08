@@ -24,6 +24,6 @@ export class Actions {
   }
 }
 
-export default function mapDispatch(actions) {
+export default function mapDispatch(...actions) {
   return new Actions(actions);
 }

@@ -11,7 +11,7 @@ const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired
 });
-const actions = mapDispatch(['changeCurrentFrame', 'removeFrame', 'moveFrame']);
+const actions = mapDispatch('changeCurrentFrame', 'removeFrame', 'moveFrame');
 
 class FrameItem extends React.Component {
   getThumbnail() {

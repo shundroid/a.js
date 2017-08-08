@@ -17,7 +17,7 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired
 });
-const actions = mapDispatch(['clearCanvas', 'undo']);
+const actions = mapDispatch('clearCanvas', 'undo');
 
 class Palette extends React.Component {
   render() {
