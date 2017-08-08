@@ -1,5 +1,5 @@
 export default function objectMap(object, callback) {
-  let newObj = {};
+  const newObj = {};
   for (const key in object) {
     const returnObj = callback(key, object[key]);
     newObj[returnObj.key] = returnObj.value;
@@ -8,7 +8,7 @@ export default function objectMap(object, callback) {
 }
 
 export function objectMapFromArray(array, callback) {
-  let newObj = {};
+  const newObj = {};
   for (const item of array) {
     const returnObj = callback(item);
     newObj[returnObj.key] = returnObj.value;

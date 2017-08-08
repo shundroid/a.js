@@ -1,5 +1,14 @@
 import objectMap from '@utils/objectMap';
 
+export function validateStates(states) {
+  const errors = [];
+  for (const stateName in states) {
+    if (stateName.indexOf('.') === -1) {
+      errors.push(`Invalid state name: ${stateName}`);
+    }
+  }
+  return errors;
+}
 // States:
 // { 'reducer.stateName': Type, ... }
 // { 'palette.color': PropTypes.string.isRequired }
@@ -13,24 +22,15 @@ export class States {
   toPropTypes() {
     return objectMap(this.states, (stateName, type) => ({
       key: stateName.split('.')[1],
-      value: this.states[stateName]
+      value: type
     }));
   }
   toConnect() {
-    return state => objectMap(this.states, (stateName, type) => {
+    return state => objectMap(this.states, stateName => {
       const [reducerName, localStateName] = stateName.split('.');
       return { key: localStateName, value: state[reducerName][localStateName] };
     });
   }
-}
-export function validateStates(states) {
-  const errors = [];
-  for (const stateName in states) {
-    if (stateName.indexOf('.') === -1) {
-      errors.push(`Invalid state name: ${stateName}`);
-    }
-  }
-  return errors;
 }
 export default function mapState(states) {
   return new States(states);

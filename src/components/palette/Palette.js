@@ -1,6 +1,5 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UndoButton from '@components/palette/UndoButton';
 import ClearCanvasButton from '@components/palette/ClearCanvasButton';
@@ -8,7 +7,6 @@ import LineWidth from '@components/palette/LineWidth';
 import Pen from '@components/palette/Pen';
 import styles from '@components/palette/palette.cssmodule.styl';
 import colors from '@utils/colors';
-import { getFrameById } from '@utils/frame';
 
 class Palette extends React.Component {
   render() {
@@ -30,10 +28,7 @@ class Palette extends React.Component {
 }
 
 Palette.displayName = 'Palette';
-Palette.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
-};
+Palette.propTypes = {};
 Palette.defaultProps = {};
 
-export default connect(() => ({}, () => ({})))(cssmodules(Palette, styles));
+export default connect(() => ({}), () => ({}))(cssmodules(Palette, styles));

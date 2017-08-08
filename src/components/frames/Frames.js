@@ -30,8 +30,7 @@ class Frames extends React.Component {
 
 Frames.displayName = 'Frames';
 Frames.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
+  ...props.toPropTypes()
 };
 Frames.defaultProps = {};
 

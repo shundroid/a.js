@@ -17,7 +17,8 @@ export class Actions {
   toConnect() {
     return dispatch => ({
       actions: bindActionCreators(
-        objectMapFromArray(this.actions, action => ({ key: action, value: actionCreators[action] })),
+        objectMapFromArray(this.actions,
+          action => ({ key: action, value: actionCreators[action] })),
         dispatch
       )
     });

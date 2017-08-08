@@ -1,7 +1,6 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styles from '@components/frames/addframebutton.cssmodule.styl';
 import mapDispatch from '@utils/mapDispatch';
 
