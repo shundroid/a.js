@@ -6,13 +6,10 @@ import FrameItem from '@components/frames/FrameItem';
 import AddFrameButton from '@components/frames/AddFrameButton';
 import styles from '@components/frames/frames.cssmodule.styl';
 import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
 
 const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
-  'canvas.currentId': PropTypes.number.isRequired
 });
-const actions = mapDispatch('addFrame');
 
 class Frames extends React.Component {
   render() {
@@ -38,4 +35,4 @@ Frames.propTypes = {
 };
 Frames.defaultProps = {};
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(Frames, styles));
+export default connect(props.toConnect(), () => ({}))(cssmodules(Frames, styles));
