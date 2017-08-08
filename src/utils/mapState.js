@@ -17,13 +17,10 @@ export class States {
     }));
   }
   toConnect() {
-    return state => {
-      const a = objectMap(this.states, (stateName, type) => {
-        const [reducerName, localStateName] = stateName.split('.');
-        return { key: localStateName, value: state[reducerName][localStateName] };
-      });
-      return a;
-    };
+    return state => objectMap(this.states, (stateName, type) => {
+      const [reducerName, localStateName] = stateName.split('.');
+      return { key: localStateName, value: state[reducerName][localStateName] };
+    });
   }
 }
 export function validateStates(states) {
