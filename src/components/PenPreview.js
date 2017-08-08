@@ -1,23 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
+import { connect } from 'react-redux';
 import styles from '@components/penpreview.cssmodule.styl';
 import config from '@config';
+import mapState from '@utils/mapState';
+
+const props = mapState({
+  'palette.width': PropTypes.number.isRequired,
+  'palette.color': PropTypes.string.isRequired
+});
 
 class PenPreview extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.state = { isShowing: false };
     this.timeoutId = null;
   }
   componentWillUpdate(nextProps) {
-    if (nextProps.lineWidth !== this.props.lineWidth &&
+    if (nextProps.width !== this.props.width &&
         !this.state.isShowing) {
       this.show();
     }
   }
   computedSize() {
-    return this.props.lineWidth;
+    return this.props.width;
   }
   computedStyleForSvg() {
     return {
@@ -61,12 +68,9 @@ class PenPreview extends React.Component {
 }
 
 PenPreview.displayName = 'PenPreview';
-PenPreview.propTypes = {
-  lineWidth: PropTypes.number,
-  color: PropTypes.string
-};
+PenPreview.propTypes = props.toPropTypes();
 PenPreview.defaultProps = {};
 
-export default cssmodules(PenPreview, styles, {
+export default connect(props.toConnect(), () => ({}))(cssmodules(PenPreview, styles, {
   allowMultiple: true
-});
+}));
