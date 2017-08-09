@@ -1,8 +1,9 @@
 import { TOGGLE_PLAY, UPDATE_JOINED_IMAGE } from '@actions/const';
+import JoinedImage from '@utils/joinedImage';
 
 const initialState = {
   isPlaying: false,
-  joinedImage: ''
+  joinedImage: JoinedImage.getEmpty()
 };
 
 export default function reducer(state = initialState, action) {
@@ -13,7 +14,6 @@ export default function reducer(state = initialState, action) {
       });
     }
     case UPDATE_JOINED_IMAGE: {
-      console.log(action.image);
       return Object.assign({}, state, {
         joinedImage: action.image
       });

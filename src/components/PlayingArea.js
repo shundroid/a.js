@@ -7,10 +7,31 @@ import mapState from '@utils/mapState';
 
 const props = mapState({
   'playing.isPlaying': PropTypes.bool.isRequired,
-  'playing.joinedImage': PropTypes.string.isRequired
+  'playing.joinedImage': PropTypes.object.isRequired
 });
 
 class PlayingArea extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.joinedImage !== prevProps.joinedImage) {
+      if (this.props.joinedImage.image === null) return;
+
+      this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
+      const keyframes = [];
+      for (let i = 0; i < this.props.joinedImage.frameCount; i++) {
+        const keyframe = {
+          offset: i / this.props.joinedImage.frameCount,
+          easing: 'steps(1, end)',
+          backgroundPositionX: `${i * 100}%`
+        };
+        keyframes.push(keyframe);
+      }
+      this.element.animate(keyframes, {
+        duration: 2000,
+        easing: 'linear',
+        iterations: Infinity,
+      });
+    }
+  }
   getStyle() {
     return {
       display: this.props.isPlaying ? 'block' : 'none',
@@ -19,8 +40,10 @@ class PlayingArea extends React.Component {
   }
   render() {
     return (
-      <div styleName="playing-area" style={this.getStyle()}>
-      </div>
+      <div
+        styleName="playing-area"
+        style={this.getStyle()}
+        ref={element => { this.element = element; }} />
     );
   }
 }
