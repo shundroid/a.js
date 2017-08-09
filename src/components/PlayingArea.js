@@ -11,6 +11,10 @@ const props = mapState({
 });
 
 class PlayingArea extends React.Component {
+  constructor(props) {
+    super(props);
+    this.animation = null;
+  }
   componentDidUpdate(prevProps) {
     if (this.props.joinedImage !== prevProps.joinedImage) {
       if (this.props.joinedImage.image === null) return;
@@ -25,11 +29,14 @@ class PlayingArea extends React.Component {
         };
         keyframes.push(keyframe);
       }
-      this.element.animate(keyframes, {
+      this.animation = this.element.animate(keyframes, {
         duration: 2000,
         easing: 'linear',
         iterations: Infinity,
       });
+    }
+    if (!this.props.isPlaying && this.animation) {
+      this.animation.cancel();
     }
   }
   getStyle() {
