@@ -16,6 +16,8 @@ import addLine from '@actions/addLine.js';
 import changeWidth from '@actions/changeWidth.js';
 import changeColor from '@actions/changeColor.js';
 import clearCanvas from '@actions/clearCanvas.js';
+import togglePlay from '@actions/togglePlay.js';
+
 const actions = {
   addLine,
   changeColor,
@@ -26,6 +28,7 @@ const actions = {
   changeCurrentFrame,
   removeFrame,
   updateThumbnail,
-  moveFrame
+  moveFrame,
+  togglePlay
 };
 module.exports = actions;

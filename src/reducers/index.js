@@ -11,9 +11,12 @@
 import { combineReducers } from 'redux';
 import canvas from '@reducers/canvas.js';
 import palette from '@reducers/palette.js';
+import playing from '@reducers/playing.js';
+
 const reducers = {
   palette,
-  canvas
+  canvas,
+  playing
 };
 const combined = combineReducers(reducers);
 module.exports = combined;
