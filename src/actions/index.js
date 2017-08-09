@@ -20,6 +20,7 @@ import togglePlay from '@actions/togglePlay.js';
 import updateJoinedImage from '@actions/updateJoinedImage.js';
 import updateDuration from '@actions/updateDuration.js';
 import requestUpdateThumbnail from '@actions/requestUpdateThumbnail.js';
+import changeSize from '@actions/changeSize.js';
 
 const actions = {
   addLine,
@@ -35,6 +36,7 @@ const actions = {
   togglePlay,
   updateJoinedImage,
   updateDuration,
-  requestUpdateThumbnail
+  requestUpdateThumbnail,
+  changeSize
 };
 module.exports = actions;

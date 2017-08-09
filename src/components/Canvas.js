@@ -17,9 +17,11 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired,
+  'canvas.width': PropTypes.number.isRequired,
+  'canvas.height': PropTypes.number.isRequired,
   'player.isPlaying': PropTypes.bool.isRequired
 });
-const actions = mapDispatch('addLine', 'updateThumbnail');
+const actions = mapDispatch('addLine', 'updateThumbnail', 'changeSize');
 
 class Canvas extends React.Component {
   static isTouchEvent(event) {
@@ -27,7 +29,6 @@ class Canvas extends React.Component {
   }
   constructor(componentProps) {
     super(componentProps);
-    this.state = { width: 0, height: 0 };
   }
   componentDidMount() {
     this.updateCanvasSize();
@@ -70,7 +71,7 @@ class Canvas extends React.Component {
     this.positions.push({ x, y });
   }
   updateCanvas() {
-    this.ctx.clearRect(0, 0, this.state.width, this.state.height);
+    this.ctx.clearRect(0, 0, this.props.width, this.props.height);
     for (const line of this.getLines()) {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
@@ -87,14 +88,8 @@ class Canvas extends React.Component {
     }
   }
   updateCanvasSize = () => {
-    this.setState({
-      width: 0,
-      height: 0
-    });
-    this.setState({
-      width: this.canvas.clientWidth,
-      height: this.canvas.clientHeight
-    });
+    this.props.actions.changeSize(0, 0);
+    this.props.actions.changeSize(this.canvas.clientWidth, this.canvas.clientHeight);
   }
   penDown = event => {
     if (this.props.isPlaying) return;
@@ -148,8 +143,8 @@ class Canvas extends React.Component {
         id="canvas"
         styleName="canvas"
         ref={element => { this.canvas = element; }}
-        width={this.state.width}
-        height={this.state.height}
+        width={this.props.width}
+        height={this.props.height}
         style={this.getStyle()}
         onMouseDown={this.penDown}
         onTouchStart={this.penDown} />
