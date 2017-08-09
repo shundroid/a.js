@@ -16,7 +16,8 @@ const props = mapState({
   'palette.width': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
-  'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired
+  'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired,
+  'playing.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('addLine', 'updateThumbnail');
 
@@ -91,6 +92,7 @@ class Canvas extends React.Component {
     });
   }
   penDown = event => {
+    if (this.props.isPlaying) return;
     if (Canvas.isTouchEvent(event)) {
       this.canvas.addEventListener('touchmove', this.penMove);
       this.canvas.addEventListener('touchend', this.penUp);
