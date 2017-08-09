@@ -21,7 +21,7 @@ class PlayingArea extends React.Component {
         const keyframe = {
           offset: i / this.props.joinedImage.frameCount,
           easing: 'steps(1, end)',
-          backgroundPositionX: `${i * 100}%`
+          backgroundPositionX: `${-i * this.props.joinedImage.width}px`
         };
         keyframes.push(keyframe);
       }
