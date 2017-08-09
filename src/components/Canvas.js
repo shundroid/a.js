@@ -46,6 +46,11 @@ class Canvas extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateCanvasSize);
   }
+  getStyle() {
+    return {
+      display: this.props.isPlaying ? 'none' : 'block'
+    };
+  }
   getLines() {
     return getFrameById(this.props.frames, this.props.currentId).lines;
   }
@@ -145,6 +150,7 @@ class Canvas extends React.Component {
         ref={element => { this.canvas = element; }}
         width={this.state.width}
         height={this.state.height}
+        style={this.getStyle()}
         onMouseDown={this.penDown}
         onTouchStart={this.penDown} />
     );

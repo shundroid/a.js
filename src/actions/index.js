@@ -17,6 +17,7 @@ import changeLineWidth from '@actions/changeLineWidth.js';
 import changeColor from '@actions/changeColor.js';
 import clearCanvas from '@actions/clearCanvas.js';
 import togglePlay from '@actions/togglePlay.js';
+import updateJoinedImage from '@actions/updateJoinedImage.js';
 
 const actions = {
   addLine,
@@ -29,6 +30,7 @@ const actions = {
   removeFrame,
   updateThumbnail,
   moveFrame,
-  togglePlay
+  togglePlay,
+  updateJoinedImage
 };
 module.exports = actions;
