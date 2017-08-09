@@ -13,7 +13,7 @@ import changeCurrentFrame from '@actions/changeCurrentFrame.js';
 import addFrame from '@actions/addFrame.js';
 import undo from '@actions/undo.js';
 import addLine from '@actions/addLine.js';
-import changeWidth from '@actions/changeWidth.js';
+import changeLineWidth from '@actions/changeLineWidth.js';
 import changeColor from '@actions/changeColor.js';
 import clearCanvas from '@actions/clearCanvas.js';
 import togglePlay from '@actions/togglePlay.js';
@@ -21,7 +21,7 @@ import togglePlay from '@actions/togglePlay.js';
 const actions = {
   addLine,
   changeColor,
-  changeWidth,
+  changeLineWidth,
   clearCanvas,
   undo,
   addFrame,

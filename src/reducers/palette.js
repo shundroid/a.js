@@ -3,12 +3,12 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { CHANGE_COLOR, CHANGE_WIDTH } from '@actions/const';
+import { CHANGE_COLOR, CHANGE_LINE_WIDTH } from '@actions/const';
 import config from '@config';
 
 const initialState = {
   color: config.defaultColor,
-  width: config.defaultWidth
+  lineWidth: config.defaultLineWidth
 };
 
 function reducer(state = initialState, action) {
@@ -27,9 +27,9 @@ function reducer(state = initialState, action) {
         color: action.color
       });
     }
-    case CHANGE_WIDTH: {
+    case CHANGE_LINE_WIDTH: {
       return Object.assign({}, state, {
-        width: action.width
+        lineWidth: action.lineWidth
       });
     }
     default: {
