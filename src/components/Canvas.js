@@ -13,10 +13,11 @@ import { getFrameById } from '@utils/frame';
 
 const props = mapState({
   'palette.color': PropTypes.string.isRequired,
-  'palette.width': PropTypes.number.isRequired,
+  'palette.lineWidth': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
-  'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired
+  'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired,
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('addLine', 'updateThumbnail');
 
@@ -44,6 +45,11 @@ class Canvas extends React.Component {
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateCanvasSize);
+  }
+  getStyle() {
+    return {
+      display: this.props.isPlaying ? 'none' : 'block'
+    };
   }
   getLines() {
     return getFrameById(this.props.frames, this.props.currentId).lines;
@@ -91,6 +97,7 @@ class Canvas extends React.Component {
     });
   }
   penDown = event => {
+    if (this.props.isPlaying) return;
     if (Canvas.isTouchEvent(event)) {
       this.canvas.addEventListener('touchmove', this.penMove);
       this.canvas.addEventListener('touchend', this.penUp);
@@ -103,7 +110,7 @@ class Canvas extends React.Component {
     const { x, y } = this.getPosition(event);
     this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
-    this.ctx.lineWidth = this.props.width;
+    this.ctx.lineWidth = this.props.lineWidth;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
 
@@ -132,7 +139,7 @@ class Canvas extends React.Component {
     }
     // Todo: Dispatch an action
     this.isDownPen = false;
-    this.props.actions.addLine(this.positions, this.props.color, this.props.width);
+    this.props.actions.addLine(this.positions, this.props.color, this.props.lineWidth);
     this.positions = [];
   }
   render() {
@@ -143,6 +150,7 @@ class Canvas extends React.Component {
         ref={element => { this.canvas = element; }}
         width={this.state.width}
         height={this.state.height}
+        style={this.getStyle()}
         onMouseDown={this.penDown}
         onTouchStart={this.penDown} />
     );

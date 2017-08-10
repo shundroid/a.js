@@ -9,7 +9,8 @@ import { getFrameById } from '@utils/frame';
 
 const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
-  'canvas.frames': PropTypes.array.isRequired
+  'canvas.frames': PropTypes.array.isRequired,
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('changeCurrentFrame', 'removeFrame', 'moveFrame');
 
@@ -37,6 +38,7 @@ class FrameItem extends React.Component {
     };
   }
   dragStart = event => {
+    if (this.props.isPlaying) return;
     event.dataTransfer.setData('id', this.props.id);
   }
   allowDrop = event => {
@@ -47,9 +49,11 @@ class FrameItem extends React.Component {
     this.props.actions.moveFrame(parseInt(event.dataTransfer.getData('id')), this.props.id);
   }
   change = () => {
+    if (this.props.isPlaying) return;
     this.props.actions.changeCurrentFrame(this.props.id);
   }
   remove = event => {
+    if (this.props.isPlaying) return;
     event.stopPropagation();
     this.props.actions.removeFrame(this.props.id);
   }

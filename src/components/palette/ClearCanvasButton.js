@@ -8,16 +8,21 @@ import { getFrameById } from '@utils/frame';
 
 const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
-  'canvas.currentId': PropTypes.number.isRequired
+  'canvas.currentId': PropTypes.number.isRequired,
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('clearCanvas');
 
 class ClearCanvasButton extends Component {
+  isDisabled() {
+    return this.props.isPlaying ||
+      getFrameById(this.props.frames, this.props.currentId).lines.length === 0;
+  }
   render() {
     return (
       <PaletteButton
         caption="clear-canvas"
-        disabled={getFrameById(this.props.frames, this.props.currentId).lines.length === 0}
+        disabled={this.isDisabled()}
         onClick={this.props.actions.clearCanvas} />
     );
   }

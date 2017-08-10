@@ -8,21 +8,21 @@ import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 
 const props = mapState({
-  'palette.width': PropTypes.number.isRequired
+  'palette.lineWidth': PropTypes.number.isRequired
 });
-const actions = mapDispatch('changeWidth');
+const actions = mapDispatch('changeLineWidth');
 
 class LineWidth extends React.Component {
-  changeWidth = event => {
-    this.props.actions.changeWidth(parseInt(event.target.value));
+  changeLineWidth = event => {
+    this.props.actions.changeLineWidth(parseInt(event.target.value));
   }
   render() {
     return (
       <div>
         <input
-          type="range" styleName="slider" min="1" max={config.maxWidth}
-          defaultValue={this.props.width}
-          onChange={this.changeWidth} />
+          type="range" styleName="slider" min="1" max={config.maxLineWidth}
+          defaultValue={this.props.lineWidth}
+          onChange={this.changeLineWidth} />
       </div>
     );
   }

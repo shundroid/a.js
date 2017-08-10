@@ -6,16 +6,20 @@ import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 
 const props = mapState({
-  'canvas.history': PropTypes.array.isRequired
+  'canvas.history': PropTypes.array.isRequired,
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch(['undo']);
 
 class UndoButton extends React.Component {
+  isDisabled() {
+    return this.props.history.length === 0 || this.props.isPlaying;
+  }
   render() {
     return (
       <PaletteButton
         caption="undo"
-        disabled={this.props.history.length === 0}
+        disabled={this.isDisabled()}
         onClick={this.props.actions.undo} />
     );
   }

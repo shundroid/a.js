@@ -7,7 +7,7 @@ import config from '@config';
 import mapState from '@utils/mapState';
 
 const props = mapState({
-  'palette.width': PropTypes.number.isRequired,
+  'palette.lineWidth': PropTypes.number.isRequired,
   'palette.color': PropTypes.string.isRequired
 });
 
@@ -18,13 +18,13 @@ class PenPreview extends React.Component {
     this.timeoutId = null;
   }
   componentWillUpdate(nextProps) {
-    if (nextProps.width !== this.props.width &&
+    if (nextProps.lineWidth !== this.props.lineWidth &&
         !this.state.isShowing) {
       this.show();
     }
   }
   computedSize() {
-    return this.props.width;
+    return this.props.lineWidth;
   }
   computedStyleForSvg() {
     return {
