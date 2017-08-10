@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cssmodules from 'react-css-modules';
-import styles from '@components/playingarea.cssmodule.styl';
+import styles from '@components/player.cssmodule.styl';
 import mapState from '@utils/mapState';
 
 const props = mapState({
@@ -10,7 +10,7 @@ const props = mapState({
   'player.joinedImage': PropTypes.object.isRequired
 });
 
-class PlayingArea extends React.Component {
+class Player extends React.Component {
   constructor(componentProps) {
     super(componentProps);
     this.animation = null;
@@ -48,13 +48,13 @@ class PlayingArea extends React.Component {
   render() {
     return (
       <div
-        styleName="playing-area"
+        styleName="player"
         style={this.getStyle()}
         ref={element => { this.element = element; }} />
     );
   }
 }
 
-PlayingArea.propTypes = props.toPropTypes();
+Player.propTypes = props.toPropTypes();
 
-export default connect(props.toConnect(), () => ({}))(cssmodules(PlayingArea, styles));
+export default connect(props.toConnect(), () => ({}))(cssmodules(Player, styles));

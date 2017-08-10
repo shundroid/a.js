@@ -4,7 +4,7 @@ import Palette from '@components/palette/Palette';
 import Canvas from '@components/Canvas';
 import PenPreview from '@components/PenPreview';
 import Frames from '@components/frames/Frames';
-import PlayingArea from '@components/PlayingArea';
+import Player from '@components/Player';
 import '@components/app.css';
 
 class AppComponent extends React.Component {
@@ -13,7 +13,7 @@ class AppComponent extends React.Component {
       <div className="index">
         <Palette />
         <Canvas />
-        <PlayingArea />
+        <Player />
         <PenPreview />
         <Frames />
       </div>
