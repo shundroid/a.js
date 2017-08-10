@@ -34,18 +34,11 @@ const joiner = new Joiner();
 
 const makeJoinedImage = store => next => action => {
   next(action);
-  switch (action.type) {
-    case UPDATE_THUMBNAIL: {
-      if (!store.getState().playing.isPlaying) {
-        break;
-      }
-      const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
-      joiner.join(thumbnails).then(joinedImage => {
-        store.dispatch(updateJoinedImage(joinedImage));
-      });
-      break;
-    }
-    default: {}
+  if (action.type === UPDATE_THUMBNAIL && store.getState().playing.isPlaying) {
+    const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
+    joiner.join(thumbnails).then(joinedImage => {
+      store.dispatch(updateJoinedImage(joinedImage));
+    });
   }
 };
 

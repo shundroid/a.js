@@ -2,6 +2,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import reducers from '@reducers';
 import makeJoinedImage from '@middlewares/makeJoinedImage';
 
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function reduxStore(initialState) {
   const store = createStore(reducers, initialState, composeEnhancers(

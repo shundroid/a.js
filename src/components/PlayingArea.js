@@ -11,8 +11,8 @@ const props = mapState({
 });
 
 class PlayingArea extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
