@@ -17,7 +17,7 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired,
-  'playing.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('addLine', 'updateThumbnail');
 

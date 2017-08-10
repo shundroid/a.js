@@ -9,7 +9,7 @@ import { getFrameById } from '@utils/frame';
 const props = mapState({
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
-  'playing.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('clearCanvas');
 

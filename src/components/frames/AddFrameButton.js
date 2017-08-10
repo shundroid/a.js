@@ -7,7 +7,7 @@ import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 
 const props = mapState({
-  'playing.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('addFrame');
 

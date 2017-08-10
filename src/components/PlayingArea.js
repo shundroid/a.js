@@ -6,8 +6,8 @@ import styles from '@components/playingarea.cssmodule.styl';
 import mapState from '@utils/mapState';
 
 const props = mapState({
-  'playing.isPlaying': PropTypes.bool.isRequired,
-  'playing.joinedImage': PropTypes.object.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired,
+  'player.joinedImage': PropTypes.object.isRequired
 });
 
 class PlayingArea extends React.Component {

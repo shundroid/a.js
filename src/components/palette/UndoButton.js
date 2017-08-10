@@ -7,7 +7,7 @@ import mapDispatch from '@utils/mapDispatch';
 
 const props = mapState({
   'canvas.history': PropTypes.array.isRequired,
-  'playing.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch(['undo']);
 

@@ -34,7 +34,7 @@ const joiner = new Joiner();
 
 const makeJoinedImage = store => next => action => {
   next(action);
-  if (action.type === UPDATE_THUMBNAIL && store.getState().playing.isPlaying) {
+  if (action.type === UPDATE_THUMBNAIL && store.getState().player.isPlaying) {
     const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
     joiner.join(thumbnails).then(joinedImage => {
       store.dispatch(updateJoinedImage(joinedImage));

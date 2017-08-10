@@ -10,7 +10,7 @@ import { getFrameById } from '@utils/frame';
 const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
-  'playing.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired
 });
 const actions = mapDispatch('changeCurrentFrame', 'removeFrame', 'moveFrame');
 
