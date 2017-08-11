@@ -16,6 +16,9 @@ class Player extends React.Component {
     super(componentProps);
     this.animation = null;
   }
+  getDuration() {
+    return this.props.duration * this.props.joinedImage.frameCount;
+  }
   componentDidUpdate(prevProps) {
     if (this.props.joinedImage !== prevProps.joinedImage) {
       if (this.props.joinedImage.image === null) return;
@@ -31,13 +34,16 @@ class Player extends React.Component {
         keyframes.push(keyframe);
       }
       this.animation = this.element.animate(keyframes, {
-        duration: this.props.duration * this.props.joinedImage.frameCount,
+        duration: this.getDuration(),
         easing: 'linear',
         iterations: Infinity,
       });
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
+    }
+    if (this.props.isPlaying && this.props.duration !== prevProps.duration) {
+      this.animation.effect.timing.duration = this.getDuration();
     }
   }
   getStyle() {
