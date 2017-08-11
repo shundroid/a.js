@@ -4,7 +4,7 @@ import JoinedImage from '@utils/joinedImage';
 const initialState = {
   isPlaying: false,
   joinedImage: JoinedImage.getEmpty(),
-  duration: 0.5
+  duration: 500
 };
 
 export default function reducer(state = initialState, action) {

@@ -31,7 +31,7 @@ class Player extends React.Component {
         keyframes.push(keyframe);
       }
       this.animation = this.element.animate(keyframes, {
-        duration: this.props.duration * this.props.joinedImage.frameCount * 1000,
+        duration: this.props.duration * this.props.joinedImage.frameCount,
         easing: 'linear',
         iterations: Infinity,
       });
