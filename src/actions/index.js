@@ -18,6 +18,7 @@ import changeColor from '@actions/changeColor.js';
 import clearCanvas from '@actions/clearCanvas.js';
 import togglePlay from '@actions/togglePlay.js';
 import updateJoinedImage from '@actions/updateJoinedImage.js';
+import updateDuration from '@actions/updateDuration.js';
 
 const actions = {
   addLine,
@@ -31,6 +32,7 @@ const actions = {
   updateThumbnail,
   moveFrame,
   togglePlay,
-  updateJoinedImage
+  updateJoinedImage,
+  updateDuration
 };
 module.exports = actions;

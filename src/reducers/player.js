@@ -1,9 +1,10 @@
-import { TOGGLE_PLAY, UPDATE_JOINED_IMAGE } from '@actions/const';
+import { TOGGLE_PLAY, UPDATE_JOINED_IMAGE, UPDATE_DURATION } from '@actions/const';
 import JoinedImage from '@utils/joinedImage';
 
 const initialState = {
   isPlaying: false,
-  joinedImage: JoinedImage.getEmpty()
+  joinedImage: JoinedImage.getEmpty(),
+  duration: 0.5
 };
 
 export default function reducer(state = initialState, action) {
@@ -16,6 +17,11 @@ export default function reducer(state = initialState, action) {
     case UPDATE_JOINED_IMAGE: {
       return Object.assign({}, state, {
         joinedImage: action.image
+      });
+    }
+    case UPDATE_DURATION: {
+      return Object.assign({}, state, {
+        duration: action.duration
       });
     }
     default: {
