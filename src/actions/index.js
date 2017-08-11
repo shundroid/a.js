@@ -19,6 +19,7 @@ import clearCanvas from '@actions/clearCanvas.js';
 import togglePlay from '@actions/togglePlay.js';
 import updateJoinedImage from '@actions/updateJoinedImage.js';
 import updateDuration from '@actions/updateDuration.js';
+import requestUpdateThumbnail from '@actions/requestUpdateThumbnail.js';
 
 const actions = {
   addLine,
@@ -33,6 +34,7 @@ const actions = {
   moveFrame,
   togglePlay,
   updateJoinedImage,
-  updateDuration
+  updateDuration,
+  requestUpdateThumbnail
 };
 module.exports = actions;

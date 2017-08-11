@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME, TOGGLE_PLAY } from '@actions/const';
+import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME, REQUEST_UPDATE_THUMBNAIL } from '@actions/const';
 import Frame, { getFrameById } from '@utils/frame';
 import History from '@utils/history';
 import { revert } from '@utils/compare';
@@ -71,7 +71,6 @@ function reducer(state = initialState, action) {
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentId = action.id;
-      nextState.isUpdateThumbnailNeeded = true;
       updateHistory(state, nextState, false);
       break;
     }
@@ -102,7 +101,7 @@ function reducer(state = initialState, action) {
       updateHistory(state, nextState);
       break;
     }
-    case TOGGLE_PLAY: {
+    case REQUEST_UPDATE_THUMBNAIL: {
       nextState.isUpdateThumbnailNeeded = true;
       break;
     }
