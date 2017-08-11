@@ -4,5 +4,5 @@ export default {
   defaultLineWidth: 20,
   maxLineWidth: 500,
   penPreviewTimeout: 500,
-  durationStep: 500
+  durationStep: 100
 };
