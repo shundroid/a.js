@@ -7,7 +7,8 @@ import mapState from '@utils/mapState';
 
 const props = mapState({
   'player.isPlaying': PropTypes.bool.isRequired,
-  'player.joinedImage': PropTypes.object.isRequired
+  'player.joinedImage': PropTypes.object.isRequired,
+  'player.duration': PropTypes.number.isRequired
 });
 
 class Player extends React.Component {
@@ -30,7 +31,7 @@ class Player extends React.Component {
         keyframes.push(keyframe);
       }
       this.animation = this.element.animate(keyframes, {
-        duration: 2000,
+        duration: this.props.duration * this.props.joinedImage.frameCount * 1000,
         easing: 'linear',
         iterations: Infinity,
       });
