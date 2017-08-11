@@ -1,40 +1,29 @@
 import {
-  ADD_LINE, CLEAR_CANVAS, ADD_FRAME, MOVE_FRAME, REMOVE_FRAME, UNDO,
-  CHANGE_CURRENT_FRAME, TOGGLE_PLAY
+  ADD_LINE, CLEAR_CANVAS, UNDO,
+  CHANGE_CURRENT_FRAME, TOGGLE_PLAY,
+  UPDATE_THUMBNAIL
 } from '@actions/const';
 import { requestUpdateThumbnail } from '@actions';
 
-const needUpdateActions = {
-  changeCurrentFrame: [ADD_LINE, CLEAR_CANVAS, UNDO],
-  togglePlay: [
-    ADD_LINE,
-    CLEAR_CANVAS,
-    ADD_FRAME,
-    MOVE_FRAME,
-    REMOVE_FRAME,
-    UNDO
-  ]
-};
+const needUpdateActions = [ADD_LINE, CLEAR_CANVAS, UNDO];
+const updateActions = [CHANGE_CURRENT_FRAME, TOGGLE_PLAY];
 
-let isNeedUpdate = {
-  changeCurrentFrame: false,
-  togglePlay: false
-};
+let isNeedUpdate = false;
 
 const thumbnail = store => next => action => {
-  if (needUpdateActions.changeCurrentFrame.indexOf(action.type) !== -1) {
-    isNeedUpdate.changeCurrentFrame = true;
+  if (action.type === UPDATE_THUMBNAIL) {
+    isNeedUpdate = false;
   }
-  if (needUpdateActions.togglePlay.indexOf(action.type) !== -1) {
-    isNeedUpdate.togglePlay = true;
+  if (needUpdateActions.indexOf(action.type) !== -1) {
+    isNeedUpdate = true;
   }
-  if (action.type === CHANGE_CURRENT_FRAME && isNeedUpdate.changeCurrentFrame) {
+  if (isNeedUpdate && updateActions.indexOf(action.type) !== -1) {
     store.dispatch(requestUpdateThumbnail());
+    action.isNeedWaiting = true;
+    next(action);
+  } else {
+    next(action);
   }
-  if (action.type === TOGGLE_PLAY && isNeedUpdate.togglePlay) {
-    store.dispatch(requestUpdateThumbnail());
-  }
-  next(action);
 };
 
 export default thumbnail;
