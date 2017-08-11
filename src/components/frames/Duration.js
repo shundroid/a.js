@@ -28,7 +28,7 @@ class Duration extends React.Component {
         <button onClick={this.decrement} disabled={this.isDisabled()}>←</button>
         <button onClick={this.increment}>→</button>
       </div>
-    )
+    );
   }
 }
 

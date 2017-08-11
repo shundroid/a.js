@@ -16,9 +16,6 @@ class Player extends React.Component {
     super(componentProps);
     this.animation = null;
   }
-  getDuration() {
-    return this.props.duration * this.props.joinedImage.frameCount;
-  }
   componentDidUpdate(prevProps) {
     if (this.props.joinedImage !== prevProps.joinedImage) {
       if (this.props.joinedImage.image === null) return;
@@ -45,6 +42,9 @@ class Player extends React.Component {
     if (this.props.isPlaying && this.props.duration !== prevProps.duration) {
       this.animation.effect.timing.duration = this.getDuration();
     }
+  }
+  getDuration() {
+    return this.props.duration * this.props.joinedImage.frameCount;
   }
   getStyle() {
     return {
