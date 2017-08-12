@@ -6,20 +6,24 @@ import History from '@utils/history';
 class Joiner {
   canvas = document.createElement('canvas');
   ctx = this.canvas.getContext('2d');
-  join(thumbnails) {
+  join(thumbnails, width, height) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     return new Promise(resolve => {
       Promise.all(thumbnails.map(thumbnail => new Promise(_resolve => {
-        const image = new Image();
-        image.onload = () => {
-          _resolve(image);
-        };
-        image.src = thumbnail;
+        if (thumbnail) {
+          const image = new Image();
+          image.onload = () => {
+            _resolve(image);
+          };
+          image.src = thumbnail;
+        } else {
+          _resolve(new Image(width, height));
+        }
       }))).then(images => {
-        this.canvas.height = images[0].height;
-        this.canvas.width = images[0].width * images.length;
+        this.canvas.height = height;
+        this.canvas.width = width * images.length;
         for (let index = 0; index < images.length; index++) {
-          this.ctx.drawImage(images[index], images[0].width * index, 0);
+          this.ctx.drawImage(images[index], width * index, 0);
         }
 
         this.canvas.toBlob(blob => {
@@ -27,8 +31,8 @@ class Joiner {
             this.canvas.toDataURL(),
             blob,
             images.length,
-            images[0].width,
-            images[0].height
+            width,
+            height
           ));
         });
       });
@@ -47,7 +51,9 @@ function play(next, action, joinedImage) {
 
 function join(store, next, action) {
   const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
-  joiner.join(thumbnails).then(joinedImage => {
+  const { width, height } = store.getState().canvas;
+  console.log(width, height);
+  joiner.join(thumbnails, width, height).then(joinedImage => {
     lastJoinedImage = joinedImage;
     lastJoinedFrames = store.getState().canvas.frames;
     play(next, action, joinedImage);
