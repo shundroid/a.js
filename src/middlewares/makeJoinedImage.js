@@ -1,6 +1,7 @@
-import { UPDATE_THUMBNAIL } from '@actions/const';
+import { TOGGLE_PLAY, UPDATE_THUMBNAIL } from '@actions/const';
 import { updateJoinedImage } from '@actions';
 import JoinedImage from '@utils/joinedImage';
+import History from '@utils/history';
 
 class Joiner {
   canvas = document.createElement('canvas');
@@ -35,14 +36,50 @@ class Joiner {
   }
 }
 const joiner = new Joiner();
+let lastJoinedFrames = [];
+let lastJoinedImage = null;
+let waitingAction = null;
+
+function play(next, action, joinedImage) {
+  action.joinedImage = joinedImage;
+  next(action);
+}
+
+function join(store, next, action) {
+  const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
+  joiner.join(thumbnails).then(joinedImage => {
+    lastJoinedImage = joinedImage;
+    lastJoinedFrames = store.getState().canvas.frames;
+    play(next, action, joinedImage);
+  });
+};
+
+function isNeedToJoin(frames) {
+  if (!lastJoinedImage) return true;
+  const history = History.compare(0, lastJoinedFrames, frames);
+  return history.framesDiff.added.length > 0 ||
+    history.framesDiff.removed.length > 0 ||
+    history.changedFrames.length > 0
+}
 
 const makeJoinedImage = store => next => action => {
-  next(action);
-  if (action.type === UPDATE_THUMBNAIL && store.getState().player.isPlaying) {
-    const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
-    joiner.join(thumbnails).then(joinedImage => {
-      store.dispatch(updateJoinedImage(joinedImage));
-    });
+  if (action.type === UPDATE_THUMBNAIL && waitingAction) {
+    next(action);
+    join(store, next, waitingAction);
+    waitingAction = null;
+  }
+  if (action.type === TOGGLE_PLAY && !store.getState().player.isPlaying) {
+    if (action.isNeedWaiting) {
+      waitingAction = action;
+    } else {
+      if (isNeedToJoin(store.getState().canvas.frames)) {
+        join(store, next, action);
+      } else {
+        play(next, action, lastJoinedImage);
+      }
+    }
+  } else {
+    next(action);
   }
 };
 

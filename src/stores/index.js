@@ -7,8 +7,8 @@ import thumbnail from '@middlewares/thumbnail';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function reduxStore(initialState) {
   const store = createStore(reducers, initialState, composeEnhancers(
-    applyMiddleware(makeJoinedImage),
-    applyMiddleware(thumbnail)
+    applyMiddleware(thumbnail),
+    applyMiddleware(makeJoinedImage)
   ));
 
   if (module.hot) {
