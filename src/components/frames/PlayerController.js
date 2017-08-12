@@ -12,7 +12,7 @@ const props = mapState({
 });
 const actions = mapDispatch('updateDuration');
 
-class Duration extends React.Component {
+class PlayerController extends React.Component {
   increment = () => {
     this.props.actions.updateDuration(this.props.duration + config.durationStep);
   }
@@ -32,9 +32,9 @@ class Duration extends React.Component {
   }
 }
 
-Duration.propTypes = {
+PlayerController.propTypes = {
   ...props.toPropTypes(),
   ...actions.toPropTypes()
 };
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(Duration, styles));
+export default connect(props.toConnect(), actions.toConnect())(cssmodules(PlayerController, styles));

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import FrameItem from '@components/frames/FrameItem';
 import AddFrameButton from '@components/frames/AddFrameButton';
 import PlayButton from '@components/frames/PlayButton';
-import Duration from '@components/frames/Duration';
+import PlayerController from '@components/frames/PlayerController';
 import styles from '@components/frames/frames.cssmodule.styl';
 import mapState from '@utils/mapState';
 
@@ -19,7 +19,7 @@ class Frames extends React.Component {
       <div styleName="frames">
         <div styleName="player-controller">
           <PlayButton />
-          <Duration />
+          <PlayerController />
         </div>
         {
           this.props.frames.map((frame, index) =>
