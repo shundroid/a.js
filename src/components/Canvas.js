@@ -27,9 +27,6 @@ class Canvas extends React.Component {
   static isTouchEvent(event) {
     return !!event.touches;
   }
-  constructor(componentProps) {
-    super(componentProps);
-  }
   componentDidMount() {
     this.updateCanvasSize();
     window.addEventListener('resize', this.updateCanvasSize);
