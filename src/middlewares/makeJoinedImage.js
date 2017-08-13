@@ -1,6 +1,5 @@
-import { TOGGLE_PLAY, UPDATE_THUMBNAIL } from '@actions/const';
+import { TOGGLE_PLAY, UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME } from '@actions/const';
 import JoinedImage from '@utils/joinedImage';
-import History from '@utils/history';
 
 class Joiner {
   canvas = document.createElement('canvas');
@@ -39,7 +38,8 @@ class Joiner {
   }
 }
 const joiner = new Joiner();
-let lastJoinedFrames = [];
+const needToUpdateActions = [UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
+let isNeedToUpdate = false;
 let lastJoinedImage = null;
 let waitingAction = null;
 
@@ -53,20 +53,14 @@ function join(store, next, action) {
   const { width, height } = store.getState().canvas;
   joiner.join(thumbnails, width, height).then(joinedImage => {
     lastJoinedImage = joinedImage;
-    lastJoinedFrames = store.getState().canvas.frames;
     play(next, action, joinedImage);
   });
 }
 
-function isNeedToJoin(frames) {
-  if (!lastJoinedImage) return true;
-  const history = History.compare(0, lastJoinedFrames, frames);
-  return history.framesDiff.added.length > 0 ||
-    history.framesDiff.removed.length > 0 ||
-    history.changedFrames.length > 0;
-}
-
 const makeJoinedImage = store => next => action => {
+  if (needToUpdateActions.indexOf(action.type) !== -1) {
+    isNeedToUpdate = true;
+  }
   if (action.type === UPDATE_THUMBNAIL && waitingAction) {
     next(action);
     join(store, next, waitingAction);
@@ -75,8 +69,9 @@ const makeJoinedImage = store => next => action => {
   if (action.type === TOGGLE_PLAY && !store.getState().player.isPlaying) {
     if (action.isNeedWaiting) {
       waitingAction = action;
-    } else if (isNeedToJoin(store.getState().canvas.frames)) {
+    } else if (isNeedToUpdate) {
       join(store, next, action);
+      isNeedToUpdate = false;
     } else {
       play(next, action, lastJoinedImage);
     }
