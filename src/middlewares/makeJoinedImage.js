@@ -41,7 +41,7 @@ class Joiner {
 }
 const joiner = new Joiner();
 const needToUpdateActions = [UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
-let isNeedToUpdate = false;
+let isNeedNewJoinedImage = false;
 
 function join(store, next, action) {
   const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
@@ -53,7 +53,7 @@ function join(store, next, action) {
 
 function waitForUpdateThumbnail(action) {
   return new Promise(resolve => {
-    if (action.isNeedToWait) {
+    if (action.isUpdateThumbnail) {
       waitAction(UPDATE_THUMBNAIL).then(resolve);
     } else {
       resolve();
@@ -64,11 +64,11 @@ function waitForUpdateThumbnail(action) {
 const makeJoinedImage = store => next => action => {
   next(action);
   if (needToUpdateActions.indexOf(action.type) !== -1) {
-    isNeedToUpdate = true;
+    isNeedNewJoinedImage = true;
   }
   if (action.type === TOGGLE_PLAY && store.getState().player.isPlaying) {
-    if (isNeedToUpdate || action.isNeedToWait) {
-      isNeedToUpdate = false;
+    if (isNeedNewJoinedImage) {
+      isNeedNewJoinedImage = false;
       waitForUpdateThumbnail(action).then(() => {
         join(store, next, action);
       });

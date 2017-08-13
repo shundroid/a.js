@@ -19,7 +19,7 @@ const thumbnail = store => next => action => {
   }
   if (isNeedToUpdate && updateActions.indexOf(action.type) !== -1) {
     store.dispatch(requestUpdateThumbnail());
-    action.isNeedToWait = true;
+    action.isUpdateThumbnail = true;
     next(action);
   } else {
     next(action);
