@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME, TOGGLE_PLAY } from '@actions/const';
+import { ADD_LINE, CLEAR_CANVAS, UNDO, ADD_FRAME, CHANGE_CURRENT_FRAME, REMOVE_FRAME, UPDATE_THUMBNAIL, MOVE_FRAME, REQUEST_UPDATE_THUMBNAIL, CHANGE_SIZE } from '@actions/const';
 import Frame, { getFrameById } from '@utils/frame';
 import History from '@utils/history';
 import { revert } from '@utils/compare';
@@ -13,7 +13,9 @@ const initialState = {
   currentId: firstFrame.id,
   frames: [firstFrame],
   history: [],
-  isUpdateThumbnailNeeded: false
+  isUpdateThumbnailNeeded: false,
+  width: 0,
+  height: 0
 };
 
 function updateHistory(prevState, nextState, isCompareNeeded = true) {
@@ -71,7 +73,6 @@ function reducer(state = initialState, action) {
     }
     case CHANGE_CURRENT_FRAME: {
       nextState.currentId = action.id;
-      nextState.isUpdateThumbnailNeeded = true;
       updateHistory(state, nextState, false);
       break;
     }
@@ -102,8 +103,13 @@ function reducer(state = initialState, action) {
       updateHistory(state, nextState);
       break;
     }
-    case TOGGLE_PLAY: {
+    case REQUEST_UPDATE_THUMBNAIL: {
       nextState.isUpdateThumbnailNeeded = true;
+      break;
+    }
+    case CHANGE_SIZE: {
+      nextState.width = action.width;
+      nextState.height = action.height;
       break;
     }
     default: {
