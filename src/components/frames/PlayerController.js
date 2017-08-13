@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cssmodules from 'react-css-modules';
 import { connect } from 'react-redux';
+import Easing from '@components/frames/Easing';
 import styles from '@components/frames/duration.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
@@ -17,6 +18,7 @@ class PlayerController extends React.Component {
     this.props.actions.updateDuration(this.props.duration + config.durationStep);
   }
   decrement = () => {
+    console.log("AA");
     this.props.actions.updateDuration(this.props.duration - config.durationStep);
   }
   isDisabled() {
@@ -26,6 +28,7 @@ class PlayerController extends React.Component {
     return (
       <div styleName="duration">
         <button onClick={this.decrement} disabled={this.isDisabled()}>←</button>
+        <Easing />
         <button onClick={this.increment}>→</button>
       </div>
     );
