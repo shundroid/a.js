@@ -1,6 +1,7 @@
 import { TOGGLE_PLAY, UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME } from '@actions/const';
 import { updateJoinedImage } from '@actions';
 import JoinedImage from '@utils/joinedImage';
+import { waitAction } from '@middlewares/waitAction';
 
 class Joiner {
   canvas = document.createElement('canvas');
@@ -41,7 +42,6 @@ class Joiner {
 const joiner = new Joiner();
 const needToUpdateActions = [UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
 let isNeedToUpdate = false;
-let isWaiting = false;
 
 function join(store, next, action) {
   const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
@@ -51,23 +51,27 @@ function join(store, next, action) {
   });
 }
 
+function waitForUpdateThumbnail(action) {
+  return new Promise(resolve => {
+    if (action.isNeedToWait) {
+      waitAction(UPDATE_THUMBNAIL).then(resolve);
+    } else {
+      resolve();
+    }
+  });
+}
+
 const makeJoinedImage = store => next => action => {
   next(action);
-  if (isWaiting && action.type === UPDATE_THUMBNAIL) {
-    isWaiting = false;
-    isNeedToUpdate = false;
-    join(store, next, action);
-  }
   if (needToUpdateActions.indexOf(action.type) !== -1) {
     isNeedToUpdate = true;
   }
   if (action.type === TOGGLE_PLAY && store.getState().player.isPlaying) {
-    if (action.isNeedToWait) {
-      isWaiting = true;
-    }
-    if (isNeedToUpdate) {
+    if (isNeedToUpdate || action.isNeedToWait) {
       isNeedToUpdate = false;
-      join(store, next, action);
+      waitForUpdateThumbnail(action).then(() => {
+        join(store, next, action);
+      });
     }
   }
 };
