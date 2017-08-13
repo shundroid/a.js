@@ -17,9 +17,7 @@ class Player extends React.Component {
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
-    if (this.props.isPlaying && !prevProps.isPlaying) {
-      if (this.props.joinedImage.image === null) return;
-
+    if (this.props.isPlaying && this.props.joinedImage !== prevProps.joinedImage) {
       this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
       const keyframes = [];
       for (let i = 0; i < this.props.joinedImage.frameCount; i++) {

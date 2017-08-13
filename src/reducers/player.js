@@ -10,12 +10,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_PLAY: {
-      if (action.joinedImage) {
-        return Object.assign({}, state, {
-          isPlaying: !state.isPlaying,
-          joinedImage: action.joinedImage
-        });
-      }
       return Object.assign({}, state, {
         isPlaying: !state.isPlaying
       });
