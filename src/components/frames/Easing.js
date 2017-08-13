@@ -1,7 +1,11 @@
 import React from 'react';
 import BezierEasingEditor from 'bezier-easing-editor';
 import cssmodules from 'react-css-modules';
+import { connect } from 'react-redux';
 import styles from '@components/frames/easing.cssmodule.styl';
+import mapDispatch from '@utils/mapDispatch';
+
+const actions = mapDispatch('updateEasing');
 
 class Easing extends React.Component {
   constructor(props) {
@@ -12,7 +16,7 @@ class Easing extends React.Component {
     this.setState({ isShow: !this.state.isShow });
   }
   change = value => {
-    console.log(value);
+    this.props.actions.updateEasing(`cubic-bezier(${value[0]}, ${value[1]}, ${value[2]}, ${value[3]})`);
   }
   getStyle() {
     return {
@@ -32,4 +36,6 @@ class Easing extends React.Component {
   }
 }
 
-export default cssmodules(Easing, styles);
+Easing.propTypes = actions.toPropTypes();
+
+export default connect(() => ({}), actions.toConnect())(cssmodules(Easing, styles));

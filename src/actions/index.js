@@ -21,6 +21,7 @@ import updateJoinedImage from '@actions/updateJoinedImage.js';
 import updateDuration from '@actions/updateDuration.js';
 import requestUpdateThumbnail from '@actions/requestUpdateThumbnail.js';
 import changeSize from '@actions/changeSize.js';
+import updateEasing from '@actions/updateEasing.js';
 
 const actions = {
   addLine,
@@ -37,6 +38,7 @@ const actions = {
   updateJoinedImage,
   updateDuration,
   requestUpdateThumbnail,
-  changeSize
+  changeSize,
+  updateEasing
 };
 module.exports = actions;

@@ -1,13 +1,13 @@
 import config from '@config';
 
-export default function submit(joinedImage, duration) {
+export default function submit(joinedImage, duration, easing) {
   const formData = new FormData();
   formData.append('space', config.aspaceSpaceName);
   formData.append('canvas_width', joinedImage.width);
   formData.append('canvas_height', joinedImage.height);
   formData.append('frame_count', joinedImage.frameCount);
   formData.append('animation_duration', duration);
-  formData.append('animation_easing', 'linear');
+  formData.append('animation_easing', easing);
   formData.append('image', joinedImage.blob);
   const request = new XMLHttpRequest();
   request.open('POST', config.aspaceUrl, true);
