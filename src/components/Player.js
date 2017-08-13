@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cssmodules from 'react-css-modules';
 import styles from '@components/player.cssmodule.styl';
+import CurrentTiming from '@components/frames/CurrentTiming';
 import mapState from '@utils/mapState';
 
 const props = mapState({
@@ -15,6 +16,7 @@ const props = mapState({
 class Player extends React.Component {
   constructor(componentProps) {
     super(componentProps);
+    this.state = { timing: 0 };
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
@@ -34,6 +36,7 @@ class Player extends React.Component {
         easing: this.props.easing,
         iterations: Infinity,
       });
+      this.tick();
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
@@ -56,12 +59,20 @@ class Player extends React.Component {
       backgroundImage: `url(${this.props.joinedImage})`
     };
   }
+  tick = () => {
+    if (this.props.isPlaying) {
+      requestAnimationFrame(this.tick);
+    }
+    this.setState({ timing: this.animation.timeline.currentTime });
+  }
   render() {
     return (
       <div
         styleName="player"
         style={this.getStyle()}
-        ref={element => { this.element = element; }} />
+        ref={element => { this.element = element; }}>
+        <CurrentTiming timing={this.state.timing} />
+      </div>
     );
   }
 }
