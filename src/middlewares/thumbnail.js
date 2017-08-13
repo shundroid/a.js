@@ -5,21 +5,21 @@ import {
 } from '@actions/const';
 import { requestUpdateThumbnail } from '@actions';
 
-const needUpdateActions = [ADD_LINE, CLEAR_CANVAS, UNDO];
+const needToUpdateActions = [ADD_LINE, CLEAR_CANVAS, UNDO];
 const updateActions = [CHANGE_CURRENT_FRAME, TOGGLE_PLAY];
 
-let isNeedUpdate = false;
+let isNeedToUpdate = false;
 
 const thumbnail = store => next => action => {
   if (action.type === UPDATE_THUMBNAIL) {
-    isNeedUpdate = false;
+    isNeedToUpdate = false;
   }
-  if (needUpdateActions.indexOf(action.type) !== -1) {
-    isNeedUpdate = true;
+  if (needToUpdateActions.indexOf(action.type) !== -1) {
+    isNeedToUpdate = true;
   }
-  if (isNeedUpdate && updateActions.indexOf(action.type) !== -1) {
+  if (isNeedToUpdate && updateActions.indexOf(action.type) !== -1) {
     store.dispatch(requestUpdateThumbnail());
-    action.isNeedWaiting = true;
+    action.isNeedToWait = true;
     next(action);
   } else {
     next(action);

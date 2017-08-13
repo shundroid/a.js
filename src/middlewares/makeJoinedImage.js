@@ -67,7 +67,7 @@ const makeJoinedImage = store => next => action => {
     waitingAction = null;
   }
   if (action.type === TOGGLE_PLAY && !store.getState().player.isPlaying) {
-    if (action.isNeedWaiting) {
+    if (action.isNeedToWait) {
       waitingAction = action;
     } else if (isNeedToUpdate) {
       join(store, next, action);
