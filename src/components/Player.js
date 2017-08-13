@@ -63,7 +63,7 @@ class Player extends React.Component {
     if (this.props.isPlaying) {
       requestAnimationFrame(this.tick);
     }
-    this.setState({ timing: this.animation.timeline.currentTime });
+    this.setState({ timing: this.animation.effect.getComputedTiming().progress });
   }
   render() {
     return (

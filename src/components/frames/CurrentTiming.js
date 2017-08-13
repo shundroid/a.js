@@ -14,9 +14,7 @@ const props = mapState({
 const thumbnailWidth = 100;
 class CurrentTiming extends React.Component {
   getLeft() {
-    const fullDuration = this.props.duration * this.props.frames.length;
-    const timing = this.props.timing % fullDuration / fullDuration;
-    return `${timing * thumbnailWidth * this.props.frames.length}px`;
+    return `${this.props.timing * thumbnailWidth * this.props.frames.length}px`;
   }
   getStyle() {
     return {
