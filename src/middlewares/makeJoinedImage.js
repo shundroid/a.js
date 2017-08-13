@@ -20,12 +20,16 @@ class Joiner {
         for (let index = 0; index < images.length; index++) {
           this.ctx.drawImage(images[index], images[0].width * index, 0);
         }
-        resolve(new JoinedImage(
-          this.canvas.toDataURL(),
-          images.length,
-          images[0].width,
-          images[0].height
-        ));
+
+        this.canvas.toBlob(blob => {
+          resolve(new JoinedImage(
+            this.canvas.toDataURL(),
+            blob,
+            images.length,
+            images[0].width,
+            images[0].height
+          ));
+        });
       });
     });
   }

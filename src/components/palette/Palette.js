@@ -3,6 +3,7 @@ import cssmodules from 'react-css-modules';
 import { connect } from 'react-redux';
 import UndoButton from '@components/palette/UndoButton';
 import ClearCanvasButton from '@components/palette/ClearCanvasButton';
+import SubmitButton from '@components/palette/SubmitButton';
 import LineWidth from '@components/palette/LineWidth';
 import Pen from '@components/palette/Pen';
 import styles from '@components/palette/palette.cssmodule.styl';
@@ -22,6 +23,7 @@ class Palette extends React.Component {
         <LineWidth />
         <UndoButton />
         <ClearCanvasButton />
+        <SubmitButton />
       </div>
     );
   }

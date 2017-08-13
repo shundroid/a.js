@@ -4,5 +4,8 @@ export default {
   defaultLineWidth: 20,
   maxLineWidth: 500,
   penPreviewTimeout: 500,
-  durationStep: 100
+  durationStep: 100,
+  // aspace configs
+  aspaceUrl: '/aspace/',
+  aspaceSpaceName: 'sample_space',
 };
