@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cssmodules from 'react-css-modules';
 import styles from '@components/player.cssmodule.styl';
+import CurrentTiming from '@components/frames/CurrentTiming';
 import mapState from '@utils/mapState';
 
 const props = mapState({
   'player.isPlaying': PropTypes.bool.isRequired,
   'player.joinedImage': PropTypes.object.isRequired,
-  'player.duration': PropTypes.number.isRequired
+  'player.duration': PropTypes.number.isRequired,
+  'player.easing': PropTypes.string.isRequired
 });
 
 class Player extends React.Component {
   constructor(componentProps) {
     super(componentProps);
+    this.state = { timing: 0 };
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
@@ -30,15 +33,21 @@ class Player extends React.Component {
       }
       this.animation = this.element.animate(keyframes, {
         duration: this.getDuration(),
-        easing: 'linear',
+        easing: this.props.easing,
         iterations: Infinity,
       });
+      this.tick();
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
     }
-    if (this.props.isPlaying && this.props.duration !== prevProps.duration) {
-      this.animation.effect.timing.duration = this.getDuration();
+    if (this.props.isPlaying) {
+      if (this.props.duration !== prevProps.duration) {
+        this.animation.effect.timing.duration = this.getDuration();
+      }
+      if (this.props.easing !== prevProps.easing) {
+        this.animation.effect.timing.easing = this.props.easing;
+      }
     }
   }
   getDuration() {
@@ -50,12 +59,20 @@ class Player extends React.Component {
       backgroundImage: `url(${this.props.joinedImage})`
     };
   }
+  tick = () => {
+    if (this.props.isPlaying) {
+      requestAnimationFrame(this.tick);
+    }
+    this.setState({ timing: this.animation.effect.getComputedTiming().progress });
+  }
   render() {
     return (
       <div
         styleName="player"
         style={this.getStyle()}
-        ref={element => { this.element = element; }} />
+        ref={element => { this.element = element; }}>
+        <CurrentTiming timing={this.state.timing} />
+      </div>
     );
   }
 }

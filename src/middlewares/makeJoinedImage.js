@@ -1,4 +1,4 @@
-import { TOGGLE_PLAY, UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME } from '@actions/const';
+import { TOGGLE_PLAY, UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME, REQUEST_UPDATE_THUMBNAIL } from '@actions/const';
 import { updateJoinedImage } from '@actions';
 import JoinedImage from '@utils/joinedImage';
 import { waitAction } from '@middlewares/waitAction';
@@ -40,10 +40,10 @@ class Joiner {
   }
 }
 const joiner = new Joiner();
-const needToUpdateActions = [UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
+const needToUpdateActions = [REQUEST_UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
 let isNeedNewJoinedImage = false;
 
-function join(store, next, action) {
+function join(store) {
   const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
   const { width, height } = store.getState().canvas;
   joiner.join(thumbnails, width, height).then(joinedImage => {
@@ -70,7 +70,7 @@ const makeJoinedImage = store => next => action => {
     if (isNeedNewJoinedImage) {
       isNeedNewJoinedImage = false;
       waitForUpdateThumbnail(action).then(() => {
-        join(store, next, action);
+        join(store);
       });
     }
   }

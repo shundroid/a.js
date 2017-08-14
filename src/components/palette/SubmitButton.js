@@ -7,12 +7,13 @@ import submit from '@utils/submit';
 
 const props = mapState({
   'player.duration': PropTypes.number.isRequired,
-  'player.joinedImage': PropTypes.object.isRequired
+  'player.joinedImage': PropTypes.object.isRequired,
+  'player.easing': PropTypes.string.isRequired,
 });
 
 class SubmitButton extends React.Component {
   onClick() {
-    submit(this.props.joinedImage, this.props.duration);
+    submit(this.props.joinedImage, this.props.duration, this.props.easing);
   }
   isDisabled() {
     return !this.props.joinedImage.blob;

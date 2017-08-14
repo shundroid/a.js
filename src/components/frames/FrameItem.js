@@ -6,6 +6,7 @@ import styles from '@components/frames/frameitem.cssmodule.styl';
 import mapState from '@utils/mapState';
 import mapDispatch from '@utils/mapDispatch';
 import { getFrameById } from '@utils/frame';
+import config from '@config';
 
 const props = mapState({
   'canvas.currentId': PropTypes.number.isRequired,
@@ -34,7 +35,8 @@ class FrameItem extends React.Component {
   }
   css() {
     return {
-      backgroundImage: this.getBackgroundImage()
+      backgroundImage: this.getBackgroundImage(),
+      width: `${config.thumbnailWidth}px`
     };
   }
   dragStart = event => {
