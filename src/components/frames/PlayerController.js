@@ -18,7 +18,6 @@ class PlayerController extends React.Component {
     this.props.actions.updateDuration(this.props.duration + config.durationStep);
   }
   decrement = () => {
-    console.log("AA");
     this.props.actions.updateDuration(this.props.duration - config.durationStep);
   }
   isDisabled() {
