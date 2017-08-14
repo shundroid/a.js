@@ -1,11 +1,9 @@
 import React from 'react';
 import BezierEasingEditor from 'bezier-easing-editor';
-import cssmodules from 'react-css-modules';
-import { connect } from 'react-redux';
 import styles from '@components/frames/easing.cssmodule.styl';
-import mapDispatch from '@utils/mapDispatch';
+import allInOne from '@utils/allInOne';
 
-const actions = mapDispatch('updateEasing');
+const actions = ['updateEasing'];
 
 class Easing extends React.Component {
   constructor(props) {
@@ -36,6 +34,4 @@ class Easing extends React.Component {
   }
 }
 
-Easing.propTypes = actions.toPropTypes();
-
-export default connect(() => ({}), actions.toConnect())(cssmodules(Easing, styles));
+export default allInOne(Easing, styles, {}, actions);

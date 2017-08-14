@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssmodules from 'react-css-modules';
-import { connect } from 'react-redux';
 import Easing from '@components/frames/Easing';
 import styles from '@components/frames/duration.cssmodule.styl';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
 import config from '@config';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'player.duration': PropTypes.number.isRequired
-});
-const actions = mapDispatch('updateDuration');
+};
+const actions = ['updateDuration'];
 
 class PlayerController extends React.Component {
   increment = () => {
@@ -34,10 +31,4 @@ class PlayerController extends React.Component {
   }
 }
 
-PlayerController.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
-};
-
-export default connect(props.toConnect(), actions.toConnect())(
-  cssmodules(PlayerController, styles));
+export default allInOne(PlayerController, styles, props, actions);

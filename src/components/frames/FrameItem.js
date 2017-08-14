@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssmodules from 'react-css-modules';
-import { connect } from 'react-redux';
 import styles from '@components/frames/frameitem.cssmodule.styl';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
 import { getFrameById } from '@utils/frame';
+import allInOne from '@utils/allInOne';
 import config from '@config';
 
-const props = mapState({
+const props = {
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
   'player.isPlaying': PropTypes.bool.isRequired
-});
-const actions = mapDispatch('changeCurrentFrame', 'removeFrame', 'moveFrame');
+};
+const actions = ['changeCurrentFrame', 'removeFrame', 'moveFrame'];
 
 class FrameItem extends React.Component {
   getThumbnail() {
@@ -77,12 +74,10 @@ class FrameItem extends React.Component {
 
 FrameItem.displayName = 'FrameItem';
 FrameItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
+  id: PropTypes.number.isRequired
 };
 FrameItem.defaultProps = {};
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(FrameItem, styles, {
+export default allInOne(FrameItem, styles, props, actions, {
   allowMultiple: true
-}));
+});

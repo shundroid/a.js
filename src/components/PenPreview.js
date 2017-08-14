@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssmodules from 'react-css-modules';
-import { connect } from 'react-redux';
 import styles from '@components/penpreview.cssmodule.styl';
 import config from '@config';
-import mapState from '@utils/mapState';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'palette.lineWidth': PropTypes.number.isRequired,
   'palette.color': PropTypes.string.isRequired
-});
+};
 
 class PenPreview extends React.Component {
   constructor(componentProps) {
@@ -68,9 +66,8 @@ class PenPreview extends React.Component {
 }
 
 PenPreview.displayName = 'PenPreview';
-PenPreview.propTypes = props.toPropTypes();
 PenPreview.defaultProps = {};
 
-export default connect(props.toConnect(), () => ({}))(cssmodules(PenPreview, styles, {
+export default allInOne(PenPreview, styles, props, [], {
   allowMultiple: true
-}));
+});
