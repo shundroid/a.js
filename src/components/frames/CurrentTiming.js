@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styles from '@components/frames/currenttiming.cssmodule.styl';
 import mapState from '@utils/mapState';
+import config from '@config';
 
 const props = mapState({
   'player.isPlaying': PropTypes.bool.isRequired,
@@ -11,10 +12,9 @@ const props = mapState({
   'canvas.frames': PropTypes.array.isRequired
 });
 
-const thumbnailWidth = 100;
 class CurrentTiming extends React.Component {
   getLeft() {
-    return `${this.props.timing * thumbnailWidth * this.props.frames.length}px`;
+    return `${this.props.timing * config.thumbnailWidth * this.props.frames.length}px`;
   }
   getStyle() {
     return {
