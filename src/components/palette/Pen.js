@@ -1,15 +1,12 @@
 import React from 'react';
-import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styles from '@components/palette/pen.cssmodule.styl';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'palette.color': PropTypes.string.isRequired
-});
-const actions = mapDispatch('changeColor');
+};
+const actions = ['changeColor'];
 
 class Pen extends React.Component {
   changeColor = () => {
@@ -35,11 +32,9 @@ class Pen extends React.Component {
 
 Pen.displayName = 'Pen';
 Pen.propTypes = {
-  originalColor: PropTypes.string.isRequired,
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
+  originalColor: PropTypes.string.isRequired
 };
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(Pen, styles, {
+export default allInOne(Pen, styles, props, actions, {
   allowMultiple: true
-}));
+});

@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import cssmodules from 'react-css-modules';
 import styles from '@components/player.cssmodule.styl';
 import CurrentTiming from '@components/frames/CurrentTiming';
-import mapState from '@utils/mapState';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'player.isPlaying': PropTypes.bool.isRequired,
   'player.joinedImage': PropTypes.object.isRequired,
   'player.duration': PropTypes.number.isRequired,
   'player.easing': PropTypes.string.isRequired
-});
+};
 
 class Player extends React.Component {
   constructor(componentProps) {
@@ -77,6 +75,4 @@ class Player extends React.Component {
   }
 }
 
-Player.propTypes = props.toPropTypes();
-
-export default connect(props.toConnect(), () => ({}))(cssmodules(Player, styles));
+export default allInOne(Player, styles, props);

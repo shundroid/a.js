@@ -1,16 +1,14 @@
 import React from 'react';
-import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styles from '@components/frames/currenttiming.cssmodule.styl';
-import mapState from '@utils/mapState';
 import config from '@config';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'player.isPlaying': PropTypes.bool.isRequired,
   'player.duration': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired
-});
+};
 
 class CurrentTiming extends React.Component {
   getLeft() {
@@ -29,8 +27,7 @@ class CurrentTiming extends React.Component {
 }
 
 CurrentTiming.propTypes = {
-  ...props.toPropTypes(),
   timing: PropTypes.number
 };
 
-export default connect(props.toConnect(), () => ({}))(cssmodules(CurrentTiming, styles));
+export default allInOne(CurrentTiming, styles, props);

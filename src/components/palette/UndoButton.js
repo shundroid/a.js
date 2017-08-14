@@ -1,15 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PaletteButton from '@components/palette/PaletteButton';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'canvas.history': PropTypes.array.isRequired,
   'player.isPlaying': PropTypes.bool.isRequired
-});
-const actions = mapDispatch(['undo']);
+};
+const actions = ['undo'];
 
 class UndoButton extends React.Component {
   isDisabled() {
@@ -25,9 +23,5 @@ class UndoButton extends React.Component {
   }
 }
 UndoButton.displayName = 'UndoButton';
-UndoButton.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
-};
 
-export default connect(props.toConnect(), actions.toConnect())(UndoButton);
+export default allInOne(UndoButton, null, props, actions);

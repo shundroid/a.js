@@ -1,15 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PaletteButton from '@components/palette/PaletteButton';
-import mapState from '@utils/mapState';
 import submit from '@utils/submit';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'player.duration': PropTypes.number.isRequired,
   'player.joinedImage': PropTypes.object.isRequired,
   'player.easing': PropTypes.string.isRequired,
-});
+};
 
 class SubmitButton extends React.Component {
   onClick() {
@@ -29,8 +28,5 @@ class SubmitButton extends React.Component {
 }
 
 SubmitButton.displayName = 'SubmitButton';
-SubmitButton.propTypes = {
-  ...props.toPropTypes(),
-};
 
-export default connect(props.toConnect(), () => ({}))(SubmitButton);
+export default allInOne(SubmitButton, null, props);

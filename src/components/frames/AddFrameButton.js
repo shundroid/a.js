@@ -1,15 +1,12 @@
 import React from 'react';
-import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styles from '@components/frames/addframebutton.cssmodule.styl';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
+import allInOne from '@utils/allInOne';
 
-const props = mapState({
+const props = {
   'player.isPlaying': PropTypes.bool.isRequired
-});
-const actions = mapDispatch('addFrame');
+};
+const actions = ['addFrame'];
 
 class AddFrameButton extends React.Component {
   isDisabled() {
@@ -26,10 +23,6 @@ class AddFrameButton extends React.Component {
 }
 
 AddFrameButton.displayName = 'AddFrameButton';
-AddFrameButton.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
-};
 AddFrameButton.defaultProps = {};
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(AddFrameButton, styles));
+export default allInOne(AddFrameButton, styles, props, actions);

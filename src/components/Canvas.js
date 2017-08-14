@@ -1,17 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import cssmodules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import styles from '@components/canvas.cssmodule.styl';
-import mapState from '@utils/mapState';
-import mapDispatch from '@utils/mapDispatch';
 import { getFrameById } from '@utils/frame';
+import allInOne from '@utils/allInOne';
 
 // 'currentId' prop is used as prevProp,
 // but eslint gives the error.
 // eslint-disable react/no-unused-prop-types
 
-const props = mapState({
+const props = {
   'palette.color': PropTypes.string.isRequired,
   'palette.lineWidth': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
@@ -20,8 +17,8 @@ const props = mapState({
   'canvas.width': PropTypes.number.isRequired,
   'canvas.height': PropTypes.number.isRequired,
   'player.isPlaying': PropTypes.bool.isRequired
-});
-const actions = mapDispatch('addLine', 'updateThumbnail', 'changeSize');
+};
+const actions = ['addLine', 'updateThumbnail', 'changeSize'];
 
 class Canvas extends React.Component {
   static isTouchEvent(event) {
@@ -150,10 +147,6 @@ class Canvas extends React.Component {
 }
 
 Canvas.displayName = 'Canvas';
-Canvas.propTypes = {
-  ...props.toPropTypes(),
-  ...actions.toPropTypes()
-};
 Canvas.defaultProps = {};
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(Canvas, styles));
+export default allInOne(Canvas, styles, props, actions);
