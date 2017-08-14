@@ -39,4 +39,5 @@ PlayerController.propTypes = {
   ...actions.toPropTypes()
 };
 
-export default connect(props.toConnect(), actions.toConnect())(cssmodules(PlayerController, styles));
+export default connect(props.toConnect(), actions.toConnect())(
+  cssmodules(PlayerController, styles));

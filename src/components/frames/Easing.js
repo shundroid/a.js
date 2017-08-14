@@ -12,16 +12,16 @@ class Easing extends React.Component {
     super(props);
     this.state = { isShow: false };
   }
-  toggle = () => {
-    this.setState({ isShow: !this.state.isShow });
-  }
-  change = value => {
-    this.props.actions.updateEasing(`cubic-bezier(${value[0]}, ${value[1]}, ${value[2]}, ${value[3]})`);
-  }
   getStyle() {
     return {
       display: this.state.isShow ? 'block' : 'none'
     };
+  }
+  change = value => {
+    this.props.actions.updateEasing(`cubic-bezier(${value[0]}, ${value[1]}, ${value[2]}, ${value[3]})`);
+  }
+  toggle = () => {
+    this.setState({ isShow: !this.state.isShow });
   }
   render() {
     return (

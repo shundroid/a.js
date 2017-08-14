@@ -9,7 +9,7 @@ export function waitAction(actionType) {
     callbacks[actionType].push(resolve);
   });
 }
-const middleware = store => next => action => {
+const middleware = () => next => action => {
   next(action);
   if (callbacks[action.type]) {
     for (const callback of callbacks[action.type]) {

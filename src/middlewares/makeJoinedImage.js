@@ -43,7 +43,7 @@ const joiner = new Joiner();
 const needToUpdateActions = [UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME];
 let isNeedNewJoinedImage = false;
 
-function join(store, next, action) {
+function join(store) {
   const thumbnails = store.getState().canvas.frames.map(frame => frame.thumbnail);
   const { width, height } = store.getState().canvas;
   joiner.join(thumbnails, width, height).then(joinedImage => {
@@ -70,7 +70,7 @@ const makeJoinedImage = store => next => action => {
     if (isNeedNewJoinedImage) {
       isNeedNewJoinedImage = false;
       waitForUpdateThumbnail(action).then(() => {
-        join(store, next, action);
+        join(store);
       });
     }
   }
