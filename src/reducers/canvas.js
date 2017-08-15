@@ -88,7 +88,7 @@ function reducer(state = initialState, action) {
     case UPDATE_THUMBNAIL: {
       const frame = getFrameById(nextState.frames, action.id);
       if (frame === null) {
-        // eslint-disable-line no-console
+        // eslint-disable-next-line no-console
         console.warn(`Tryed to update thumbnail, but ${action.id} is invalid id.`);
         break;
       }
