@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Palette from '@components/palette/Palette';
+import PrevCanvas from '@components/PrevCanvas';
 import Canvas from '@components/Canvas';
 import PenPreview from '@components/PenPreview';
 import Frames from '@components/frames/Frames';
@@ -12,6 +13,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <Palette />
+        <PrevCanvas />
         <Canvas />
         <Player />
         <PenPreview />
