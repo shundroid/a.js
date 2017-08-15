@@ -67,7 +67,9 @@ function reducer(state = initialState, action) {
       break;
     }
     case ADD_FRAME: {
-      nextState.frames = [...state.frames, new Frame()];
+      const newFrame = new Frame();
+      nextState.frames = [...state.frames, newFrame];
+      nextState.currentId = newFrame.id;
       updateHistory(state, nextState);
       break;
     }
