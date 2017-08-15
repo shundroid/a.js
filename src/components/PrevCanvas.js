@@ -17,7 +17,9 @@ class PrevCanvas extends React.Component {
     this.ctx = this.canvas.getContext('2d');
   }
   componentDidUpdate(prevProps) {
-    if (this.props.currentId !== prevProps.currentId) {
+    // We also need to update when prevFrame is removed, moved.
+    // So we watch frames.
+    if (this.props.currentId !== prevProps.currentId || this.props.frames !== prevProps.frames) {
       const index = this.props.frames.indexOf(getFrameById(this.props.frames, this.props.currentId));
       this.clear();
       if (index > 0) {
