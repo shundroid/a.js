@@ -1,12 +1,12 @@
 import {
   ADD_LINE, CLEAR_CANVAS, UNDO,
-  CHANGE_CURRENT_FRAME, TOGGLE_PLAY,
+  CHANGE_CURRENT_FRAME, TOGGLE_PLAY, ADD_FRAME,
   UPDATE_THUMBNAIL
 } from '@actions/const';
 import { requestUpdateThumbnail } from '@actions';
 
 const needToUpdateActions = [ADD_LINE, CLEAR_CANVAS, UNDO];
-const updateActions = [CHANGE_CURRENT_FRAME, TOGGLE_PLAY];
+const updateActions = [CHANGE_CURRENT_FRAME, TOGGLE_PLAY, ADD_FRAME];
 
 let isNeedToUpdate = false;
 
