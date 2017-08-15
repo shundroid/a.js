@@ -8,5 +8,6 @@ export default {
   // aspace configs
   aspaceUrl: '/aspace/',
   aspaceSpaceName: 'sample_space',
-  thumbnailWidth: 100
+  thumbnailWidth: 100,
+  prevFrameColor: '#333'
 };
