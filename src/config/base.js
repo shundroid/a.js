@@ -1,6 +1,6 @@
 // Settings configured here will be merged into the final config object.
 export default {
-  defaultColor: 'red',
+  defaultColor: '#f44336',
   defaultLineWidth: 20,
   maxLineWidth: 500,
   penPreviewTimeout: 500,
