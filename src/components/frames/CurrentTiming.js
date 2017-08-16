@@ -11,12 +11,28 @@ const props = {
 };
 
 class CurrentTiming extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { timing: 0 };
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.isPlaying && !prevProps.isPlaying) {
+      this.tick();
+    }
+  }
+  tick = () => {
+    if (this.props.isPlaying) {
+      requestAnimationFrame(this.tick);
+    }
+    this.setState({ timing: window.timing });
+  }
   getLeft() {
-    return `${this.props.timing * config.thumbnailWidth * this.props.frames.length}px`;
+    return `${this.state.timing * 100}%`;
   }
   getStyle() {
     return {
-      left: this.getLeft()
+      left: this.getLeft(),
+      display: this.props.isPlaying ? 'block' : 'none'
     };
   }
   render() {
@@ -25,9 +41,5 @@ class CurrentTiming extends React.Component {
     );
   }
 }
-
-CurrentTiming.propTypes = {
-  timing: PropTypes.number
-};
 
 export default allInOne(CurrentTiming, styles, props);

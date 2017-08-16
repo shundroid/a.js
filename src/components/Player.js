@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '@components/player.cssmodule.styl';
-import CurrentTiming from '@components/frames/CurrentTiming';
 import allInOne from '@utils/allInOne';
 
 const props = {
@@ -14,7 +13,6 @@ const props = {
 class Player extends React.Component {
   constructor(componentProps) {
     super(componentProps);
-    this.state = { timing: 0 };
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
@@ -61,7 +59,7 @@ class Player extends React.Component {
     if (this.props.isPlaying) {
       requestAnimationFrame(this.tick);
     }
-    this.setState({ timing: this.animation.effect.getComputedTiming().progress });
+    window.timing = this.animation.effect.getComputedTiming().progress;
   }
   render() {
     return (
@@ -69,7 +67,6 @@ class Player extends React.Component {
         styleName="player"
         style={this.getStyle()}
         ref={element => { this.element = element; }}>
-        <CurrentTiming timing={this.state.timing} />
       </div>
     );
   }
