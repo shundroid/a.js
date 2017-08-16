@@ -9,15 +9,15 @@ const props = {
 const actions = ['togglePlay'];
 
 class PlayButton extends React.Component {
-  caption() {
-    return this.props.isPlaying ? 'stop' : 'play';
+  getClassName() {
+    return `fa fa-${this.props.isPlaying ? 'stop' : 'play'}`;
   }
   render() {
     return (
       <button
         styleName="button"
         onClick={this.props.actions.togglePlay}>
-        { this.caption() }
+        <i className={this.getClassName()} />
       </button>
     );
   }

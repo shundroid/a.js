@@ -24,7 +24,9 @@ class Easing extends React.Component {
   render() {
     return (
       <div styleName="easing">
-        <button styleName="easing-button" onClick={this.toggle}>E</button>
+        <button styleName="easing-button" onClick={this.toggle}>
+          <i className="fa fa-area-chart" />
+        </button>
         <BezierEasingEditor
           onFinish={this.change}
           styleName="easing-editor"

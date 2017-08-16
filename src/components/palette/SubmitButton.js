@@ -20,7 +20,7 @@ class SubmitButton extends React.Component {
   render() {
     return (
       <PaletteButton
-        caption="submit"
+        icon="fa-paper-plane"
         disabled={this.isDisabled()}
         onClick={() => this.onClick()} />
     );

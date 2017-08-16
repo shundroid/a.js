@@ -7,12 +7,17 @@ class PaletteButton extends React.Component {
   click = () => {
     this.props.onClick();
   }
+  getClassName() {
+    return `fa ${this.props.icon}`;
+  }
   render() {
     return (
       <button
         styleName="button"
         disabled={this.props.disabled}
-        onClick={this.click}>{this.props.caption}</button>
+        onClick={this.click}>
+        <i className={this.getClassName()} />
+      </button>
     );
   }
 }
@@ -20,7 +25,7 @@ class PaletteButton extends React.Component {
 PaletteButton.displayName = 'PaletteButton';
 PaletteButton.propTypes = {
   disabled: PropTypes.bool,
-  caption: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 PaletteButton.defaultProps = {};

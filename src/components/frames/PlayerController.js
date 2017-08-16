@@ -23,9 +23,13 @@ class PlayerController extends React.Component {
   render() {
     return (
       <div styleName="duration">
-        <button onClick={this.decrement} disabled={this.isDisabled()}>←</button>
+        <button onClick={this.decrement} disabled={this.isDisabled()}>
+          <i className="fa fa-backward" />
+        </button>
         <Easing />
-        <button onClick={this.increment}>→</button>
+        <button onClick={this.increment}>
+          <i className="fa fa-forward" />
+        </button>
       </div>
     );
   }
