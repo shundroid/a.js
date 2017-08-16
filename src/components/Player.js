@@ -18,23 +18,12 @@ class Player extends React.Component {
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
+    if (this.props.isPlaying && !prevProps.isPlaying) {
+      this.animate();
+    }
     if (this.props.isPlaying && this.props.joinedImage !== prevProps.joinedImage) {
-      this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
-      const keyframes = [];
-      for (let i = 0; i < this.props.joinedImage.frameCount; i++) {
-        const keyframe = {
-          offset: i / this.props.joinedImage.frameCount,
-          easing: 'steps(1, end)',
-          backgroundPositionX: `${-i * this.props.joinedImage.width}px`
-        };
-        keyframes.push(keyframe);
-      }
-      this.animation = this.element.animate(keyframes, {
-        duration: this.getDuration(),
-        easing: this.props.easing,
-        iterations: Infinity,
-      });
-      this.tick();
+      if (this.animation) this.animation.cancel();
+      this.animate();
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
@@ -56,6 +45,24 @@ class Player extends React.Component {
       display: this.props.isPlaying ? 'block' : 'none',
       backgroundImage: `url(${this.props.joinedImage})`
     };
+  }
+  animate() {
+    this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
+    const keyframes = [];
+    for (let i = 0; i < this.props.joinedImage.frameCount; i++) {
+      const keyframe = {
+        offset: i / this.props.joinedImage.frameCount,
+        easing: 'steps(1, end)',
+        backgroundPositionX: `${-i * this.props.joinedImage.width}px`
+      };
+      keyframes.push(keyframe);
+    }
+    this.animation = this.element.animate(keyframes, {
+      duration: this.getDuration(),
+      easing: this.props.easing,
+      iterations: Infinity,
+    });
+    this.tick();
   }
   tick = () => {
     if (this.props.isPlaying) {
