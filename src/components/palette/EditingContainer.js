@@ -11,7 +11,7 @@ const props = {
 class EditingContainer extends React.Component {
   getStyle() {
     return {
-      display: this.props.isPlaying ? 'none' : 'block'
+      display: this.props.isPlaying ? 'none' : 'flex'
     };
   }
   render() {

@@ -1,6 +1,7 @@
 import React from 'react';
 import LineWidth from '@components/palette/LineWidth';
 import Pen from '@components/palette/Pen';
+import PlayButton from '@components/palette/PlayButton';
 import EditingContainer from '@components/palette/EditingContainer';
 import PlayingContainer from '@components/palette/PlayingContainer';
 import styles from '@components/palette/palette.cssmodule.styl';
@@ -19,6 +20,7 @@ class Palette extends React.Component {
           )
         }
         <LineWidth />
+        <PlayButton />
         <EditingContainer />
         <PlayingContainer />
       </div>
