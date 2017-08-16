@@ -1,18 +1,31 @@
-.frame-item
+.thumbnail
   height: 9vh
-  border: 1px solid black
   box-sizing: border-box
-  float: left
   position: relative
   background-size: contain
   background-repeat: no-repeat
   background-position: center
   background-color: black
 
-.active
-  border: 1px solid red
-
 .remove-button
   position: absolute
-  top: 0
-  right: 0
+  top: 2px
+  right: 2px
+  background-color: #424242
+  color: white
+  border: none
+  width: 20px
+  height: 20px
+  padding: 0
+  border-radius: 3px
+
+.container
+  height: 100%
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  margin: 0 5px
+  &.active
+    padding-bottom: 5px
+    border-top: 5px solid #2962ff
+

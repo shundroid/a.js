@@ -26,7 +26,7 @@ class FrameItem extends React.Component {
     return thumbnail ? `url(${thumbnail})` : 'none';
   }
   styles() {
-    const classes = ['frame-item'];
+    const classes = ['container'];
     if (this.props.currentId === this.props.id) {
       classes.push('active');
     }
@@ -60,15 +60,17 @@ class FrameItem extends React.Component {
   }
   render() {
     return (
-      <div
-        styleName={this.styles()}
-        onClick={this.change}
-        style={this.css()}
-        draggable="true"
-        onDragStart={this.dragStart}
-        onDragOver={this.allowDrop}
-        onDrop={this.drop}>
-        <button styleName="remove-button" onClick={this.remove}>×</button>
+      <div styleName={this.styles()}>
+        <div
+          styleName="thumbnail"
+          onClick={this.change}
+          style={this.css()}
+          draggable="true"
+          onDragStart={this.dragStart}
+          onDragOver={this.allowDrop}
+          onDrop={this.drop}>
+          <button styleName="remove-button" onClick={this.remove}>×</button>
+        </div>
       </div>
     );
   }
