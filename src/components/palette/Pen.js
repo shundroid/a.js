@@ -22,10 +22,12 @@ class Pen extends React.Component {
   }
   render() {
     return (
-      <div
-        style={this.computedStyle()}
-        styleName={this.computedStyleName()}
-        onMouseDown={this.changeColor} />
+      <div styleName={this.computedStyleName()}>
+        <div
+          style={this.computedStyle()}
+          styleName="color"
+          onMouseDown={this.changeColor} />
+      </div>
     );
   }
 }
