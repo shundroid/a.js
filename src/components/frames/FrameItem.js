@@ -8,7 +8,9 @@ import config from '@config';
 const props = {
   'canvas.currentId': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
-  'player.isPlaying': PropTypes.bool.isRequired
+  'player.isPlaying': PropTypes.bool.isRequired,
+  'canvas.width': PropTypes.number.isRequired,
+  'canvas.height': PropTypes.number.isRequired
 };
 const actions = ['changeCurrentFrame', 'removeFrame', 'moveFrame'];
 
@@ -33,7 +35,7 @@ class FrameItem extends React.Component {
   css() {
     return {
       backgroundImage: this.getBackgroundImage(),
-      width: `${config.thumbnailWidth}px`
+      width: `calc(9vh * ${this.props.width / this.props.height})`
     };
   }
   dragStart = event => {
