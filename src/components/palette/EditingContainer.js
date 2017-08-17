@@ -20,7 +20,7 @@ class EditingContainer extends React.Component {
         <UndoButton />
         <ClearCanvasButton />
       </div>
-    )
+    );
   }
 }
 

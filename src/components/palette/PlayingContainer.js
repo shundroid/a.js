@@ -22,7 +22,7 @@ class PlayingContainer extends React.Component {
         <EasingButton />
         <SubmitButton />
       </div>
-    )
+    );
   }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '@components/frames/currenttiming.cssmodule.styl';
-import config from '@config';
 import allInOne from '@utils/allInOne';
 
 const props = {
@@ -11,20 +10,14 @@ const props = {
 };
 
 class CurrentTiming extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.state = { timing: 0 };
   }
   componentDidUpdate(prevProps) {
     if (this.props.isPlaying && !prevProps.isPlaying) {
       this.tick();
     }
-  }
-  tick = () => {
-    if (this.props.isPlaying) {
-      requestAnimationFrame(this.tick);
-    }
-    this.setState({ timing: window.timing });
   }
   getLeft() {
     return `${this.state.timing * 100}%`;
@@ -34,6 +27,12 @@ class CurrentTiming extends React.Component {
       left: this.getLeft(),
       display: this.props.isPlaying ? 'block' : 'none'
     };
+  }
+  tick = () => {
+    if (this.props.isPlaying) {
+      requestAnimationFrame(this.tick);
+    }
+    this.setState({ timing: window.timing });
   }
   render() {
     return (

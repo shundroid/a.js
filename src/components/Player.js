@@ -66,8 +66,7 @@ class Player extends React.Component {
       <div
         styleName="player"
         style={this.getStyle()}
-        ref={element => { this.element = element; }}>
-      </div>
+        ref={element => { this.element = element; }} />
     );
   }
 }

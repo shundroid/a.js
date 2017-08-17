@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import styles from '@components/palette/palettebutton.cssmodule.styl';
 
 class PaletteButton extends React.Component {
-  click = () => {
-    this.props.onClick();
-  }
   getClassName() {
     return `fa ${this.props.icon}`;
+  }
+  click = () => {
+    this.props.onClick();
   }
   render() {
     return (
