@@ -24,13 +24,17 @@ class EasingButton extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div styleName="easing-parent">
         <PaletteButton
           icon="fa-area-chart"
           onClick={this.toggle} />
         <BezierEasingEditor
           onFinish={this.change}
           styleName="easing-editor"
+          background="#212121"
+          gridColor="#616161"
+          handleColor="#1de9b6"
+          curveColor="#64ffda"
           style={this.getStyle()} />
       </div>
     );
