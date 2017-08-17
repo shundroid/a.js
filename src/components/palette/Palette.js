@@ -21,8 +21,10 @@ class Palette extends React.Component {
         }
         <LineWidth />
         <PlayButton />
-        <EditingContainer />
-        <PlayingContainer />
+        <div styleName="container-base">
+          <EditingContainer />
+          <PlayingContainer />
+        </div>
       </div>
     );
   }
