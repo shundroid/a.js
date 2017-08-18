@@ -32,7 +32,6 @@ class Player extends React.Component {
         easing: this.props.easing,
         iterations: Infinity,
       });
-      this.tick();
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
@@ -55,16 +54,11 @@ class Player extends React.Component {
       backgroundImage: `url(${this.props.joinedImage})`
     };
   }
-  tick = () => {
-    if (this.props.isPlaying) {
-      requestAnimationFrame(this.tick);
-    }
-    window.timing = this.animation.effect.getComputedTiming().progress;
-  }
   render() {
     return (
       <div
         styleName="player"
+        id="player"
         style={this.getStyle()}
         ref={element => { this.element = element; }} />
     );

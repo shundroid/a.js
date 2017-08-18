@@ -32,7 +32,10 @@ class CurrentTiming extends React.Component {
     if (this.props.isPlaying) {
       requestAnimationFrame(this.tick);
     }
-    this.setState({ timing: window.timing });
+    const animations = document.getAnimations('player');
+    if (animations.length > 0) {
+      this.setState({ timing: animations[0].effect.getComputedTiming().progress });
+    }
   }
   render() {
     return (
