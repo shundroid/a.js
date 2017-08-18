@@ -6,6 +6,7 @@ import allInOne from '@utils/allInOne';
 const props = {
   'player.isPlaying': PropTypes.bool.isRequired,
   'player.duration': PropTypes.number.isRequired,
+  'player.animation': PropTypes.object,
   'canvas.frames': PropTypes.array.isRequired
 };
 
@@ -32,9 +33,8 @@ class CurrentTiming extends React.Component {
     if (this.props.isPlaying) {
       requestAnimationFrame(this.tick);
     }
-    const animations = document.getAnimations('player');
-    if (animations.length > 0) {
-      this.setState({ timing: animations[0].effect.getComputedTiming().progress });
+    if (this.props.animation) {
+      this.setState({ timing: this.props.animation.effect.getComputedTiming().progress });
     }
   }
   render() {

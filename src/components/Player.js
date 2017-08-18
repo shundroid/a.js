@@ -9,6 +9,7 @@ const props = {
   'player.duration': PropTypes.number.isRequired,
   'player.easing': PropTypes.string.isRequired
 };
+const actions = ['updateAnimation'];
 
 class Player extends React.Component {
   constructor(componentProps) {
@@ -32,6 +33,7 @@ class Player extends React.Component {
         easing: this.props.easing,
         iterations: Infinity,
       });
+      this.props.actions.updateAnimation(this.animation);
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
@@ -65,4 +67,4 @@ class Player extends React.Component {
   }
 }
 
-export default allInOne(Player, styles, props);
+export default allInOne(Player, styles, props, actions);
