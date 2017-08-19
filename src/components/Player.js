@@ -47,15 +47,15 @@ class Player extends React.Component {
   }
   animate() {
     this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
-    const keyframes = [];
-    for (let i = 0; i < this.props.joinedImage.frameCount; i++) {
-      const keyframe = {
-        offset: i / this.props.joinedImage.frameCount,
-        easing: 'steps(1, end)',
-        backgroundPositionX: `${-i * this.props.joinedImage.width}px`
-      };
-      keyframes.push(keyframe);
-    }
+    const keyframes = [
+      {
+        backgroundPositionX: '0px',
+        easing: `frames(${this.props.joinedImage.frameCount})`
+      },
+      {
+        backgroundPositionX: `-${(this.props.joinedImage.frameCount - 1) * this.props.joinedImage.width}px`
+      }
+    ];
     this.animation = this.element.animate(keyframes, {
       duration: this.getDuration(),
       easing: this.props.easing,
