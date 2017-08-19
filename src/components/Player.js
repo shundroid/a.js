@@ -17,12 +17,14 @@ class Player extends React.Component {
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
-    if (this.props.isPlaying && !prevProps.isPlaying) {
-      this.animate();
-    }
-    if (this.props.isPlaying && this.props.joinedImage !== prevProps.joinedImage) {
-      if (this.animation) this.animation.cancel();
-      this.animate();
+    if (this.props.isPlaying && this.props.joinedImage.frameCount > 1) {
+      if (!prevProps.isPlaying) {
+        this.animate();
+      }
+      if (this.props.joinedImage !== prevProps.joinedImage) {
+        if (this.animation) this.animation.cancel();
+        this.animate();
+      }
     }
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
