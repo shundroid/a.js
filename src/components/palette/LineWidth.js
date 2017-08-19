@@ -15,12 +15,10 @@ class LineWidth extends React.Component {
   }
   render() {
     return (
-      <div>
-        <input
-          type="range" styleName="slider" min="1" max={config.maxLineWidth}
-          defaultValue={this.props.lineWidth}
-          onChange={this.changeLineWidth} />
-      </div>
+      <input
+        type="range" styleName="slider" min="1" max={config.maxLineWidth}
+        defaultValue={this.props.lineWidth}
+        onChange={this.changeLineWidth} />
     );
   }
 }

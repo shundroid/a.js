@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '@components/player.cssmodule.styl';
-import CurrentTiming from '@components/frames/CurrentTiming';
 import allInOne from '@utils/allInOne';
 
 const props = {
@@ -10,11 +9,11 @@ const props = {
   'player.duration': PropTypes.number.isRequired,
   'player.easing': PropTypes.string.isRequired
 };
+const actions = ['updateAnimation'];
 
 class Player extends React.Component {
   constructor(componentProps) {
     super(componentProps);
-    this.state = { timing: 0 };
     this.animation = null;
   }
   componentDidUpdate(prevProps) {
@@ -48,38 +47,31 @@ class Player extends React.Component {
   }
   animate() {
     this.element.style.backgroundImage = `url(${this.props.joinedImage.image})`;
-    const keyframes = [
-      {
-        backgroundPositionX: '0px',
-        easing: `frames(${this.props.joinedImage.frameCount})`
-      },
-      {
-        backgroundPositionX: `-${(this.props.joinedImage.frameCount - 1) * this.props.joinedImage.width}px`
-      }
-    ];
+    const keyframes = [];
+    for (let i = 0; i < this.props.joinedImage.frameCount; i++) {
+      const keyframe = {
+        offset: i / this.props.joinedImage.frameCount,
+        easing: 'steps(1, end)',
+        backgroundPositionX: `${-i * this.props.joinedImage.width}px`
+      };
+      keyframes.push(keyframe);
+    }
     this.animation = this.element.animate(keyframes, {
       duration: this.getDuration(),
       easing: this.props.easing,
       iterations: Infinity,
     });
-    this.tick();
-  }
-  tick = () => {
-    if (this.props.isPlaying) {
-      requestAnimationFrame(this.tick);
-    }
-    this.setState({ timing: this.animation.effect.getComputedTiming().progress });
+    this.props.actions.updateAnimation(this.animation);
   }
   render() {
     return (
       <div
         styleName="player"
+        id="player"
         style={this.getStyle()}
-        ref={element => { this.element = element; }}>
-        <CurrentTiming timing={this.state.timing} />
-      </div>
+        ref={element => { this.element = element; }} />
     );
   }
 }
 
-export default allInOne(Player, styles, props);
+export default allInOne(Player, styles, props, actions);

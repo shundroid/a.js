@@ -17,7 +17,9 @@ class AddFrameButton extends React.Component {
       <button
         styleName="button"
         disabled={this.isDisabled()}
-        onClick={this.props.actions.addFrame}>add-frame</button>
+        onClick={this.props.actions.addFrame}>
+        <i className="fa fa-plus" />
+      </button>
     );
   }
 }

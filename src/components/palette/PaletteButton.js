@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import styles from '@components/palette/palettebutton.cssmodule.styl';
 
 class PaletteButton extends React.Component {
+  getClassName() {
+    return `fa ${this.props.icon}`;
+  }
   click = () => {
     this.props.onClick();
   }
@@ -12,7 +15,9 @@ class PaletteButton extends React.Component {
       <button
         styleName="button"
         disabled={this.props.disabled}
-        onClick={this.click}>{this.props.caption}</button>
+        onClick={this.click}>
+        <i className={this.getClassName()} />
+      </button>
     );
   }
 }
@@ -20,7 +25,7 @@ class PaletteButton extends React.Component {
 PaletteButton.displayName = 'PaletteButton';
 PaletteButton.propTypes = {
   disabled: PropTypes.bool,
-  caption: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 PaletteButton.defaultProps = {};

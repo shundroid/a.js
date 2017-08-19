@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Easing from '@components/frames/Easing';
-import styles from '@components/frames/duration.cssmodule.styl';
+import PaletteButton from '@components/palette/PaletteButton';
 import config from '@config';
 import allInOne from '@utils/allInOne';
 
@@ -10,7 +9,7 @@ const props = {
 };
 const actions = ['updateDuration'];
 
-class PlayerController extends React.Component {
+class DurationButtons extends React.Component {
   increment = () => {
     this.props.actions.updateDuration(this.props.duration + config.durationStep);
   }
@@ -22,13 +21,17 @@ class PlayerController extends React.Component {
   }
   render() {
     return (
-      <div styleName="duration">
-        <button onClick={this.decrement} disabled={this.isDisabled()}>←</button>
-        <Easing />
-        <button onClick={this.increment}>→</button>
+      <div>
+        <PaletteButton
+          icon="fa-backward"
+          onClick={this.decrement}
+          disabled={this.isDisabled()} />
+        <PaletteButton
+          icon="fa-forward"
+          onClick={this.increment} />
       </div>
     );
   }
 }
 
-export default allInOne(PlayerController, styles, props, actions);
+export default allInOne(DurationButtons, null, props, actions);
