@@ -120,6 +120,8 @@ class Canvas extends React.Component {
     this.pushPosition(x, y);
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
   }
   penUp = event => {
     if (Canvas.isTouchEvent(event)) {
