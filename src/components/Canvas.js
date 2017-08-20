@@ -126,6 +126,7 @@ class Canvas extends React.Component {
     this.penMove(-1, event.clientX, event.clientY);
   }
   touchMove = event => {
+    event.preventDefault();
     for (let i = 0; i < event.changedTouches.length; i++) {
       const touch = event.changedTouches[i];
       this.penMove(touch.identifier, touch.clientX, touch.clientY);
