@@ -35,6 +35,7 @@ class EasingButton extends React.Component {
           gridColor="#616161"
           handleColor="#1de9b6"
           curveColor="#64ffda"
+          handleRadius={10}
           style={this.getStyle()} />
       </div>
     );
