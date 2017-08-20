@@ -15,6 +15,7 @@ const middleware = () => next => action => {
     for (const callback of callbacks[action.type]) {
       callback();
     }
+    delete callbacks[action.type];
   }
 };
 
