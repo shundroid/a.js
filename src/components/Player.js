@@ -36,6 +36,7 @@ class Player extends React.Component {
       if (this.props.easing !== prevProps.easing) {
         this.animation.effect.timing.easing = this.props.easing;
       }
+      this.animation.currentTime = 0;
     }
   }
   getDuration() {
