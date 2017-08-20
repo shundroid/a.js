@@ -70,12 +70,17 @@ class Canvas extends React.Component {
       this.ctx.strokeStyle = line.color;
       this.ctx.lineWidth = line.lineWidth;
       this.ctx.beginPath();
-      for (const index in line.position) {
-        const { x, y } = line.position[index];
-        if (index === 0) {
-          this.ctx.moveTo(x, y);
-        } else {
-          this.ctx.lineTo(x, y);
+      if (line.position.length === 1) {
+        const { x, y } = line.position[0];
+        this.ctx.arc(x, y, 0.8, 0, 360);
+      } else {
+        for (const index in line.position) {
+          const { x, y } = line.position[index];
+          if (index === 0) {
+            this.ctx.moveTo(x, y);
+          } else {
+            this.ctx.lineTo(x, y);
+          }
         }
       }
       this.ctx.stroke();
