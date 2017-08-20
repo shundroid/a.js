@@ -24,11 +24,11 @@ class DurationButtons extends React.Component {
       <div>
         <PaletteButton
           icon="fa-backward"
-          onClick={this.decrement}
-          disabled={this.isDisabled()} />
+          onClick={this.increment} />
         <PaletteButton
           icon="fa-forward"
-          onClick={this.increment} />
+          onClick={this.decrement}
+          disabled={this.isDisabled()} />
       </div>
     );
   }
