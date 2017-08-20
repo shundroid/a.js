@@ -13,6 +13,7 @@ const props = {
   'palette.lineWidth': PropTypes.number.isRequired,
   'canvas.frames': PropTypes.array.isRequired,
   'canvas.currentId': PropTypes.number.isRequired,
+  'canvas.history': PropTypes.array.isRequired,
   'canvas.isUpdateThumbnailNeeded': PropTypes.bool.isRequired,
   'canvas.width': PropTypes.number.isRequired,
   'canvas.height': PropTypes.number.isRequired,
@@ -34,7 +35,7 @@ class Canvas extends React.Component {
     if (this.props.isUpdateThumbnailNeeded) {
       this.props.actions.updateThumbnail(prevProps.currentId, this.canvas.toDataURL('image/png'));
     }
-    if (this.getLines() !== getFrameById(prevProps.frames, prevProps.currentId).lines) {
+    if (this.props.history.length < prevProps.history.length) {
       this.updateCanvas();
     }
   }
