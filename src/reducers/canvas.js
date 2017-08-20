@@ -50,6 +50,7 @@ function reducer(state = initialState, action) {
     }
     case UNDO: {
       if (nextState.history.length === 0) break;
+      nextState.history = state.history.slice(0);
       const history = nextState.history[state.history.length - 1];
       for (const changedFrame of history.changedFrames) {
         const frame = getFrameById(nextState.frames, changedFrame.id);
