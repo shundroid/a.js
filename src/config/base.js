@@ -2,7 +2,7 @@
 export default {
   defaultColor: '#f44336',
   defaultLineWidth: 20,
-  maxLineWidth: 500,
+  maxLineWidth: 100,
   penPreviewTimeout: 500,
   durationStep: 100,
   // aspace configs
