@@ -7,6 +7,12 @@ import configureStore from '@stores';
 
 import 'font-awesome/css/font-awesome.css';
 
+window.addEventListener('beforeunload', event => {
+  const dialogText = 'Do you really want to unload?';
+  event.returnValue = dialogText;
+  return dialogText;
+});
+
 const store = configureStore();
 
 ReactDOM.render(
