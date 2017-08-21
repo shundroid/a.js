@@ -22,17 +22,6 @@ const props = {
 const actions = ['addLine', 'updateThumbnail', 'changeSize'];
 
 class Canvas extends React.Component {
-  static isTouchEvent(event) {
-    return !!event.touches;
-  }
-  static getTouch(touches, id) {
-    for (let touch of touches) {
-      if (touch.identifier === id) {
-        return touch;
-      }
-    }
-    return null;
-  }
   componentDidMount() {
     this.updateCanvasSize();
     window.addEventListener('resize', this.updateCanvasSize);
@@ -146,7 +135,7 @@ class Canvas extends React.Component {
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
   }
-  mouseUp = event => {
+  mouseUp = () => {
     this.canvas.removeEventListener('mousemove', this.mouseMove);
     window.removeEventListener('mouseup', this.mouseUp);
     this.penUp(-1);
