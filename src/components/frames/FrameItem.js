@@ -73,7 +73,7 @@ class FrameItem extends React.Component {
       window.removeEventListener('mousemove', this.move);
       window.removeEventListener('mouseup', this.finishMoving);
     }
-    const width = event.target.clientWidth;
+    const width = this.element.clientWidth;
     const index = this.props.frames.indexOf(getFrameById(this.props.frames, this.props.id));
     const nextIndex = index - Math.round((this.state.originX - this.state.clientX) / width);
     this.props.actions.moveFrame(index, nextIndex);
@@ -96,6 +96,7 @@ class FrameItem extends React.Component {
           onClick={this.change}
           style={this.css()}
           draggable="true"
+          ref={element => { this.element = element; }}
           onMouseDown={this.startMoving}
           onTouchStart={this.startMoving}>
           <button styleName="remove-button" onClick={this.remove}>×</button>
