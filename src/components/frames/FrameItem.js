@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from '@components/frames/frameitem.cssmodule.styl';
 import { getFrameById } from '@utils/frame';
 import allInOne from '@utils/allInOne';
-import config from '@config';
 
 const props = {
   'canvas.currentId': PropTypes.number.isRequired,
@@ -15,8 +14,8 @@ const props = {
 const actions = ['changeCurrentFrame', 'removeFrame', 'moveFrame'];
 
 class FrameItem extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(componentProps) {
+    super(componentProps);
     this.state = { originX: 0, clientX: 0 };
   }
   getThumbnail() {
@@ -29,6 +28,15 @@ class FrameItem extends React.Component {
     const thumbnail = this.getThumbnail();
     return thumbnail ? `url(${thumbnail})` : 'none';
   }
+  getTransform() {
+    return `translateX(${this.state.clientX - this.state.originX}px)`;
+  }
+  css() {
+    return {
+      backgroundImage: this.getBackgroundImage(),
+      width: `calc(9vh * ${this.props.width / this.props.height})`
+    };
+  }
   styles() {
     const classes = ['container'];
     if (this.props.currentId === this.props.id) {
@@ -38,15 +46,6 @@ class FrameItem extends React.Component {
       classes.push('moving');
     }
     return classes.join(' ');
-  }
-  css() {
-    return {
-      backgroundImage: this.getBackgroundImage(),
-      width: `calc(9vh * ${this.props.width / this.props.height})`
-    };
-  }
-  getTransform() {
-    return `translateX(${this.state.clientX - this.state.originX}px)`;
   }
   startMoving = event => {
     let x;
