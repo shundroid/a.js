@@ -96,7 +96,7 @@ class Canvas extends React.Component {
     if (this.props.isPlaying) return;
     this.canvas.addEventListener('mousemove', this.mouseMove);
     window.addEventListener('mouseup', this.mouseUp);
-    this.penDown(-1, x, y);
+    this.penDown(-1, event.clientX, event.clientY);
   }
   touchStart = event => {
     if (this.props.isPlaying) return;
