@@ -36,7 +36,8 @@ class Canvas extends React.Component {
       this.props.actions.updateThumbnail(prevProps.currentId, this.canvas.toDataURL('image/png'));
     }
     if (this.props.history.length < prevProps.history.length ||
-        this.getLines() < getFrameById(prevProps.frames, prevProps.currentId).lines) {
+        this.getLines() < getFrameById(prevProps.frames, prevProps.currentId).lines ||
+        this.props.currentId !== prevProps.currentId) {
       this.updateCanvas();
     }
   }
