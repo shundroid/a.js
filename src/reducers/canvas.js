@@ -98,11 +98,9 @@ function reducer(state = initialState, action) {
       break;
     }
     case MOVE_FRAME: {
-      if (action.id === action.insertId) break;
-      const index = nextState.frames.indexOf(getFrameById(nextState.frames, action.id));
-      const insertIndex = nextState.frames.indexOf(getFrameById(nextState.frames, action.insertId));
-      const frame = nextState.frames.splice(index, 1)[0];
-      nextState.frames.splice(insertIndex, 0, frame);
+      if (action.index === action.insertIndex) break;
+      const frame = nextState.frames.splice(action.index, 1)[0];
+      nextState.frames.splice(action.insertIndex, 0, frame);
       updateHistory(state, nextState);
       break;
     }
