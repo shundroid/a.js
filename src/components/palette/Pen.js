@@ -10,8 +10,15 @@ const props = {
 const actions = ['changeColor'];
 
 class Pen extends React.Component {
-  constructor(props) {
-    super(props);
+  static toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  constructor(componentProps) {
+    super(componentProps);
     this.fullscreenCount = 0;
     this.firstTime = null;
   }
@@ -28,16 +35,7 @@ class Pen extends React.Component {
       if (this.fullscreenCount >= config.fullscreenCount) {
         this.firstTime = null;
         this.fullscreenCount = 0;
-        this.toggleFullscreen();
-      }
-    }
-  }
-  toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
+        Pen.toggleFullscreen();
       }
     }
   }
