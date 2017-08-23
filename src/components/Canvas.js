@@ -26,10 +26,10 @@ class Canvas extends React.Component {
     return !!event.touches;
   }
   componentDidMount() {
-    this.updateCanvasSize();
-    window.addEventListener('resize', this.updateCanvasSize);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
+    window.addEventListener('resize', this.updateCanvasSize);
+    this.updateCanvasSize();
   }
   componentDidUpdate(prevProps) {
     if (this.props.isUpdateThumbnailNeeded) {
@@ -92,6 +92,7 @@ class Canvas extends React.Component {
   updateCanvasSize = () => {
     this.props.actions.changeSize(0, 0);
     this.props.actions.changeSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    this.updateCanvas();
   }
   penDown = event => {
     if (this.props.isPlaying) return;
