@@ -29,7 +29,7 @@ class Player extends React.Component {
     if (!this.props.isPlaying && this.animation) {
       this.animation.cancel();
     }
-    if (this.props.isPlaying) {
+    if (this.props.isPlaying && this.animation) {
       if (this.props.duration !== prevProps.duration) {
         this.animation.effect.timing.duration = this.getDuration();
       }
