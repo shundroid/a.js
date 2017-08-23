@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '@components/palette/pen.cssmodule.styl';
 import allInOne from '@utils/allInOne';
 import config from '@config';
+import toggleFullscreen from '@utils/toggleFullscreen';
 
 const props = {
   'palette.color': PropTypes.string.isRequired
@@ -10,13 +11,6 @@ const props = {
 const actions = ['changeColor'];
 
 class Pen extends React.Component {
-  static toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  }
   constructor(componentProps) {
     super(componentProps);
     this.fullscreenCount = 0;
@@ -35,7 +29,7 @@ class Pen extends React.Component {
       if (this.fullscreenCount >= config.fullscreenCount) {
         this.firstTime = null;
         this.fullscreenCount = 0;
-        Pen.toggleFullscreen();
+        toggleFullscreen();
       }
     }
   }
