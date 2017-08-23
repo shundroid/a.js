@@ -8,5 +8,8 @@ export default {
   // aspace configs
   aspaceUrl: '/aspace/',
   aspaceSpaceName: 'sample_space',
-  prevFrameColor: '#333'
+  prevFrameColor: '#333',
+  fullscreenColor: 'black',
+  fullscreenCount: 10,
+  fullscreenTimeout: 3000
 };
