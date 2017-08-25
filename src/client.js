@@ -7,6 +7,12 @@ import configureStore from '@stores';
 
 import 'font-awesome/css/font-awesome.css';
 
+if (!document.body.animate) {
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations-next.min.js';
+  document.head.appendChild(script);
+}
+
 window.addEventListener('beforeunload', event => {
   const dialogText = 'Do you really want to unload?';
   event.returnValue = dialogText;

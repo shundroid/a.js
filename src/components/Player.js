@@ -53,10 +53,10 @@ class Player extends React.Component {
     const keyframes = [
       {
         backgroundPositionX: '0px',
-        easing: `frames(${this.props.joinedImage.frameCount})`
+        easing: `steps(${this.props.joinedImage.frameCount}, end)`
       },
       {
-        backgroundPositionX: `-${(this.props.joinedImage.frameCount - 1) * this.props.joinedImage.width}px`
+        backgroundPositionX: `-${(this.props.joinedImage.frameCount) * this.props.joinedImage.width}px`
       }
     ];
     this.animation = this.element.animate(keyframes, {
