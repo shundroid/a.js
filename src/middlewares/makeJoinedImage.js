@@ -1,3 +1,4 @@
+import dataURLToBlob from 'blueimp-canvas-to-blob';
 import { TOGGLE_PLAY, UPDATE_THUMBNAIL, ADD_FRAME, REMOVE_FRAME, MOVE_FRAME, REQUEST_UPDATE_THUMBNAIL } from '@actions/const';
 import { updateJoinedImage } from '@actions';
 import JoinedImage from '@utils/joinedImage';
@@ -26,15 +27,26 @@ class Joiner {
           this.ctx.drawImage(images[index], width * index, 0);
         }
 
-        this.canvas.toBlob(blob => {
+        if (this.canvas.toBlob) {
+          this.canvas.toBlob(blob => {
+            resolve(new JoinedImage(
+              this.canvas.toDataURL(),
+              blob,
+              images.length,
+              width,
+              height
+            ));
+          });
+        } else {
+          const dataUrl = this.canvas.toDataURL();
           resolve(new JoinedImage(
-            this.canvas.toDataURL(),
-            blob,
+            dataUrl,
+            dataURLToBlob(dataUrl),
             images.length,
             width,
             height
           ));
-        });
+        }
       });
     });
   }

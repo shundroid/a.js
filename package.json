@@ -71,6 +71,7 @@
   },
   "dependencies": {
     "bezier-easing-editor": "shundroid/bezier-easing-editor",
+    "blueimp-canvas-to-blob": "^3.11.0",
     "cross-env": "^3.1.0",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.5.10",
