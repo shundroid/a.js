@@ -16,7 +16,7 @@ class CurrentTiming extends React.Component {
     this.state = { timing: 0 };
   }
   componentDidUpdate(prevProps) {
-    if (this.isEnabled() && this.props.isPlaying && !prevProps.isPlaying) {
+    if (this.props.isPlaying && !prevProps.isPlaying) {
       this.tick();
     }
   }
@@ -35,10 +35,12 @@ class CurrentTiming extends React.Component {
   }
   tick = () => {
     if (this.props.isPlaying) {
-      requestAnimationFrame(this.tick);
-    }
-    if (this.props.animation) {
-      this.setState({ timing: this.props.animation.effect.getComputedTiming().progress });
+      if (this.isEnabled()) {
+        requestAnimationFrame(this.tick);
+        this.setState({ timing: this.props.animation.effect.getComputedTiming().progress });
+      } else if (!this.props.animation) {
+        requestAnimationFrame(this.tick);
+      }
     }
   }
   render() {
