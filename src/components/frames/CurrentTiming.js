@@ -16,7 +16,7 @@ class CurrentTiming extends React.Component {
     this.state = { timing: 0 };
   }
   componentDidUpdate(prevProps) {
-    if (this.props.isPlaying && !prevProps.isPlaying) {
+    if (this.isEnabled() && this.props.isPlaying && !prevProps.isPlaying) {
       this.tick();
     }
   }
@@ -26,8 +26,12 @@ class CurrentTiming extends React.Component {
   getStyle() {
     return {
       left: this.getLeft(),
-      display: this.props.isPlaying ? 'block' : 'none'
+      display: this.isEnabled() && this.props.isPlaying ? 'block' : 'none'
     };
+  }
+  isEnabled() {
+    return this.props.animation &&
+      this.props.animation.effect && this.props.animation.effect.getComputedTiming;
   }
   tick = () => {
     if (this.props.isPlaying) {
