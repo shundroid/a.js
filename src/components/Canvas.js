@@ -26,10 +26,10 @@ class Canvas extends React.Component {
     return !!event.touches;
   }
   componentDidMount() {
-    this.updateCanvasSize();
-    window.addEventListener('resize', this.updateCanvasSize);
     this.ctx = this.canvas.getContext('2d');
     this.positions = [];
+    window.addEventListener('resize', this.updateCanvasSize);
+    this.updateCanvasSize();
   }
   componentDidUpdate(prevProps) {
     if (this.props.isUpdateThumbnailNeeded) {
@@ -39,6 +39,16 @@ class Canvas extends React.Component {
         this.getLines() < getFrameById(prevProps.frames, prevProps.currentId).lines ||
         this.props.currentId !== prevProps.currentId) {
       this.updateCanvas();
+    }
+    if (this.props.width !== prevProps.width || this.props.height !== prevProps.height) {
+      // https://www.w3.org/TR/2011/WD-html5-20110525/the-canvas-element.html#attr-canvas-width
+      // When the canvas element is created,
+      // and subsequently whenever the width and height attributes are set
+      // (whether to a new value or to the previous value),
+      // the bitmap and any associated contexts must be cleared back to
+      // their initial state and reinitialized with the newly specified coordinate space dimensions.
+      this.ctx.lineCap = 'round';
+      this.ctx.lineJoin = 'round';
     }
   }
   componentWillUnmount() {
@@ -92,6 +102,7 @@ class Canvas extends React.Component {
   updateCanvasSize = () => {
     this.props.actions.changeSize(0, 0);
     this.props.actions.changeSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    this.updateCanvas();
   }
   penDown = event => {
     if (this.props.isPlaying) return;
@@ -108,8 +119,6 @@ class Canvas extends React.Component {
     this.pushPosition(x, y);
     this.ctx.strokeStyle = this.props.color;
     this.ctx.lineWidth = this.props.lineWidth;
-    this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = 'round';
 
     this.ctx.beginPath();
     this.ctx.arc(x, y, 0.8, 0, 360);
